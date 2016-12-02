@@ -11,9 +11,9 @@
 # **************************************************************************** #
 
 NAME = 21sh
-SRC = ./src/main.c ./src/ft_commands.c ./src/ft_ctrl_c_signal_handler.c \
-	./src/ft_cd.c ./src/ft_echo.c ./src/ft_env.c ./src/ft_utils.c \
-	./src/ft_get_data.c ./src/ft_cmd_utils.c ./src/ft_free.c
+SRC = ./src/main.c ./src/cmd/ft_commands.c ./src/signals/ft_ctrl_c_signal_handler.c \
+	./src/cmd/ft_cd.c ./src/cmd/ft_echo.c ./src/env/ft_env.c ./src/utils/ft_utils.c \
+	./src/utils/ft_get_data.c ./src/utils/ft_cmd_utils.c ./src/memory/ft_free.c
 OBJECT = main.o ft_commands.o ft_ctrl_c_signal_handler.o ft_cd.o ft_echo.o \
 	ft_env.o ft_utils.o ft_get_data.o ft_cmd_utils.o ft_free.o
 FLAGS = -Wall -Wextra -Werror -g3

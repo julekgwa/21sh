@@ -61,5 +61,6 @@ void	prompt(char **commands);
 void	ft_free_str(char *str, char *join);
 void	ft_builtins(char **user_comm, char *get_line, char **envp, char **sp);
 void	ft_exit(char **cmd, char *get_line);
+int		ft_users_dir(char *dir, char **envp);
 
 #endif

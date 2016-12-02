@@ -87,8 +87,10 @@ void	ft_cd(char **directory, char **envp)
 	oldpwd = NULL;
 	oldpwd = getcwd(oldpwd, 1024);
 	dir = directory[1];
-	if (dir == NULL || ft_strequ(dir, "~"))
+	if (dir == NULL || (ft_strequ(dir, "~") && ft_strlen(dir) == 1))
 		dirflag = chdir(ft_get_env("$HOME", envp));
+	else if (ft_start_with(dir, '~'))
+		dirflag = ft_users_dir(dir, envp);
 	else if (ft_strequ(dir, "-"))
 		dirflag = chdir(ft_get_env("$OLDPWD", envp));
 	else

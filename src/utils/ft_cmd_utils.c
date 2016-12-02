@@ -56,3 +56,19 @@ int		ft_spaces_tabs(char *s)
 	}
 	return (0);
 }
+
+int		ft_users_dir(char *dir, char **envp)
+{
+	char	*home;
+	int		success;
+
+	home = ft_strjoin(ft_get_env("$HOME", envp), dir + 1);
+	success = chdir(home);
+	if (success == 0)
+	{
+		free(home);
+		return (1);
+	}
+	free(home);
+	return (-1);
+}
