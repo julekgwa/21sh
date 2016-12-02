@@ -1,25 +1,30 @@
-# minishell
+# 21sh
 mini UNIX command interpreter.
 
-minishell uses my own implementation of libc's function, most of them start with `ft_`
+21sh uses my own implementation of libc's functions, most of them start with `ft_`
 
-minishell implement a series of builtins: 
+21sh implement a series of builtins: 
 * echo 
 * cd
 * setenv
 * unsetenv
 * env
 * exit
+* line edition
+* the “;” command line separator
+* pipes “|”
+* redirections “<”, “>”, “<<” & “>>”
+* file descriptor aggregation
 
 # Installation
 ```
-$ git clone https://github.com/julekgwa/minishell.git
+$ git clone https://github.com/julekgwa/21sh.git
 ```
 
 # Usage
 ```
-$ cd minishell
-$ make && ./minishell
+$ cd 21sh
+$ make && ./21sh
 
 ```
 # License

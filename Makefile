@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = minishell
+NAME = 21sh
 SRC = ./src/main.c ./src/ft_commands.c ./src/ft_ctrl_c_signal_handler.c \
 	./src/ft_cd.c ./src/ft_echo.c ./src/ft_env.c ./src/ft_utils.c \
 	./src/ft_get_data.c ./src/ft_cmd_utils.c ./src/ft_free.c
