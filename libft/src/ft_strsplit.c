@@ -6,7 +6,7 @@
 /*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/15 16:43:05 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/05/15 16:46:56 by julekgwa         ###   ########.fr       */
+/*   Updated: 2016/07/23 15:52:27 by goisetsi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char		**ft_strsplit(char const *s, char c)
 	char	**result;
 
 	words = count_words((char *)s, c);
-	if (!s || !c)
+	if (!s || !c || words == 0)
 		return (NULL);
 	result = (char **)malloc(sizeof(char *) * (count_words((char *)s, c) + 1));
 	start = (char *)s;

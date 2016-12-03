@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: goisetsi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/10 10:02:31 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/01 08:38:38 by julekgwa         ###   ########.fr       */
+/*   Created: 2016/08/07 17:28:38 by goisetsi          #+#    #+#             */
+/*   Updated: 2016/08/07 17:28:56 by goisetsi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,10 @@ char	*ft_clean_str(char *s)
 		while (s[i])
 		{
 			if (s[i] == ' ')
-				clean[j++] = '\\';
+			{
+				clean[j] = '\\';
+				j++;
+			}
 			clean[j] = s[i];
 			i++;
 			j++;
@@ -68,9 +71,9 @@ char	*ft_clean_str(char *s)
 	return (s);
 }
 
-void	ft_modpwd(int flag, char *oldpwd, char **envp)
+void	ft_modpwd(int f, char *oldpwd, char **envp)
 {
-	if ((flag = 1))
+	if ((f = 1))
 	{
 		ft_setenv("OLDPWD", oldpwd, 1, envp);
 		ft_setenv("PWD", getcwd(oldpwd, 1024), 1, envp);
@@ -83,14 +86,12 @@ void	ft_cd(char **directory, char **envp)
 	char	*oldpwd;
 	int		dirflag;
 
-	dirflag = 0;
 	oldpwd = NULL;
+	dirflag = 0;
 	oldpwd = getcwd(oldpwd, 1024);
 	dir = directory[1];
-	if (dir == NULL || (ft_strequ(dir, "~") && ft_strlen(dir) == 1))
+	if (dir == NULL || ft_strequ(dir, "~"))
 		dirflag = chdir(ft_get_env("$HOME", envp));
-	else if (ft_start_with(dir, '~'))
-		dirflag = ft_user_dir(dir, envp);
 	else if (ft_strequ(dir, "-"))
 		dirflag = chdir(ft_get_env("$OLDPWD", envp));
 	else
@@ -99,9 +100,11 @@ void	ft_cd(char **directory, char **envp)
 		dir = ft_remove_qoutes(dir);
 		if ((dirflag = chdir(dir) == -1))
 		{
-			ft_print_error(dir, 3);
+			ft_putstr("cd: ");
+			ft_putstr("no such file or directory: ");
+			ft_putendl(dir);
 			return ;
 		}
+		ft_modpwd(dirflag, oldpwd, envp);
 	}
-	ft_modpwd(dirflag, oldpwd, envp);
 }

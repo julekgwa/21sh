@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: goisetsi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/10 10:23:21 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/01 08:42:03 by julekgwa         ###   ########.fr       */
+/*   Created: 2016/08/07 17:29:45 by goisetsi          #+#    #+#             */
+/*   Updated: 2016/08/07 17:29:48 by goisetsi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,20 @@
 
 int		ft_putenv(char *str, char **envp)
 {
+	char	**r;
 	int		i;
 
+	r = envp;
 	i = 0;
-	while (envp[i])
+	while (r[i])
 	{
 		i++;
 	}
-	envp[i] = malloc(strlen(str));
-	if (envp[i])
+	r[i] = malloc(strlen(str));
+	if (r[i])
 	{
-		envp[i] = ft_strdup(str);
-		envp[++i] = 0;
+		r[i] = str;
+		r[++i] = 0;
 		return (1);
 	}
 	return (0);
@@ -33,8 +35,7 @@ int		ft_putenv(char *str, char **envp)
 
 int		ft_setenv(const char *name, const char *val, int ovride, char **envp)
 {
-	char	*es;
-	int		i;
+	char *es;
 
 	if (name == NULL || name[0] == '\0' || ft_strchr(name, '=') != NULL ||
 			val == NULL)
@@ -50,9 +51,7 @@ int		ft_setenv(const char *name, const char *val, int ovride, char **envp)
 	ft_strcpy(es, name);
 	ft_strcat(es, "=");
 	ft_strcat(es, val);
-	i = (ft_putenv(es, envp) != 0) ? -1 : 0;
-	free(es);
-	return (i);
+	return ((ft_putenv(es, envp) != 0) ? -1 : 0);
 }
 
 int		ft_unsetenv(const char *name, char **envp)
@@ -76,31 +75,24 @@ int		ft_unsetenv(const char *name, char **envp)
 	return (0);
 }
 
-char	*ft_get_str(char **av)
+void	ft_unsetting_env(char *names, char **envp)
 {
-	char	*ps;
-	int		i;
-	int		j;
-	int		found;
+	char	**variables;
+	int		len;
 
-	ps = av[2];
-	i = 2;
-	j = 3;
-	found = 0;
-	if (ft_start_with(av[2], '"'))
+	variables = ft_strsplit(names, ' ');
+	len = ft_array_len(variables);
+	if (len == 1)
+		ft_putendl("unsetenv: Too few arguments.");
+	else
 	{
-		while (!ft_end_with(av[i], '"') && av[i])
-			i++;
-		if (ft_end_with(av[i], '"'))
-			found = 1;
-		while (j <= i && found)
+		variables++;
+		while (*variables)
 		{
-			ps = ft_strjoin(ps, " ");
-			ps = ft_strjoin(ps, av[j]);
-			j++;
+			ft_unsetenv(*variables, envp);
+			variables++;
 		}
 	}
-	return (ps);
 }
 
 void	ft_set_envir(char **envp, char *str)

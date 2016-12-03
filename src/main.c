@@ -3,47 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: goisetsi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/10 10:31:17 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/01 08:51:08 by julekgwa         ###   ########.fr       */
+/*   Created: 2016/08/07 17:26:38 by goisetsi          #+#    #+#             */
+/*   Updated: 2016/08/07 17:26:44 by goisetsi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	shl_loop(char *get_line, char **envp)
-{
-	char **user_comm;
-
-	prompt(&get_line);
-	if (!ft_strequ(get_line, "") && ft_spaces_tabs(get_line))
-	{
-		user_comm = ft_strsplit(get_line, ' ');
-		if (ft_strequ(user_comm[0], "exit"))
-		{
-			freecopy(user_comm);
-			freecopy(envp);
-			free(get_line);
-			exit(0);
-		}
-		if (ft_contains(get_line, ';') && ft_strlen(get_line) > 1)
-			ft_multi_com(get_line, envp);
-		else
-			ft_run_commands(user_comm, get_line, envp);
-		freecopy(user_comm);
-		free(get_line);
-	}
-}
-
 int		ft_search_command(char *command)
 {
-	static char	*comm_list = "echo pwd cd setenv unsetenv env exit clear";
+	static char	*cmd = "echo pwd cd history setenv unsetenv env exit clear";
 	char		**comm_split;
-	int			i;
+	int 		i;
 
-	comm_split = ft_strsplit(comm_list, ' ');
 	i = 0;
+	comm_split = ft_strsplit(cmd, ' ');
 	while (comm_split[i])
 	{
 		if (ft_strcmp(comm_split[i], command) == 0)
@@ -57,69 +33,82 @@ int		ft_search_command(char *command)
 	return (0);
 }
 
-void	ft_execute_commands(char **command, char *get_line, char **envp)
+void	ft_execute_commands(char **cmd, char *line, char **envp, t_stack hist)
 {
-	char	*dir;
-
-	if (ft_strequ(command[0], "exit"))
-		ft_exit(command, get_line);
-	else if (ft_strequ(command[0], "cd"))
-		ft_cd(command, envp);
-	else if (ft_strequ(command[0], "pwd"))
-	{
-		dir = ft_pwd();
-		ft_putendl(dir);
-		free(dir);
-	}
-	else if (ft_strequ(command[0], "echo"))
-		ft_echo(get_line, envp);
-	else if (ft_strequ(command[0], "env"))
+	if (ft_strequ(cmd[0], "cd"))
+		ft_cd(cmd, envp);
+	else if (ft_strequ(cmd[0], "pwd"))
+		ft_putendl(ft_pwd());
+	else if (ft_strequ(cmd[0], "echo"))
+		ft_echo(line, envp);
+	else if (ft_strequ(cmd[0], "env"))
 		ft_print_env(envp);
-	else if (ft_strequ(command[0], "setenv"))
-		ft_set_envir(envp, get_line);
-	else if (ft_strequ(command[0], "unsetenv"))
-		ft_unsetting_env(get_line, envp);
-	else if (ft_strequ(command[0], "clear"))
-		write(1, "\033c", 3);
+	else if (ft_strequ(cmd[0], "setenv"))
+		ft_set_envir(envp, line);
+	else if (ft_strequ(cmd[0], "unsetenv"))
+		ft_unsetting_env(line, envp);
+	else if (ft_strequ(cmd[0], "history"))
+		ft_display_hist(hist);
+	else if (ft_strequ(cmd[0], "clear"))
+		tputs(tgetstr("cl", NULL), 1, ft_myputchar);
+	freecopy(cmd);
 }
 
-void	ft_run_commands(char **user_comm, char *get_line, char **envp)
+void	ft_run_commands(char **user_comm, char *line, char **envp, t_stack hist)
 {
-	char	**sp;
-	char	*more;
+	ft_advanced_com(user_comm, line, envp, hist);
+}
 
-	sp = ft_strsplit(get_line, ' ');
-	more = NULL;
-	if (ft_search_command(user_comm[0]))
-		ft_builtins(user_comm, get_line, envp, sp);
-	else if ((more = ft_more(envp, sp)))
-		ft_execute(envp, sp);
-	else if (ft_is_execute(sp[0]))
-		ft_execute_bin(sp, envp);
-	else
-		ft_print_error(sp[0], 0);
-	freecopy(sp);
-	if (more)
-		free(more);
+char	*ft_build_comm(t_stack *hist, char *comm, char *buf, int pos)
+{
+	int	ret;
+
+	while (42)
+	{
+		ret = read(0, buf, 4);
+		buf[ret] = '\0';
+		if (buf[ret - 1] == '\n')
+		{
+			pos = -1;
+			ft_cursor(comm, pos);
+			break ;
+		}
+		else if (buf[0] == 12)
+			ft_ctrl_l(comm, pos);
+		else if (ft_up_down(buf))
+			manage_up_down(&buf, &comm, hist, &pos);
+		else if (ft_enter_and_edit_keys(buf, &pos, comm))
+			;
+		else if (ft_navigation_keys(buf, &pos, comm))
+			ft_cursor(comm, pos + 1);
+		else if (ft_character_keys(buf) && buf[0] != 27)
+			ft_process_buff(&comm, pos++, buf[0]);
+	}
+	return (comm);
 }
 
 int		main(int ac, char **av, char **envp)
 {
-	char	*get_line;
-	char	**envp_copy;
+	struct termios	term;
+	t_stack			hist;
+	t_cmd			cmd;
 
-	get_line = NULL;
-	envp_copy = envp_cpy(envp);
-	get_line = getcwd(get_line, 1024);
-	get_line = ft_strcat(get_line, "/");
-	get_line = ft_strcat(get_line, av[0]);
-	free(get_line);
-	signal(SIGINT, ft_ctrl_c_signal_handler);
-	(void)ac;
-	(void)av;
+	hist = *ft_create_stack(1000);
+	ft_signal();
+	ft_init_keyboard(&term, &ac, &av);
 	while (42)
 	{
-		shl_loop(get_line, envp_copy);
+		prompt(&cmd, &hist);
+		if (!ft_strequ(cmd.get_line, ""))
+		{
+			ft_putchar('\n');
+			cmd.user_comm = ft_strsplit(cmd.get_line, ' ');
+			ft_pro_cmd(&cmd, envp, &term, &hist);
+			// free_cmd(&cmd);
+		}
+		else
+			ft_putchar('\n');
 	}
+	ft_close_keyboard(&term);
 	return (0);
 }

@@ -99,7 +99,5 @@ void			ft_ctrl_l(char *comm, int pos);
 void			ft_run_commands(char **com, char *line, char **env, t_stack hi);
 void			ft_pro_cmd(t_cmd *c, char **en, struct termios *t, t_stack *hi);
 void free_cmd(t_cmd *cmd);
-void	freecopy(char **copy);
-void	ft_free_str(char *str, char *join);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: goisetsi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/10 10:01:35 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/07/10 10:30:42 by julekgwa         ###   ########.fr       */
+/*   Created: 2016/08/07 17:35:34 by goisetsi          #+#    #+#             */
+/*   Updated: 2016/08/07 17:35:52 by goisetsi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,12 @@ void	ft_print_env(char **envp)
 		ft_putendl(s);
 }
 
-void	ft_check_env(char ***command, char **envp)
+char	**ft_check_env(char **cmd, char **envp)
 {
 	int		count;
-	char	**cmd;
 	int		i;
 
 	i = 0;
-	cmd = *command;
 	count = ft_array_len(cmd);
 	while (i < count)
 	{
@@ -61,5 +59,5 @@ void	ft_check_env(char ***command, char **envp)
 			cmd[i] = ft_get_env(cmd[i], envp);
 		i++;
 	}
-	*command = cmd;
+	return (cmd);
 }

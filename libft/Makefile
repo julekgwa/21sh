@@ -47,7 +47,7 @@ OBJECT = ft_memset.o ft_bzero.o ft_memcpy.o ft_memccpy.o ft_memmove.o \
       ft_putnstr.o ft_num_digits.o ft_manage_c.o ft_find_width.o \
       ft_handle_s.o ft_strhex.o ft_putwchar_t.o ft_handle_prec.o \
       ft_manage_width.o ft_realloc.o get_next_line.o ft_getchar.o
-FLAGS = -Wall -Wextra -Werror -g3
+FLAGS = -Wall -Wextra -Werror
 OPTIONS = -c -I ./includes/
 
 all: $(NAME)

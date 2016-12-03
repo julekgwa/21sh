@@ -40,7 +40,7 @@ void	prompt(char **commands)
 	ft_putstr(GRN);
 	ft_putstr("$> ");
 	ft_putstr(RESET);
-	get_next_line(0, commands);
+	*commands = ft_create_cmd();
 }
 
 int		ft_spaces_tabs(char *s)
@@ -57,7 +57,7 @@ int		ft_spaces_tabs(char *s)
 	return (0);
 }
 
-int		ft_users_dir(char *dir, char **envp)
+int		ft_user_dir(char *dir, char **envp)
 {
 	char	*home;
 	int		success;
