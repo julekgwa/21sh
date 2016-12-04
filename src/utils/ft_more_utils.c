@@ -44,6 +44,7 @@ void	ft_multi_com(char **split_com, char *line, char **envp, t_stack hist)
 			else
 				ft_print_error(tmp_com[0]);
 		}
+		freecopy(tmp_com);
 		split_com++;
 	}
 }

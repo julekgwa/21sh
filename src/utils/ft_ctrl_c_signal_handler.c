@@ -31,7 +31,7 @@ void	prompt(t_cmd *command, t_stack *hist)
 	int				pos;
 
 	buf = ft_memalloc(GET_C_BUFF_SIZE);
-	comm = ft_memalloc(4092);
+	comm = ft_memalloc(1000);
 	pos = 0;
 	ft_putstr(GRN);
 	ft_putstr("$> ");
@@ -40,6 +40,5 @@ void	prompt(t_cmd *command, t_stack *hist)
 	ft_putchar(' ');
 	tputs(tgetstr("se", NULL), 1, ft_myputchar);
 	command->get_line = ft_build_comm(hist, comm, buf, pos);
-	free(comm);
 	free(buf);
 }

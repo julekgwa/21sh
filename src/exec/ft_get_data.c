@@ -112,6 +112,7 @@ void	ft_execute(char *command, char **list_comm, char *get_line, char **envp)
 		{
 			split_com = ft_strsplit(get_line, '|');
 			fork_pipes(ft_array_len(split_com), split_com, envp);
+			freecopy(split_com);
 		}
 		else
 			execve(command, &list_comm[0], envp);

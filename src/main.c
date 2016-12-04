@@ -104,10 +104,10 @@ int		main(int ac, char **av, char **envp)
 			ft_putchar('\n');
 			cmd.user_comm = ft_strsplit(cmd.get_line, ' ');
 			ft_pro_cmd(&cmd, envp, &term, &hist);
-			// free_cmd(&cmd);
 		}
 		else
 			ft_putchar('\n');
+		free_cmd(&cmd);
 	}
 	ft_close_keyboard(&term);
 	return (0);

@@ -21,6 +21,7 @@ void	ft_process_buff(char **com, int pos, char c)
 
 	copy = *com;
 	buffer = ft_memalloc(ft_strlen(copy) + 1);
+	buffer[ft_strlen(copy) + 1] = 0;
 	if (pos >= (int)ft_strlen(copy))
 	{
 		ft_memcpy(buffer, copy, ft_strlen(copy));
@@ -36,8 +37,7 @@ void	ft_process_buff(char **com, int pos, char c)
 			j++;
 		}
 	}
-	// free(*com);
-	*com = ft_strdup(buffer);
+	ft_memcpy(*com, buffer, ft_strlen(buffer));
 	free(buffer);
 	ft_cursor(*com, pos + 2);
 }

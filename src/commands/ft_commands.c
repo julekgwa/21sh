@@ -98,6 +98,7 @@ void	ft_pro_cmd(t_cmd *cmd, char **env, struct termios *t, t_stack *hist)
 		hist->size = hist->hist_count;
 		ft_push(hist, cmd->get_line);
 		ft_run_commands(cmd->user_comm, cmd->get_line, env, *hist);
-		free_cmd(cmd);
+		// free_cmd(cmd);
+		// free(cmd->get_line);
 	}
 }
