@@ -82,7 +82,7 @@ int				fork_pipes(int n, char **cmd, char **envp);
 int				ft_contains(char *str, char c);
 void			ft_cursor(char *comm, int pos);
 void			ft_process_buff(char **com, int pos, char c);
-t_stack			*ft_create_stack(int size);
+void			ft_create_stack(t_stack *stack, int size);
 void			ft_push(t_stack *stack, char *hist);
 char			*ft_up(t_stack *stack);
 char			*ft_down(t_stack *stack);
@@ -90,7 +90,7 @@ char			*ft_keys_up_down(char *key_pressed, t_stack *hist, int *pos);
 int				ft_up_down(char *key_pressed);
 void			ft_display_hist(t_stack hist);
 void			ft_get_hist(char *history, t_stack hist);
-void			prompt(t_cmd *command, t_stack *hist);
+char			*prompt(t_cmd *command, t_stack *hist);
 void			ft_signalhandle(int num);
 void			ft_signal(void);
 void			init_main(int *ac, char ***av);
@@ -101,5 +101,7 @@ void			ft_pro_cmd(t_cmd *c, char **en, struct termios *t, t_stack *hi);
 void free_cmd(t_cmd *cmd);
 void	freecopy(char **copy);
 void	ft_free_str(char *str, char *join);
+void free_stack(t_stack *stack);
+void	freesplit(char **split);
 
 #endif

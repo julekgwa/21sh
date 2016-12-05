@@ -69,11 +69,6 @@ int		ft_is_execute(char *command)
 	return (0);
 }
 
-void	ft_free_str(char *str, char *join)
-{
-	free(str);
-	free(join);
-}
 
 // char	*ft_build_exec(char **envp, char **split)
 // {

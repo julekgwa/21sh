@@ -61,19 +61,6 @@ char	*ft_pwd(void)
 	return (pwd);
 }
 
-void	freecopy(char **copy)
-{
-	int	i;
-
-	i = 0;
-	while (copy[i])
-	{
-		free(copy[i]);
-		i++;
-	}
-	free(copy);
-}
-
 void free_stack(t_stack *stack){
   freecopy(stack->list);
   free(stack);

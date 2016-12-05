@@ -92,22 +92,26 @@ int		main(int ac, char **av, char **envp)
 	struct termios	term;
 	t_stack			hist;
 	t_cmd			cmd;
+	char 			*promt_val;
 
-	hist = *ft_create_stack(1000);
+	ft_create_stack(&hist, 1000);
 	ft_signal();
 	ft_init_keyboard(&term, &ac, &av);
 	while (42)
 	{
-		prompt(&cmd, &hist);
+		promt_val = prompt(&cmd, &hist);
 		if (!ft_strequ(cmd.get_line, ""))
 		{
 			ft_putchar('\n');
 			cmd.user_comm = ft_strsplit(cmd.get_line, ' ');
 			ft_pro_cmd(&cmd, envp, &term, &hist);
+			freecopy(cmd.user_comm);
+			// free(cmd.get_line);
 		}
 		else
 			ft_putchar('\n');
-		free_cmd(&cmd);
+		// free_cmd(&cmd);
+		free(promt_val);
 	}
 	ft_close_keyboard(&term);
 	return (0);

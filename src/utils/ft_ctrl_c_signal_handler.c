@@ -24,7 +24,7 @@ void	ft_print_error(char *erro)
 	ft_putstr(": command not found...\n");
 }
 
-void	prompt(t_cmd *command, t_stack *hist)
+char	*prompt(t_cmd *command, t_stack *hist)
 {
 	char			*comm;
 	char			*buf;
@@ -41,4 +41,5 @@ void	prompt(t_cmd *command, t_stack *hist)
 	tputs(tgetstr("se", NULL), 1, ft_myputchar);
 	command->get_line = ft_build_comm(hist, comm, buf, pos);
 	free(buf);
+	return (comm);
 }

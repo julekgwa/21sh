@@ -22,19 +22,19 @@ void		ft_clear_screen(void)
 	tputs(tgetstr("cl", NULL), 1, ft_myputchar);
 }
 
-t_stack		*ft_create_stack(int size)
+void		ft_create_stack(t_stack *stack, int size)
 {
-	t_stack	*stack;
+	// t_stack	*stack;
 
-	stack = (t_stack *)malloc(sizeof(t_stack));
-	if (stack)
-	{
+	// stack = (t_stack *)malloc(sizeof(t_stack));
+	// if (stack)
+	// {
 		stack->list = (char **)malloc(sizeof(char) * size);
 		stack->size = 0;
 		stack->hist_count = 0;
 		stack->capacity = size;
-	}
-	return (stack);
+	// }
+	// return (stack);
 }
 
 void		ft_push(t_stack *stack, char *hist)

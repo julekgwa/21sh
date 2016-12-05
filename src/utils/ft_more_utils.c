@@ -72,7 +72,7 @@ void	ft_advanced_com(char **commands, char *line, char **envp, t_stack hist)
 		ft_execute(commands[0], commands, line, envp);
 	else
 		ft_print_error(commands[0]);
-	freecopy(search);
+	freesplit(search);
 }
 
 char	*ft_last_word(const char *s)
