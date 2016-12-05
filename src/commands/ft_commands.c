@@ -76,6 +76,7 @@ void	ft_pro_cmd(t_cmd *cmd, char **env, struct termios *t, t_stack *hist)
 		if (ft_strequ(cmd->user_comm[0], "exit"))
 		{
 			free_stack(hist);
+			freecopy(env);
 			free_cmd(cmd);
 			ft_close_keyboard(t);
 			exit(0);

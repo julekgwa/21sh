@@ -14,20 +14,19 @@
 
 int		ft_putenv(char *str, char **envp)
 {
-	char	**r;
 	int		i;
 
-	r = envp;
 	i = 0;
-	while (r[i])
+	while (envp[i])
 	{
 		i++;
 	}
-	r[i] = malloc(strlen(str));
-	if (r[i])
+	envp[i] = ft_memalloc((ft_strlen(str) + 1) * sizeof(char));
+	if (envp[i])
 	{
-		r[i] = str;
-		r[++i] = 0;
+		// envp[i] = ft_strdup(str);
+		ft_strcpy(envp[i], str);
+		envp[++i] = 0;
 		return (1);
 	}
 	return (0);
@@ -35,7 +34,8 @@ int		ft_putenv(char *str, char **envp)
 
 int		ft_setenv(const char *name, const char *val, int ovride, char **envp)
 {
-	char *es;
+	char	*es;
+	int		i;
 
 	if (name == NULL || name[0] == '\0' || ft_strchr(name, '=') != NULL ||
 			val == NULL)
@@ -51,7 +51,9 @@ int		ft_setenv(const char *name, const char *val, int ovride, char **envp)
 	ft_strcpy(es, name);
 	ft_strcat(es, "=");
 	ft_strcat(es, val);
-	return ((ft_putenv(es, envp) != 0) ? -1 : 0);
+	i = (ft_putenv(es, envp) != 0) ? -1 : 0;
+	free(es);
+	return (i);
 }
 
 int		ft_unsetenv(const char *name, char **envp)

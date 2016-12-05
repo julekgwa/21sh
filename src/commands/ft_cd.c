@@ -73,11 +73,16 @@ char	*ft_clean_str(char *s)
 
 void	ft_modpwd(int f, char *oldpwd, char **envp)
 {
+	char	*current;
+
 	if ((f = 1))
 	{
+		current = getcwd(NULL, 0);
 		ft_setenv("OLDPWD", oldpwd, 1, envp);
-		ft_setenv("PWD", getcwd(oldpwd, 1024), 1, envp);
+		ft_setenv("PWD", current, 1, envp);
+		free(current);
 	}
+	free(oldpwd);
 }
 
 void	ft_cd(char **directory, char **envp)
@@ -86,12 +91,13 @@ void	ft_cd(char **directory, char **envp)
 	char	*oldpwd;
 	int		dirflag;
 
-	oldpwd = NULL;
 	dirflag = 0;
-	oldpwd = getcwd(oldpwd, 1024);
+	oldpwd = getcwd(NULL, 0);
 	dir = directory[1];
-	if (dir == NULL || ft_strequ(dir, "~"))
+	if (dir == NULL || (ft_strequ(dir, "~") && ft_strlen(dir) == 1))
 		dirflag = chdir(ft_get_env("$HOME", envp));
+	else if (ft_start_with(dir, '~'))
+		dirflag = ft_user_dir(dir, envp);
 	else if (ft_strequ(dir, "-"))
 		dirflag = chdir(ft_get_env("$OLDPWD", envp));
 	else
@@ -100,11 +106,9 @@ void	ft_cd(char **directory, char **envp)
 		dir = ft_remove_qoutes(dir);
 		if ((dirflag = chdir(dir) == -1))
 		{
-			ft_putstr("cd: ");
-			ft_putstr("no such file or directory: ");
-			ft_putendl(dir);
+			ft_print_error(dir, 3);
 			return ;
 		}
-		ft_modpwd(dirflag, oldpwd, envp);
 	}
+	ft_modpwd(dirflag, oldpwd, envp);
 }

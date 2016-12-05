@@ -98,9 +98,11 @@ int		main(int ac, char **av, char **envp)
 	struct termios	term;
 	t_stack			hist;
 	t_cmd			cmd;
+	// char 			**envp_copy;
 	char 			*promt_val;
 
 	ft_create_stack(&hist, 1000);
+	// envp_copy = envp_cpy(envp);
 	ft_signal();
 	ft_init_keyboard(&term, &ac, &av);
 	while (42)

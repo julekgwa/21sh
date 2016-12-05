@@ -17,11 +17,26 @@ void	ft_ctrl_c_signal_handler(int signum)
 	exit(signum);
 }
 
-void	ft_print_error(char *erro)
+void	ft_print_error(char *cmd, int errorno)
 {
-	ft_putstr("21sh: ");
-	ft_putstr(erro);
-	ft_putstr(": command not found...\n");
+	if (errorno == 0)
+	{
+		ft_putstr("minishell: ");
+		ft_putstr(cmd);
+		ft_putstr(": command not found...\n");
+	}
+	else if (errorno == 1)
+	{
+		ft_putstr("minishell: ");
+		ft_putstr(cmd);
+		ft_putstr(": Permission denied\n");
+	}
+	else if (errorno == 3)
+	{
+		ft_putstr("cd: ");
+		ft_putstr("no such file or directory: ");
+		ft_putendl(cmd);
+	}
 }
 
 char	*prompt(t_cmd *command, t_stack *hist)
@@ -42,4 +57,24 @@ char	*prompt(t_cmd *command, t_stack *hist)
 	command->get_line = ft_build_comm(hist, comm, buf, pos);
 	free(buf);
 	return (comm);
+}
+
+char	**envp_cpy(char **envp)
+{
+	char	**copy;
+	int		i;
+
+	i = 0;
+	copy = (char **)malloc((ft_array_len(envp) + 1) * sizeof(char *));
+	copy[ft_array_len(envp)] = NULL;
+	if (copy)
+	{
+		while (envp[i])
+		{
+			copy[i] = ft_memalloc(ft_strlen(envp[i]) + 1);
+			ft_strcpy(copy[i], envp[i]);
+			i++;
+		}
+	}
+	return (copy);
 }

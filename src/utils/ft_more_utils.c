@@ -42,7 +42,7 @@ void	ft_multi_com(char **split_com, char *line, char **envp, t_stack hist)
 			else if (ft_is_execute(tmp_com[0]))
 				ft_execute(tmp_com[0], tmp_com, line, envp);
 			else
-				ft_print_error(tmp_com[0]);
+				ft_print_error(tmp_com[0], 0);
 		}
 		freecopy(tmp_com);
 		split_com++;
@@ -54,15 +54,19 @@ void	ft_advanced_com(char **commands, char *line, char **envp, t_stack hist)
 	char	**split_com;
 	char	*exec;
 	char	**search;
+	int		success;
 
-	search = ft_strsplit(line, ' ');
+	success = 0;
 	if (ft_contains(line, ';'))
 	{
 		split_com = ft_strsplit(line, ';');
 		ft_multi_com(split_com, line, envp, hist);
 	}
-	else if (ft_search_command(search[0]))
+	else if (ft_search_command((search = ft_strsplit(line, ' '))[0]))
+	{
+		success = 1;
 		ft_execute_commands(search, line, envp, hist);
+	}
 	else if ((exec = ft_build_exec(envp, commands)))
 	{
 		ft_execute(exec, commands, line, envp);
@@ -71,8 +75,9 @@ void	ft_advanced_com(char **commands, char *line, char **envp, t_stack hist)
 	else if (ft_is_execute(commands[0]))
 		ft_execute(commands[0], commands, line, envp);
 	else
-		ft_print_error(commands[0]);
-	// freesplit(search);
+		ft_print_error(commands[0], 0);
+	if (!success)
+		freecopy(search);
 }
 
 char	*ft_last_word(const char *s)

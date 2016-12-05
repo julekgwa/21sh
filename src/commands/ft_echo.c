@@ -84,18 +84,20 @@ void	ft_echo(char *echo, char **envp)
 		ft_putchar('\n');
 	else
 	{
+		count = 0;
 		if (!ft_start_with(split[1], '-'))
 		{
-			split++;
-			while (*split)
+			count++;
+			while (split[count])
 			{
-				if (ft_start_with(*split, '$'))
-					ft_putstr_char(ft_rm_quotes(ft_get_env(*split, envp)), ' ');
+				if (ft_start_with(split[count], '$'))
+					ft_putstr_char(ft_rm_quotes(ft_get_env(split[count], envp)), ' ');
 				else
-					ft_putstr_char(ft_rm_quotes(*split), ' ');
-				split++;
+					ft_putstr_char(ft_rm_quotes(split[count]), ' ');
+				count++;
 			}
 			ft_putchar('\n');
 		}
 	}
+	freecopy(split);
 }
