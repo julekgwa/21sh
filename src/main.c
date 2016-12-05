@@ -35,10 +35,16 @@ int		ft_search_command(char *command)
 
 void	ft_execute_commands(char **cmd, char *line, char **envp, t_stack hist)
 {
+	char *dir;
+
 	if (ft_strequ(cmd[0], "cd"))
 		ft_cd(cmd, envp);
 	else if (ft_strequ(cmd[0], "pwd"))
-		ft_putendl(ft_pwd());
+	{
+		dir = ft_pwd();
+		ft_putendl(dir);
+		free(dir);
+	}
 	else if (ft_strequ(cmd[0], "echo"))
 		ft_echo(line, envp);
 	else if (ft_strequ(cmd[0], "env"))
