@@ -33,7 +33,7 @@ int		ft_search_command(char *command)
 	return (0);
 }
 
-void	ft_execute_commands(char **cmd, char *line, char **envp, t_stack hist)
+void	ft_execute_commands(char **cmd, char *line, t_env *envp, t_stack hist)
 {
 	char *dir;
 
@@ -46,7 +46,7 @@ void	ft_execute_commands(char **cmd, char *line, char **envp, t_stack hist)
 		free(dir);
 	}
 	else if (ft_strequ(cmd[0], "echo"))
-		ft_echo(line, envp);
+		ft_echo(line, envp->list);
 	else if (ft_strequ(cmd[0], "env"))
 		ft_print_env(envp);
 	else if (ft_strequ(cmd[0], "setenv"))
@@ -60,7 +60,7 @@ void	ft_execute_commands(char **cmd, char *line, char **envp, t_stack hist)
 	freecopy(cmd);
 }
 
-void	ft_run_commands(char **user_comm, char *line, char **envp, t_stack hist)
+void	ft_run_commands(char **user_comm, char *line, t_env *envp, t_stack hist)
 {
 	ft_advanced_com(user_comm, line, envp, hist);
 }
@@ -100,11 +100,11 @@ int		main(int ac, char **av, char **envp)
 	struct termios	term;
 	t_stack			hist;
 	t_cmd			cmd;
-	char 			**envp_copy;
+	t_env 			*envp_copy;
 	char 			*promt_val;
 
 	ft_create_stack(&hist, 1000);
-	envp_copy = envp_cpy(envp);
+	envp_copy = copy_envp(4096, envp);
 	ft_signal();
 	ft_init_keyboard(&term, &ac, &av);
 	while (42)

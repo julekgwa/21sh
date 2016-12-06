@@ -12,26 +12,14 @@
 
 #include "minishell.h"
 
-int		ft_putenv(char *str, char **envp)
+int		ft_putenv(char *str, t_env *envp)
 {
-	int		i;
-
-	i = 0;
-	while (envp[i])
-	{
-		i++;
-	}
-	if ((envp[i] = ft_strdup(str)))
-	{
-		envp[++i] = 0;
-		return (1);
-	}
-	return (0);
+	return (ft_push_env(envp, str));
 }
 
-int		ft_setenv(const char *name, const char *val, int ovride, char **envp)
+int		ft_setenv(const char *name, const char *val, int ovride, t_env *envp)
 {
-	char	*es;
+	char	es[ft_strlen(name) + ft_strlen(val) + 2];
 	int		i;
 
 	if (name == NULL || name[0] == '\0' || ft_strchr(name, '=') != NULL ||
@@ -39,21 +27,21 @@ int		ft_setenv(const char *name, const char *val, int ovride, char **envp)
 	{
 		return (-1);
 	}
-	if (ft_get_env(name, envp) != NULL && ovride == 0)
+	if (ft_get_env(name, envp->list) != NULL && ovride == 0)
 		return (0);
 	ft_unsetenv(name, envp);
-	es = ft_memalloc(ft_strlen(name) + ft_strlen(val) + 2);
+	ft_memset(es, 0, ft_strlen(name) + ft_strlen(val) + 2);
 	if (es == NULL)
 		return (-1);
 	ft_strcpy(es, name);
 	ft_strcat(es, "=");
 	ft_strcat(es, val);
 	i = (ft_putenv(es, envp) != 0) ? -1 : 0;
-	free(es);
+	// free(es);
 	return (i);
 }
 
-int		ft_unsetenv(const char *name, char **envp)
+int		ft_unsetenv(const char *name, t_env *envp)
 {
 	char	**r;
 	char	**w;
@@ -61,20 +49,22 @@ int		ft_unsetenv(const char *name, char **envp)
 
 	if (name == NULL || name[0] == '\0' || ft_strchr(name, '=') != NULL)
 		return (-1);
-	r = envp;
-	w = envp;
+	r = envp->list;
+	w = envp->list;
 	len = ft_strlen(name);
 	while (*r)
 	{
 		if (ft_strncmp(*r, name, len) != 0 || (*r)[len] != '=')
 			*w++ = *r;
+		if (ft_strncmp(*r, name, len) == 0 || (*r)[len] == '=')
+			envp->top--;
 		r++;
 	}
 	*w = NULL;
 	return (0);
 }
 
-void	ft_unsetting_env(char *names, char **envp)
+void	ft_unsetting_env(char *names, t_env *envp)
 {
 	char	**variables;
 	int		len;
@@ -94,7 +84,7 @@ void	ft_unsetting_env(char *names, char **envp)
 	}
 }
 
-void	ft_set_envir(char **envp, char *str)
+void	ft_set_envir(t_env *envp, char *str)
 {
 	char	*value;
 	char	*name;

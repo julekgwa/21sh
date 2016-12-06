@@ -40,7 +40,14 @@ typedef struct	s_comms
 	char		*get_line;
 }				t_cmd;
 
-void			ft_cd(char **dir, char **envp);
+typedef struct 	s_env
+{
+				char **list;
+				int top;
+				int capacity;
+}				t_env;
+
+void			ft_cd(char **dir, t_env *envp);
 char			*ft_pwd();
 void			ft_echo(char *av, char **envp);
 int				ft_end_with(char *str, char c);
@@ -49,24 +56,23 @@ char			*ft_first_word(const char *s);
 char			*ft_last_word(const char *s);
 char			*ft_get_env(const char *env, char **env_list);
 void			ft_ctrl_c_signal_handler(int signum);
-void			ft_print_env(char **envp);
+void			ft_print_env(t_env *envp);
 char			**ft_check_env(char **cmd, char **envp);
 int				ft_array_len(char **arr);
-int				ft_unsetenv(const char *env, char **envp);
-int				ft_setenv(const char *env, const char *val, int ov, char **enp);
-void			ft_set_envir(char **envp, char *str);
+int				ft_unsetenv(const char *env, t_env *envp);
+int				ft_setenv(const char *env, const char *val, int ov, t_env *enp);
+void			ft_set_envir(t_env *envp, char *str);
 char			*ft_remove_qoutes(char *s);
 char			*ft_rm_quotes(char *s);
-void			ft_print_env(char **envp);
 char			**ft_check_env(char **cmd, char **envp);
-void			ft_unsetting_env(char *names, char **envp);
+void			ft_unsetting_env(char *names, t_env *envp);
 char			*ft_build_exec(char **envp, char **split);
 int				ft_is_execute(char *command);
 void			ft_execute(char *cmd, char **l_cmd, char *line, char **envp);
 void			ft_print_error(char *cmd, int errorno);
-void			ft_advanced_com(char **cmd, char *line, char **envp, t_stack h);
+void			ft_advanced_com(char **cmd, char *line, t_env *envp, t_stack h);
 int				ft_search_command(char *command);
-void			ft_execute_commands(char **cmd, char *l, char **p, t_stack hi);
+void			ft_execute_commands(char **cmd, char *l, t_env *p, t_stack hi);
 char			*ft_get_str(char **av);
 int				ft_myputchar(int c);
 void			ft_clear_screen(void);
@@ -96,8 +102,8 @@ void			ft_signal(void);
 void			init_main(int *ac, char ***av);
 void			manage_up_down(char **buf, char **com, t_stack *hist, int *pos);
 void			ft_ctrl_l(char *comm, int pos);
-void			ft_run_commands(char **com, char *line, char **env, t_stack hi);
-void			ft_pro_cmd(t_cmd *c, char **en, struct termios *t, t_stack *hi);
+void			ft_run_commands(char **com, char *line, t_env *env, t_stack hi);
+void			ft_pro_cmd(t_cmd *c, t_env *en, struct termios *t, t_stack *hi);
 void 			free_cmd(t_cmd *cmd);
 void			freecopy(char **copy);
 void			ft_free_str(char *str, char *join);
@@ -108,5 +114,9 @@ void			ft_builtins(char **user_comm, char *get_line, char **envp, char **sp);
 void			ft_exit(char **cmd, char *get_line);
 int				ft_user_dir(char *dir, char **envp);
 char			**envp_cpy(char **envp);
+t_env 			*copy_envp(int capacity, char **envp);
+void 			free_envp(t_env *stack);
+int  			ft_push_env(t_env *stack, char *value);
+int 			ft_is_full(t_env *stack);
 
 #endif

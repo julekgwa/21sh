@@ -69,21 +69,21 @@ void free_cmd(t_cmd *cmd){
   free(cmd->get_line);
 }
 
-void	ft_pro_cmd(t_cmd *cmd, char **env, struct termios *t, t_stack *hist)
+void	ft_pro_cmd(t_cmd *cmd, t_env *envp, struct termios *t, t_stack *hist)
 {
 	if (cmd->user_comm != NULL)
 	{
 		if (ft_strequ(cmd->user_comm[0], "exit"))
 		{
 			free_stack(hist);
-			freecopy(env);
+			free_envp(envp);
 			free_cmd(cmd);
 			ft_close_keyboard(t);
 			exit(0);
 		}
 		hist->size = hist->hist_count;
 		ft_push(hist, cmd->get_line);
-		ft_run_commands(cmd->user_comm, cmd->get_line, env, *hist);
+		ft_run_commands(cmd->user_comm, cmd->get_line, envp, *hist);
 		// free_cmd(cmd);
 		// free(cmd->get_line);
 	}

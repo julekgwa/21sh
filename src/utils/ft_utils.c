@@ -38,12 +38,13 @@ int		ft_end_with(char *str, char c)
 	return (0);
 }
 
-void	ft_print_env(char **envp)
+void	ft_print_env(t_env *envp)
 {
-	char *s;
+	int	i;
 
-	while ((s = *envp++))
-		ft_putendl(s);
+	i = 0;
+	while (i <= envp->top)
+		ft_putendl(envp->list[i++]);
 }
 
 char	**ft_check_env(char **cmd, char **envp)
