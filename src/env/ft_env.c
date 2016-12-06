@@ -21,11 +21,8 @@ int		ft_putenv(char *str, char **envp)
 	{
 		i++;
 	}
-	envp[i] = ft_memalloc((ft_strlen(str) + 1) * sizeof(char));
-	if (envp[i])
+	if ((envp[i] = ft_strdup(str)))
 	{
-		// envp[i] = ft_strdup(str);
-		ft_strcpy(envp[i], str);
 		envp[++i] = 0;
 		return (1);
 	}

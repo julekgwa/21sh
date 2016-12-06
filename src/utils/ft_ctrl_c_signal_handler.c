@@ -71,8 +71,7 @@ char	**envp_cpy(char **envp)
 	{
 		while (envp[i])
 		{
-			copy[i] = ft_memalloc(ft_strlen(envp[i]) + 1);
-			ft_strcpy(copy[i], envp[i]);
+			copy[i] = ft_strdup(envp[i]);
 			i++;
 		}
 	}

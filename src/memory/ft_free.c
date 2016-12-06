@@ -17,7 +17,7 @@ void	freecopy(char **copy)
 	int	i;
 
 	i = 0;
-	while (copy[i])
+	while (i < ft_array_len(copy))
 	{
 		free(copy[i]);
 		i++;

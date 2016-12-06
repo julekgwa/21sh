@@ -79,6 +79,8 @@ char	*ft_build_comm(t_stack *hist, char *comm, char *buf, int pos)
 			ft_cursor(comm, pos);
 			break ;
 		}
+		else if (buf[0] == 9)
+			ft_putendl("Tab");
 		else if (buf[0] == 12)
 			ft_ctrl_l(comm, pos);
 		else if (ft_up_down(buf))
@@ -98,11 +100,11 @@ int		main(int ac, char **av, char **envp)
 	struct termios	term;
 	t_stack			hist;
 	t_cmd			cmd;
-	// char 			**envp_copy;
+	char 			**envp_copy;
 	char 			*promt_val;
 
 	ft_create_stack(&hist, 1000);
-	// envp_copy = envp_cpy(envp);
+	envp_copy = envp_cpy(envp);
 	ft_signal();
 	ft_init_keyboard(&term, &ac, &av);
 	while (42)
@@ -112,7 +114,7 @@ int		main(int ac, char **av, char **envp)
 		{
 			ft_putchar('\n');
 			cmd.user_comm = ft_strsplit(cmd.get_line, ' ');
-			ft_pro_cmd(&cmd, envp, &term, &hist);
+			ft_pro_cmd(&cmd, envp_copy, &term, &hist);
 			freecopy(cmd.user_comm);
 			// free(cmd.get_line);
 		}
