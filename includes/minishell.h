@@ -42,9 +42,10 @@ typedef struct	s_comms
 
 typedef struct 	s_env
 {
-				char **list;
-				int top;
-				int capacity;
+	char 		**list;
+	int 		top;
+	int 		capacity;
+	int 		malloc_id;
 }				t_env;
 
 void			ft_cd(char **dir, t_env *envp);

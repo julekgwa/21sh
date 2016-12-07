@@ -14,12 +14,20 @@
 
 int		ft_putenv(char *str, t_env *envp)
 {
-	return (ft_push_env(envp, str));
+	int	i;
+
+	i = ft_push_env(envp, str);
+	if (i)
+	{
+		if (envp->malloc_id == 0)
+			envp->malloc_id = envp->top;
+	}
+	return (i);
 }
 
 int		ft_setenv(const char *name, const char *val, int ovride, t_env *envp)
 {
-	char	es[ft_strlen(name) + ft_strlen(val) + 2];
+	char	*es;
 	int		i;
 
 	if (name == NULL || name[0] == '\0' || ft_strchr(name, '=') != NULL ||
@@ -30,6 +38,7 @@ int		ft_setenv(const char *name, const char *val, int ovride, t_env *envp)
 	if (ft_get_env(name, envp->list) != NULL && ovride == 0)
 		return (0);
 	ft_unsetenv(name, envp);
+	es = (char *)malloc(sizeof(char) * (ft_strlen(name) + ft_strlen(val) + 2));
 	ft_memset(es, 0, ft_strlen(name) + ft_strlen(val) + 2);
 	if (es == NULL)
 		return (-1);
@@ -37,7 +46,6 @@ int		ft_setenv(const char *name, const char *val, int ovride, t_env *envp)
 	ft_strcat(es, "=");
 	ft_strcat(es, val);
 	i = (ft_putenv(es, envp) != 0) ? -1 : 0;
-	// free(es);
 	return (i);
 }
 

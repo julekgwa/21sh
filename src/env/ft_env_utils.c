@@ -24,6 +24,7 @@ t_env *copy_envp(int capacity, char **envp)
 	{
 		stack->capacity = capacity;
 	stack->top = -1;
+	stack->malloc_id = 0;
 	stack->list = (char **)malloc(stack->capacity * sizeof(char *));
 	memset(stack->list, 0, stack->capacity * sizeof(char *));
 	while (envp[i])
@@ -32,8 +33,21 @@ t_env *copy_envp(int capacity, char **envp)
 	return stack;
 }
 
+void	free_list(t_env *stack)
+{
+	int	i;
+
+	i = stack->malloc_id;
+	while (stack->list[i])
+	{
+		free(stack->list[i]);
+		i++;
+	}
+}
+
 void free_envp(t_env *stack)
 {
+	free_list(stack);
 	free(stack->list);
 	free(stack);
 }
