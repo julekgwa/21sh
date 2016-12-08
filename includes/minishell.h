@@ -17,6 +17,8 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <termcap.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 # define RED   "\x1B[31m"
 # define GRN   "\x1B[32m"
 # define YEL   "\x1B[33m"
@@ -85,7 +87,6 @@ int				ft_enter_and_edit_keys(char *key_pressed, int *pos, char *comm);
 int				ft_navigation_keys(char *key_pressed, int *pos, char *comm);
 void			ft_echo_off(char *s, struct termios *term);
 char			*ft_build_comm(t_stack *hist, char *comm, char *buf, int pos);
-int				fork_pipes(int n, char **cmd, char **envp);
 int				ft_contains(char *str, char c);
 void			ft_cursor(char *comm, int pos);
 void			ft_process_buff(char **com, int pos, char c);
@@ -119,5 +120,9 @@ t_env 			*copy_envp(int capacity, char **envp);
 void 			free_envp(t_env *stack);
 int  			ft_push_env(t_env *stack, char *value);
 int 			ft_is_full(t_env *stack);
+int				fork_pipes(int n, char **cmd, char **envp, int i);
+int				ft_file_redirection(char **red, char **envp);
+int				ft_is_redirect(char **cmd);
+int				ft_arrow_pos(char **cmd);
 
 #endif

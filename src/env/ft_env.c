@@ -16,10 +16,11 @@ int		ft_putenv(char *str, t_env *envp)
 {
 	int	i;
 
-	i = ft_push_env(envp, str);
+	i = ft_push_env(envp, ft_strdup(str));
 	if (i)
 	{
-		if (envp->malloc_id == 0)
+		free(str);
+		if (envp->malloc_id == -1)
 			envp->malloc_id = envp->top;
 	}
 	return (i);
@@ -76,20 +77,22 @@ void	ft_unsetting_env(char *names, t_env *envp)
 {
 	char	**variables;
 	int		len;
+	int		i;
 
 	variables = ft_strsplit(names, ' ');
 	len = ft_array_len(variables);
+	i = 1;
 	if (len == 1)
 		ft_putendl("unsetenv: Too few arguments.");
 	else
 	{
-		variables++;
-		while (*variables)
+		while (variables[i])
 		{
-			ft_unsetenv(*variables, envp);
-			variables++;
+			ft_unsetenv(variables[i], envp);
+			i++;
 		}
 	}
+	freecopy(variables);
 }
 
 void	ft_set_envir(t_env *envp, char *str)
@@ -117,4 +120,5 @@ void	ft_set_envir(t_env *envp, char *str)
 		ft_putendl("setenv: Variable name must begin with a letter.");
 	else
 		ft_setenv(name, value, 1, envp);
+	freecopy(split);
 }
