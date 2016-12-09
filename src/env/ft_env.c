@@ -16,12 +16,12 @@ int		ft_putenv(char *str, t_env *envp)
 {
 	int	i;
 
-	i = ft_push_env(envp, ft_strdup(str));
+	i = ft_push_env(envp, str);
 	if (i)
 	{
-		free(str);
+		// free(str);
 		if (envp->malloc_id == -1)
-			envp->malloc_id = envp->top;
+			envp->malloc_id = envp->top - 1;
 	}
 	return (i);
 }
@@ -40,7 +40,7 @@ int		ft_setenv(const char *name, const char *val, int ovride, t_env *envp)
 		return (0);
 	ft_unsetenv(name, envp);
 	es = (char *)malloc(sizeof(char) * (ft_strlen(name) + ft_strlen(val) + 2));
-	ft_memset(es, 0, ft_strlen(name) + ft_strlen(val) + 2);
+	ft_memset(es, 0, sizeof(char) * (ft_strlen(name) + ft_strlen(val) + 2));
 	if (es == NULL)
 		return (-1);
 	ft_strcpy(es, name);
@@ -55,19 +55,26 @@ int		ft_unsetenv(const char *name, t_env *envp)
 	char	**r;
 	char	**w;
 	size_t	len;
+	int		i;
 
 	if (name == NULL || name[0] == '\0' || ft_strchr(name, '=') != NULL)
 		return (-1);
 	r = envp->list;
 	w = envp->list;
+	i = 0;
 	len = ft_strlen(name);
 	while (*r)
 	{
 		if (ft_strncmp(*r, name, len) != 0 || (*r)[len] != '=')
 			*w++ = *r;
 		if (ft_strncmp(*r, name, len) == 0 || (*r)[len] == '=')
+		{
+			if (i >= envp->malloc_id && envp->malloc_id != -1)
+				free(*r);
 			envp->top--;
+		}
 		r++;
+		i++;
 	}
 	*w = NULL;
 	return (0);
