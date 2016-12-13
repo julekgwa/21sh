@@ -41,3 +41,38 @@ void	ft_process_buff(char **com, int pos, char c)
 	free(buffer);
 	ft_cursor(*com, pos + 2);
 }
+
+int		ft_ctrl_b_f(char *buf)
+{
+	if (buf[0] == 2 || buf[0] == 6)
+		return (1);
+	else
+		return (0);
+}
+
+void	ft_move_word(char *cmd, int *pos, char *buf)
+{
+	int	i;
+
+	i = *pos;
+	if (buf[0] == 2)
+	{
+		if (cmd[i - 1] == ' ')
+			i -= 2;
+		while (i >= 0 && cmd[i] != ' ')
+			i--;
+		*pos = i + 1;
+	}
+	else if (buf[0] == 6)
+	{
+		if (cmd[i + 1] == ' ')
+			i += 2;
+		while (cmd[i])
+		{
+			if (cmd[i] == ' ')
+				break ;
+			i++;
+		}
+		*pos = i + 1;
+	}
+}

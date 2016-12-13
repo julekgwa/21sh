@@ -69,27 +69,6 @@ int		ft_is_execute(char *command)
 	return (0);
 }
 
-
-// char	*ft_build_exec(char **envp, char **split)
-// {
-// 	char	**new;
-// 	char	*str;
-// 	int		i;
-
-// 	i = 0;
-// 	new = getpath(envp);
-// 	while (new[i] != '\0')
-// 	{
-// 		str = ft_strjoin(new[i], "/");
-// 		str = ft_strjoin(str, split[0]);
-// 		if (access(str, F_OK) == 0)
-// 			return (str);
-// 		i++;
-// 	}
-// 	ft_strdel(&str);
-// 	return (NULL);
-// }
-
 void	ft_execute(char *command, char **list_comm, char *get_line, char **envp)
 {
 	pid_t	pid;

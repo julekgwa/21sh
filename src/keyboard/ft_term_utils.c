@@ -22,19 +22,12 @@ void		ft_clear_screen(void)
 	tputs(tgetstr("cl", NULL), 1, ft_myputchar);
 }
 
-void		ft_create_stack(t_stack *stack, int size)
+void		ft_create_stack(t_stack *stack)
 {
-	// t_stack	*stack;
-
-	// stack = (t_stack *)malloc(sizeof(t_stack));
-	// if (stack)
-	// {
-		stack->list = (char **)malloc(sizeof(char) * size);
-		stack->size = 0;
-		stack->hist_count = 0;
-		stack->capacity = size;
-	// }
-	// return (stack);
+	ft_memset(stack->list, 0, 4096);
+	stack->size = 0;
+	stack->hist_count = 0;
+	stack->capacity = 4096;
 }
 
 void		ft_push(t_stack *stack, char *hist)
@@ -48,15 +41,13 @@ void		ft_push(t_stack *stack, char *hist)
 void		ft_display_hist(t_stack hist)
 {
 	int		i;
-	char	*history;
 
 	i = 0;
 	while (hist.list[i])
 	{
-		history = ft_itoa(i + 1);
-		history = ft_strjoin(history, "  ");
-		history = ft_strjoin(history, hist.list[i]);
-		ft_putendl(history);
+		ft_putnbr(i + 1);
+		ft_putstr("  ");
+		ft_putendl(hist.list[i]);
 		i++;
 	}
 }

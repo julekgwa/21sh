@@ -6,7 +6,7 @@
 /*   By: goisetsi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/07 17:26:38 by goisetsi          #+#    #+#             */
-/*   Updated: 2016/08/07 17:26:44 by goisetsi         ###   ########.fr       */
+/*   Updated: 2016/12/13 16:28:37 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		ft_search_command(char *command)
 {
 	static char	*cmd = "echo pwd cd history setenv unsetenv env exit clear";
 	char		**comm_split;
-	int 		i;
+	int			i;
 
 	i = 0;
 	comm_split = ft_strsplit(cmd, ' ');
@@ -79,10 +79,10 @@ char	*ft_build_comm(t_stack *hist, char *comm, char *buf, int pos)
 			ft_cursor(comm, pos);
 			break ;
 		}
-		else if (buf[0] == 9)
-			ft_putendl("Tab");
 		else if (buf[0] == 12)
 			ft_ctrl_l(comm, pos);
+		else if (ft_ctrl_b_f(buf))
+			ft_move_word(comm, &pos, buf);
 		else if (ft_up_down(buf))
 			manage_up_down(&buf, &comm, hist, &pos);
 		else if (ft_enter_and_edit_keys(buf, &pos, comm))
@@ -91,6 +91,7 @@ char	*ft_build_comm(t_stack *hist, char *comm, char *buf, int pos)
 			ft_cursor(comm, pos + 1);
 		else if (ft_character_keys(buf) && buf[0] != 27)
 			ft_process_buff(&comm, pos++, buf[0]);
+		ft_cursor(comm, pos + 1);
 	}
 	return (comm);
 }
@@ -100,27 +101,25 @@ int		main(int ac, char **av, char **envp)
 	struct termios	term;
 	t_stack			hist;
 	t_cmd			cmd;
-	t_env 			*envp_copy;
-	char 			*promt_val;
+	t_env			*envp_copy;
+	char			*promt_val;
 
-	ft_create_stack(&hist, 1000);
+	ft_create_stack(&hist);
 	envp_copy = copy_envp(4096, envp);
-	ft_signal();
 	ft_init_keyboard(&term, &ac, &av);
+	signal(SIGINT, ft_ctrl_c_signal_handler);
 	while (42)
 	{
 		promt_val = prompt(&cmd, &hist);
-		if (!ft_strequ(cmd.get_line, ""))
+		if (!ft_strequ(cmd.get_line, "") && ft_spaces_tabs(cmd.get_line))
 		{
 			ft_putchar('\n');
 			cmd.user_comm = ft_strsplit(cmd.get_line, ' ');
 			ft_pro_cmd(&cmd, envp_copy, &term, &hist);
 			freecopy(cmd.user_comm);
-			// free(cmd.get_line);
 		}
 		else
 			ft_putchar('\n');
-		// free_cmd(&cmd);
 		free(promt_val);
 	}
 	ft_close_keyboard(&term);

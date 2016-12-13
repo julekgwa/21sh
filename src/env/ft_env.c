@@ -6,7 +6,7 @@
 /*   By: goisetsi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/07 17:29:45 by goisetsi          #+#    #+#             */
-/*   Updated: 2016/08/07 17:29:48 by goisetsi         ###   ########.fr       */
+/*   Updated: 2016/12/13 16:01:43 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int		ft_putenv(char *str, t_env *envp)
 	i = ft_push_env(envp, str);
 	if (i)
 	{
-		// free(str);
 		if (envp->malloc_id == -1)
 			envp->malloc_id = envp->top - 1;
 	}
@@ -29,7 +28,7 @@ int		ft_putenv(char *str, t_env *envp)
 int		ft_setenv(const char *name, const char *val, int ovride, t_env *envp)
 {
 	char	*es;
-	int		i;
+	char	**r;
 
 	if (name == NULL || name[0] == '\0' || ft_strchr(name, '=') != NULL ||
 			val == NULL)
@@ -38,7 +37,8 @@ int		ft_setenv(const char *name, const char *val, int ovride, t_env *envp)
 	}
 	if (ft_get_env(name, envp->list) != NULL && ovride == 0)
 		return (0);
-	ft_unsetenv(name, envp);
+	r = NULL;
+	ft_unsetenv(name, envp, r);
 	es = (char *)malloc(sizeof(char) * (ft_strlen(name) + ft_strlen(val) + 2));
 	ft_memset(es, 0, sizeof(char) * (ft_strlen(name) + ft_strlen(val) + 2));
 	if (es == NULL)
@@ -46,13 +46,11 @@ int		ft_setenv(const char *name, const char *val, int ovride, t_env *envp)
 	ft_strcpy(es, name);
 	ft_strcat(es, "=");
 	ft_strcat(es, val);
-	i = (ft_putenv(es, envp) != 0) ? -1 : 0;
-	return (i);
+	return ((ft_putenv(es, envp) != 0) ? -1 : 0);
 }
 
-int		ft_unsetenv(const char *name, t_env *envp)
+int		ft_unsetenv(const char *name, t_env *envp, char **r)
 {
-	char	**r;
 	char	**w;
 	size_t	len;
 	int		i;
@@ -83,10 +81,12 @@ int		ft_unsetenv(const char *name, t_env *envp)
 void	ft_unsetting_env(char *names, t_env *envp)
 {
 	char	**variables;
+	char	**r;
 	int		len;
 	int		i;
 
 	variables = ft_strsplit(names, ' ');
+	r = NULL;
 	len = ft_array_len(variables);
 	i = 1;
 	if (len == 1)
@@ -95,7 +95,7 @@ void	ft_unsetting_env(char *names, t_env *envp)
 	{
 		while (variables[i])
 		{
-			ft_unsetenv(variables[i], envp);
+			ft_unsetenv(variables[i], envp, r);
 			i++;
 		}
 	}

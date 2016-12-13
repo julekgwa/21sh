@@ -27,13 +27,14 @@
 # define CYN   "\x1B[36m"
 # define WHT   "\x1B[37m"
 # define RESET "\x1B[0m"
+# define QUOTES ft_rm_quotes
 
 typedef struct	s_stack
 {
 	int			capacity;
 	int			size;
 	int			hist_count;
-	char		**list;
+	char		*list[4096];
 }				t_stack;
 
 typedef struct	s_comms
@@ -62,7 +63,7 @@ void			ft_ctrl_c_signal_handler(int signum);
 void			ft_print_env(t_env *envp);
 char			**ft_check_env(char **cmd, char **envp);
 int				ft_array_len(char **arr);
-int				ft_unsetenv(const char *env, t_env *envp);
+int				ft_unsetenv(const char *env, t_env *envp, char **r);
 int				ft_setenv(const char *env, const char *val, int ov, t_env *enp);
 void			ft_set_envir(t_env *envp, char *str);
 char			*ft_remove_qoutes(char *s);
@@ -90,7 +91,7 @@ char			*ft_build_comm(t_stack *hist, char *comm, char *buf, int pos);
 int				ft_contains(char *str, char c);
 void			ft_cursor(char *comm, int pos);
 void			ft_process_buff(char **com, int pos, char c);
-void			ft_create_stack(t_stack *stack, int size);
+void			ft_create_stack(t_stack *hist);
 void			ft_push(t_stack *stack, char *hist);
 char			*ft_up(t_stack *stack);
 char			*ft_down(t_stack *stack);
@@ -124,5 +125,7 @@ int				fork_pipes(int n, char **cmd, char **envp, int i);
 int				ft_file_redirection(char **red, char **envp);
 int				ft_is_redirect(char **cmd);
 int				ft_arrow_pos(char **cmd);
+int				ft_ctrl_b_f(char *buf);
+void			ft_move_word(char *cmd, int *pos, char *buf);
 
 #endif

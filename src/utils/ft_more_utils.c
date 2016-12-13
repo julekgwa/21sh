@@ -26,32 +26,28 @@ int		ft_contains(char *str, char c)
 	return (0);
 }
 
-void	ft_multi_com(char **split_com, char *line, t_env *envp, t_stack hist)
+void	ft_multi_com(char *get_line, t_env *envp, t_stack hist)
 {
 	char	**tmp_com;
+	char	**split_com;
+	int		i;
 
-	while (*split_com)
+	split_com = ft_strsplit(get_line, ';');
+	i = 0;
+	while (split_com[i])
 	{
-		tmp_com = ft_strsplit(*split_com, ' ');
+		tmp_com = ft_strsplit(split_com[i], ' ');
 		if (tmp_com)
-		{
-			if (ft_search_command(tmp_com[0]))
-				ft_execute_commands(tmp_com, *split_com, envp, hist);
-			else if (ft_build_exec(envp->list, tmp_com))
-				ft_execute(ft_build_exec(envp->list, tmp_com), tmp_com, line, envp->list);
-			else if (ft_is_execute(tmp_com[0]))
-				ft_execute(tmp_com[0], tmp_com, line, envp->list);
-			else
-				ft_print_error(tmp_com[0], 0);
-		}
-		freecopy(tmp_com);
-		split_com++;
+			ft_run_commands(tmp_com, split_com[i], envp, hist);
+		i++;
+		freesplit(tmp_com);
 	}
+	if (split_com)
+		freecopy(split_com);
 }
 
 void	ft_advanced_com(char **commands, char *line, t_env *envp, t_stack hist)
 {
-	char	**split_com;
 	char	*exec;
 	char	**search;
 	int		success;
@@ -59,8 +55,8 @@ void	ft_advanced_com(char **commands, char *line, t_env *envp, t_stack hist)
 	success = 0;
 	if (ft_contains(line, ';'))
 	{
-		split_com = ft_strsplit(line, ';');
-		ft_multi_com(split_com, line, envp, hist);
+		ft_multi_com(line, envp, hist);
+		return ;
 	}
 	else if (ft_search_command((search = ft_strsplit(line, ' '))[0]))
 	{

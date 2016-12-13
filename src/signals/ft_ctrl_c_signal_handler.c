@@ -57,26 +57,6 @@ int		ft_contains(char *str, char c)
 	return (0);
 }
 
-void	ft_multi_com(char *get_line, char **envp)
-{
-	char	**tmp_com;
-	char	**split_com;
-	int		i;
-
-	split_com = ft_strsplit(get_line, ';');
-	i = 0;
-	while (split_com[i])
-	{
-		tmp_com = ft_strsplit(split_com[i], ' ');
-		if (tmp_com)
-			ft_run_commands(tmp_com, split_com[i], envp);
-		i++;
-		freesplit(tmp_com);
-	}
-	if (split_com)
-		freecopy(split_com);
-}
-
 char	**envp_cpy(char **envp)
 {
 	char	**copy;

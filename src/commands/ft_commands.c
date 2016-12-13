@@ -6,7 +6,7 @@
 /*   By: goisetsi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/07 17:28:38 by goisetsi          #+#    #+#             */
-/*   Updated: 2016/08/07 17:28:56 by goisetsi         ###   ########.fr       */
+/*   Updated: 2016/12/13 16:15:21 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,10 @@ char	*ft_pwd(void)
 	return (pwd);
 }
 
-void free_stack(t_stack *stack){
-  freecopy(stack->list);
-  free(stack);
-}
-
-void free_cmd(t_cmd *cmd){
-  freecopy(cmd->user_comm);
-  free(cmd->get_line);
+void	free_cmd(t_cmd *cmd)
+{
+	freecopy(cmd->user_comm);
+	free(cmd->get_line);
 }
 
 void	ft_pro_cmd(t_cmd *cmd, t_env *envp, struct termios *t, t_stack *hist)
@@ -75,7 +71,6 @@ void	ft_pro_cmd(t_cmd *cmd, t_env *envp, struct termios *t, t_stack *hist)
 	{
 		if (ft_strequ(cmd->user_comm[0], "exit"))
 		{
-			free_stack(hist);
 			free_envp(envp);
 			free_cmd(cmd);
 			ft_close_keyboard(t);
@@ -84,7 +79,5 @@ void	ft_pro_cmd(t_cmd *cmd, t_env *envp, struct termios *t, t_stack *hist)
 		hist->size = hist->hist_count;
 		ft_push(hist, cmd->get_line);
 		ft_run_commands(cmd->user_comm, cmd->get_line, envp, *hist);
-		// free_cmd(cmd);
-		// free(cmd->get_line);
 	}
 }

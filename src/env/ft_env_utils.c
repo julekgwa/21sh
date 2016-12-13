@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_env_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/12/13 15:55:16 by julekgwa          #+#    #+#             */
+/*   Updated: 2016/12/13 15:57:22 by julekgwa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-int ft_is_full(t_env *stack)
+int		ft_is_full(t_env *stack)
 {
 	return (stack->top == stack->capacity - 1);
 }
 
-int  ft_push_env(t_env *stack, char *value)
+int		ft_push_env(t_env *stack, char *value)
 {
 	if (ft_is_full(stack))
 		return (0);
@@ -13,7 +25,7 @@ int  ft_push_env(t_env *stack, char *value)
 	return (1);
 }
 
-t_env *copy_envp(int capacity, char **envp)
+t_env	*copy_envp(int capacity, char **envp)
 {
 	int		i;
 	t_env	*stack;
@@ -23,14 +35,14 @@ t_env *copy_envp(int capacity, char **envp)
 	if (stack)
 	{
 		stack->capacity = capacity;
-	stack->top = -1;
-	stack->malloc_id = -1;
-	stack->list = (char **)malloc(stack->capacity * sizeof(char *));
-	memset(stack->list, 0, stack->capacity * sizeof(char *));
-	while (envp[i])
-		ft_push_env(stack, envp[i++]);
+		stack->top = -1;
+		stack->malloc_id = -1;
+		stack->list = (char **)malloc(stack->capacity * sizeof(char *));
+		memset(stack->list, 0, stack->capacity * sizeof(char *));
+		while (envp[i])
+			ft_push_env(stack, envp[i++]);
 	}
-	return stack;
+	return (stack);
 }
 
 void	free_list(t_env *stack)
@@ -38,8 +50,8 @@ void	free_list(t_env *stack)
 	int	i;
 
 	i = stack->malloc_id;
-	// if (i < 0)
-	// 	return ;
+	if (i < 0)
+		return ;
 	while (i < stack->capacity)
 	{
 		free(stack->list[i]);
@@ -47,7 +59,7 @@ void	free_list(t_env *stack)
 	}
 }
 
-void free_envp(t_env *stack)
+void	free_envp(t_env *stack)
 {
 	free_list(stack);
 	free(stack->list);
