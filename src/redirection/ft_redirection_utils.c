@@ -37,12 +37,17 @@ int	ft_manage_file_descriptors(char **cmd)
 
 	descriptor_pos = ft_get_file_descriptor_pos(cmd);
 	descriptor = cmd[descriptor_pos];
+	fd2 = descriptor[0] - '0';
+	if (descriptor[ft_strlen(descriptor) - 1] == '-')
+	{
+		close(fd2);
+		return (descriptor_pos);
+	}
 	if (cmd[descriptor_pos + 1] != NULL)
 		fd = open(cmd[descriptor_pos + 1], O_CREAT | O_RDWR | O_TRUNC,
 				S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
 	else
 		fd = descriptor[ft_strlen(descriptor) - 1] - '0';
-	fd2 = descriptor[0] - '0';
 	dup2(fd, fd2);
 	return (descriptor_pos);
 }
