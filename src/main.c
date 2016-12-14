@@ -11,9 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
-
-pid_t child_pid = -127;
 
 int		ft_search_command(char *command)
 {
@@ -82,8 +79,8 @@ char	*ft_build_comm(t_stack *hist, char *comm, char *buf, int pos)
 			ft_cursor(comm, pos);
 			break ;
 		}
-		else if (buf[0] == 4)
-			printf("%s\n", "ft_ctrl_d");
+		else if (buf[0] == 4 && ft_strequ(comm, ""))
+			return ((comm = "exit"));
 		else if (buf[0] == 12)
 			ft_ctrl_l(comm, pos);
 		else if (ft_ctrl_b_f(buf))
