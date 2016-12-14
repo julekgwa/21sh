@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+extern pid_t child_pid;
+
 char	**getpath(char **envp)
 {
 	int		i;
@@ -82,8 +84,7 @@ void	ft_execute(char *command, char **list_comm, char *get_line, char **envp)
 	}
 	if (pid == 0)
 	{
-		ft_putstr("Child process: ");
-		ft_putnbr(getpid());
+		child_pid = getpid();
 		if (ft_contains(get_line, '|') || ft_contains(get_line, '>'))
 		{
 			split_com = ft_strsplit(get_line, '|');
@@ -97,7 +98,5 @@ void	ft_execute(char *command, char **list_comm, char *get_line, char **envp)
 	else
 	{
 		wait(&status);
-		ft_putstr("Parent process: ");
-		ft_putnbr(getpid());
 	}
 }

@@ -65,6 +65,30 @@ void	free_cmd(t_cmd *cmd)
 	free(cmd->get_line);
 }
 
+int	ft_term_off(struct termios *term)
+{
+	term->c_lflag |= (ECHO | ECHOE | ICANON);
+	if (tcsetattr(0, 0, term) == -1)
+		return (0);
+	tputs(tgetstr("ve", NULL), 1, ft_myputchar);
+	return (1);
+}
+
+int	ft_term_on(struct termios *term)
+{
+	if (tgetent(NULL, getenv("TERM")) < 1)
+		return (0);
+	if (tcgetattr(0, term) == -1)
+		return (0);
+	term->c_lflag &= ~(ECHO | ECHOE | ICANON);
+	term->c_cc[VMIN] = 1;
+	term->c_cc[VTIME] = 0;
+	if (tcsetattr(0, 0, term) == -1)
+		return (0);
+	tputs(tgetstr("vi", NULL), 1, ft_myputchar);
+	return (1);
+}
+
 void	ft_pro_cmd(t_cmd *cmd, t_env *envp, struct termios *t, t_stack *hist)
 {
 	if (cmd->user_comm != NULL)
@@ -78,6 +102,8 @@ void	ft_pro_cmd(t_cmd *cmd, t_env *envp, struct termios *t, t_stack *hist)
 		}
 		hist->size = hist->hist_count;
 		ft_push(hist, cmd->get_line);
+		ft_term_off(t);
 		ft_run_commands(cmd->user_comm, cmd->get_line, envp, *hist);
+		ft_term_on(t);
 	}
 }
