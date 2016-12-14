@@ -41,10 +41,12 @@ int		ft_file_redirection(char **red, char **envp)
 	char	*file_name;
 	int		arrow;
 	int		count;
+	int		arrow_pos;
 
 	arrow = 0;
 	count = 0;
 	file_name = red[ft_array_len(red) - 1];
+	arrow_pos = ft_arrow_pos(red);
 	if (ft_strequ(*red, "<"))
 		arrow = 2;
 	while (red[count])
@@ -56,8 +58,11 @@ int		ft_file_redirection(char **red, char **envp)
 		}
 		count++;
 	}
-	ft_open_file(file_name, arrow);
-	red[ft_arrow_pos(red)] = 0;
+	if (ft_is_file_descriptor_aggr(red))
+		arrow_pos = ft_manage_file_descriptors(red);
+	else
+		ft_open_file(file_name, arrow);
+	red[arrow_pos] = 0;
 	return (execve(red[0], &red[0], envp));
 }
 
