@@ -130,5 +130,6 @@ void			ft_move_word(char *cmd, int *pos, char *buf);
 int				ft_is_file_descriptor_aggr(char **cmd);
 int				ft_get_file_descriptor_pos(char **cmd);
 int				ft_manage_file_descriptors(char **cmd);
+int				ft_get_less_than(char **cmd);
 
 #endif

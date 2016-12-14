@@ -47,7 +47,7 @@ int		ft_file_redirection(char **red, char **envp)
 	count = 0;
 	file_name = red[ft_array_len(red) - 1];
 	arrow_pos = ft_arrow_pos(red);
-	if (ft_strequ(*red, "<"))
+	if (ft_get_less_than(red) > 0)
 		arrow = 2;
 	while (red[count])
 	{

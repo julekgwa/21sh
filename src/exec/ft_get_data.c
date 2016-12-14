@@ -82,7 +82,7 @@ void	ft_execute(char *command, char **list_comm, char *get_line, char **envp)
 	}
 	if (pid == 0)
 	{
-		if (ft_contains(get_line, '|') || ft_contains(get_line, '>'))
+		if (ft_contains(get_line, '|') || ft_contains(get_line, '>') || ft_contains(get_line, '<'))
 		{
 			split_com = ft_strsplit(get_line, '|');
 			fork_pipes(ft_array_len(split_com), split_com, envp, 0);

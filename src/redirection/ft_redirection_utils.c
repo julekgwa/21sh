@@ -52,3 +52,17 @@ int	ft_manage_file_descriptors(char **cmd)
 	return (descriptor_pos);
 }
 
+int	ft_get_less_than(char **cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (ft_strequ(cmd[i], "<"))
+			return (2);
+		i++;
+	}
+	return (0);
+}
+
