@@ -58,7 +58,9 @@ int		ft_file_redirection(char **red, char **envp)
 		}
 		count++;
 	}
-	if (ft_is_file_descriptor_aggr(red))
+	if (ft_is_less_than(red))
+		arrow_pos = ft_manage_double_less_than(red);
+	else if (ft_is_file_descriptor_aggr(red))
 		arrow_pos = ft_manage_file_descriptors(red);
 	else
 		ft_open_file(file_name, arrow);

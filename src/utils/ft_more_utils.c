@@ -58,7 +58,7 @@ void	ft_advanced_com(char **commands, char *line, t_env *envp, t_stack hist)
 		ft_multi_com(line, envp, hist);
 		return ;
 	}
-	else if (ft_search_command((search = ft_strsplit(line, ' '))[0]))
+	else if (ft_search_command((search = ft_strsplit(line, ' '))[0]) && !ft_contains(line, '>'))
 	{
 		success = 1;
 		ft_execute_commands(search, line, envp, hist);

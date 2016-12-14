@@ -27,6 +27,7 @@
 # define CYN   "\x1B[36m"
 # define WHT   "\x1B[37m"
 # define RESET "\x1B[0m"
+# define SIZE 100
 # define QUOTES ft_rm_quotes
 
 typedef struct	s_stack
@@ -131,5 +132,8 @@ int				ft_is_file_descriptor_aggr(char **cmd);
 int				ft_get_file_descriptor_pos(char **cmd);
 int				ft_manage_file_descriptors(char **cmd);
 int				ft_get_less_than(char **cmd);
+int				ft_is_less_than(char **cmd);
+int				ft_get_double_less_than_pos(char **cmd);
+int				ft_manage_double_less_than(char **cmd);
 
 #endif

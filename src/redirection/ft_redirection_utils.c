@@ -66,3 +66,16 @@ int	ft_get_less_than(char **cmd)
 	return (0);
 }
 
+int	ft_is_less_than(char **cmd)
+{
+	int i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (ft_strequ(cmd[i], "<<"))
+			return (1);
+		i++;
+	}
+	return (0);
+}
