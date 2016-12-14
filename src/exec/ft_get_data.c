@@ -82,6 +82,8 @@ void	ft_execute(char *command, char **list_comm, char *get_line, char **envp)
 	}
 	if (pid == 0)
 	{
+		ft_putstr("Child process: ");
+		ft_putnbr(getpid());
 		if (ft_contains(get_line, '|') || ft_contains(get_line, '>'))
 		{
 			split_com = ft_strsplit(get_line, '|');
@@ -90,8 +92,12 @@ void	ft_execute(char *command, char **list_comm, char *get_line, char **envp)
 		}
 		else
 			execve(command, &list_comm[0], envp);
-		exit(1);
+		exit(0);
 	}
-	while (wait(&status) != pid)
-		;
+	else
+	{
+		wait(&status);
+		ft_putstr("Parent process: ");
+		ft_putnbr(getpid());
+	}
 }
