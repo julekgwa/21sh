@@ -26,6 +26,7 @@ void		ft_create_stack(t_stack *stack)
 {
 	ft_memset(stack->list, 0, 4096);
 	stack->count = -1;
+	stack->success = 0;
 	stack->top = -1;
 	stack->capacity = 4096;
 }

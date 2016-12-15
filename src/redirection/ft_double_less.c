@@ -1,38 +1,47 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_double_less.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/12/15 14:07:17 by julekgwa          #+#    #+#             */
+/*   Updated: 2016/12/15 14:12:44 by julekgwa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	ft_read_line(int fd, char *s)
 {
-    char line[SIZE];
-    char *list[SIZE];
-    int i;
-    ssize_t retval;
+	char	line[SIZE];
+	char	*list[SIZE];
+	int		i;
+	ssize_t	retval;
 
-    ft_memset(line, 0, SIZE);
-    ft_memset(list, 0, SIZE * sizeof(*list));
-    i = 0;
-    ft_putstr("> ");
-    while ((retval = read(1, line, SIZE)) > 0)
-   {
-        ft_putstr("> ");
-        if (!strncmp(line, s, strlen(line) - 1))
-            break;
-        else
-            list[i++] = strdup(line);
-        ft_memset(line, 0, SIZE);
-    }
-    if (retval == 0)
-    	ft_putendl("21sh: warning: here-document delimited by end-of-file");
-    i = 0;
-    while (list[i])
-    {
-        write(fd, list[i], strlen(list[i]));
-        i++;
-    }
+	ft_memset(line, 0, SIZE);
+	ft_memset(list, 0, SIZE * sizeof(*list));
+	i = 0;
+	ft_putstr("> ");
+	while ((retval = read(1, line, SIZE)) > 0)
+	{
+		ft_putstr("> ");
+		if (!strncmp(line, s, strlen(line) - 1))
+			break ;
+		else
+			list[i++] = strdup(line);
+		ft_memset(line, 0, SIZE);
+	}
+	if (retval == 0)
+		ft_putendl("21sh: warning: here-document delimited by end-of-file");
+	i = -1;
+	while (list[++i])
+		write(fd, list[i], strlen(list[i]));
 }
 
-int	ft_get_double_less_than_pos(char **cmd)
+int		ft_get_double_less_than_pos(char **cmd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (cmd[i])
@@ -71,7 +80,7 @@ void	ft_open_file_fd(int pos, char **cmd)
 	}
 }
 
-int	ft_manage_double_less_than(char **cmd)
+int		ft_manage_double_less_than(char **cmd)
 {
 	char	*delimiter;
 	int		less_than_pos;

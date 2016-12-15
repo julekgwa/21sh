@@ -97,10 +97,7 @@ void	ft_cursor(char *comm, int pos)
 	int		i;
 
 	i = 0;
-	ft_putstr("\33[2K\r");
-	ft_putstr(GRN);
-	ft_putstr("$> ");
-	ft_putstr(RESET);
+	ft_someshit();
 	if (comm == NULL)
 		return ;
 	while (comm[i])

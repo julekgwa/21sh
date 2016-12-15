@@ -69,7 +69,7 @@ int		ft_is_execute(char *command)
 	return (0);
 }
 
-void	ft_execute(char *command, char **list_comm, char *get_line, char **envp)
+void	ft_execute(char *command, char **list_comm, char *line, char **envp)
 {
 	pid_t	pid;
 	int		status;
@@ -82,9 +82,9 @@ void	ft_execute(char *command, char **list_comm, char *get_line, char **envp)
 	}
 	if (pid == 0)
 	{
-		if (ft_contains(get_line, '|') || ft_contains(get_line, '>') || ft_contains(get_line, '<'))
+		if (CONTAINS(line, '|') || CONTAINS(line, '>') || CONTAINS(line, '<'))
 		{
-			split_com = ft_strsplit(get_line, '|');
+			split_com = ft_strsplit(line, '|');
 			fork_pipes(ft_array_len(split_com), split_com, envp, 0);
 			freecopy(split_com);
 		}

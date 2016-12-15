@@ -48,3 +48,27 @@ int		ft_user_dir(char *dir, char **envp)
 	free(home);
 	return (-1);
 }
+
+int		ft_term_off(struct termios *term)
+{
+	term->c_lflag |= (ECHO | ECHOE | ICANON);
+	if (tcsetattr(0, 0, term) == -1)
+		return (0);
+	tputs(tgetstr("ve", NULL), 1, ft_myputchar);
+	return (1);
+}
+
+int		ft_term_on(struct termios *term)
+{
+	if (tgetent(NULL, getenv("TERM")) < 1)
+		return (0);
+	if (tcgetattr(0, term) == -1)
+		return (0);
+	term->c_lflag &= ~(ECHO | ECHOE | ICANON);
+	term->c_cc[VMIN] = 1;
+	term->c_cc[VTIME] = 0;
+	if (tcsetattr(0, 0, term) == -1)
+		return (0);
+	tputs(tgetstr("vi", NULL), 1, ft_myputchar);
+	return (1);
+}

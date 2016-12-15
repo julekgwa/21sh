@@ -6,7 +6,7 @@
 /*   By: goisetsi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/07 17:31:50 by goisetsi          #+#    #+#             */
-/*   Updated: 2016/08/07 17:31:52 by goisetsi         ###   ########.fr       */
+/*   Updated: 2016/12/15 14:31:17 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,12 @@ void	ft_signalhandle(int num)
 		ft_putchar('\n');
 		i--;
 	}
+}
+
+void	ft_someshit(void)
+{
+	ft_putstr("\33[2K\r");
+	ft_putstr(GRN);
+	ft_putstr("$> ");
+	ft_putstr(RESET);
 }

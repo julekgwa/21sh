@@ -6,7 +6,7 @@
 /*   By: goisetsi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/07 17:23:09 by goisetsi          #+#    #+#             */
-/*   Updated: 2016/08/07 17:23:15 by goisetsi         ###   ########.fr       */
+/*   Updated: 2016/12/15 15:33:31 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
 # define RESET "\x1B[0m"
 # define SIZE 100
 # define QUOTES ft_rm_quotes
+# define CONTAINS ft_contains
+# define SEARCH ft_search_command
+# define SPLIT ft_strsplit
 
 typedef struct	s_stack
 {
@@ -36,6 +39,8 @@ typedef struct	s_stack
 	int			count;
 	int			top;
 	char		*list[4096];
+	int			success;
+	int			ret;
 }				t_stack;
 
 typedef struct	s_comms
@@ -44,12 +49,12 @@ typedef struct	s_comms
 	char		*get_line;
 }				t_cmd;
 
-typedef struct 	s_env
+typedef struct	s_env
 {
-	char 		**list;
-	int 		top;
-	int 		capacity;
-	int 		malloc_id;
+	char		**list;
+	int			top;
+	int			capacity;
+	int			malloc_id;
 }				t_env;
 
 void			ft_cd(char **dir, t_env *envp);
@@ -108,22 +113,22 @@ void			manage_up_down(char **buf, char **com, t_stack *hist, int *pos);
 void			ft_ctrl_l(char *comm, int pos);
 void			ft_run_commands(char **com, char *line, t_env *env, t_stack hi);
 void			ft_pro_cmd(t_cmd *c, t_env *en, struct termios *t, t_stack *hi);
-void 			free_cmd(t_cmd *cmd);
+void			free_cmd(t_cmd *cmd);
 void			freecopy(char **copy);
 void			ft_free_str(char *str, char *join);
-void 			free_stack(t_stack *stack);
+void			free_stack(t_stack *stack);
 void			freesplit(char **split);
 int				ft_spaces_tabs(char *s);
-void			ft_builtins(char **user_comm, char *get_line, char **envp, char **sp);
+void			ft_builtins(char **cmd, char *line, char **envp, char **sp);
 void			ft_exit(char **cmd, char *get_line);
 int				ft_user_dir(char *dir, char **envp);
 char			**envp_cpy(char **envp);
-t_env 			*copy_envp(int capacity, char **envp);
-void 			free_envp(t_env *stack);
-int  			ft_push_env(t_env *stack, char *value);
-int 			ft_is_full(t_env *stack);
+t_env			*copy_envp(int capacity, char **envp);
+void			free_envp(t_env *stack);
+int				ft_push_env(t_env *stack, char *value);
+int				ft_is_full(t_env *stack);
 int				fork_pipes(int n, char **cmd, char **envp, int i);
-int				ft_file_redirection(char **red, char **envp);
+int				ft_file_redirection(char **red, char **envp, int arrow, int co);
 int				ft_is_redirect(char **cmd);
 int				ft_arrow_pos(char **cmd);
 int				ft_ctrl_b_f(char *buf);
@@ -135,5 +140,8 @@ int				ft_get_less_than(char **cmd);
 int				ft_is_less_than(char **cmd);
 int				ft_get_double_less_than_pos(char **cmd);
 int				ft_manage_double_less_than(char **cmd);
+int				ft_term_off(struct termios *term);
+int				ft_term_on(struct termios *term);
+void			ft_someshit();
 
 #endif

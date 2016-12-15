@@ -65,21 +65,23 @@ void	ft_run_commands(char **user_comm, char *line, t_env *envp, t_stack hist)
 	ft_advanced_com(user_comm, line, envp, hist);
 }
 
+int		ft_enter_key(char **comm, int *pos)
+{
+	*pos = -1;
+	ft_cursor(*comm, *pos);
+	return (1);
+}
+
 char	*ft_build_comm(t_stack *hist, char *comm, char *buf, int pos)
 {
-	int	ret;
-
 	while (42)
 	{
-		ret = read(0, buf, 4);
-		buf[ret] = '\0';
-		if (buf[ret - 1] == '\n')
-		{
-			pos = -1;
-			ft_cursor(comm, pos);
-			break ;
-		}
-		else if (buf[0] == 4 && ft_strequ(comm, ""))
+		hist->ret = read(0, buf, 4);
+		buf[hist->ret] = '\0';
+		if (buf[hist->ret - 1] == '\n')
+			if (ft_enter_key(&comm, &pos))
+				break ;
+		if (buf[0] == 4 && ft_strequ(comm, ""))
 			return ((comm = "exit"));
 		else if (buf[0] == 12)
 			ft_ctrl_l(comm, pos);
@@ -124,6 +126,5 @@ int		main(int ac, char **av, char **envp)
 			ft_putchar('\n');
 		free(promt_val);
 	}
-	ft_close_keyboard(&term);
 	return (0);
 }

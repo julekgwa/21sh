@@ -15,7 +15,11 @@
 void	ft_execute_child_proc(int in, int out, char **cmd, char **envp)
 {
 	pid_t	pid;
+	int		arrow;
+	int		count;
 
+	arrow = 0;
+	count = 0;
 	if ((pid = fork()) == 0)
 	{
 		if (in != 0)
@@ -29,7 +33,7 @@ void	ft_execute_child_proc(int in, int out, char **cmd, char **envp)
 			close(out);
 		}
 		if (ft_is_redirect(cmd))
-			ft_file_redirection(cmd, envp);
+			ft_file_redirection(cmd, envp, arrow, count);
 		else
 			execve(cmd[0], &cmd[0], envp);
 	}
@@ -59,6 +63,6 @@ int		fork_pipes(int n, char **cmd, char **envp, int i)
 	if (!ft_is_execute(cmd_s[0]))
 		cmd_s[0] = ft_build_exec(envp, cmd_s);
 	if (ft_is_redirect(cmd_s))
-		return (ft_file_redirection(cmd_s, envp));
+		return (ft_file_redirection(cmd_s, envp, 0, 0));
 	return (execve(cmd_s[0], &cmd_s[0], envp));
 }

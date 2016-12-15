@@ -32,11 +32,11 @@ void	ft_multi_com(char *get_line, t_env *envp, t_stack hist)
 	char	**split_com;
 	int		i;
 
-	split_com = ft_strsplit(get_line, ';');
+	split_com = SPLIT(get_line, ';');
 	i = 0;
 	while (split_com[i])
 	{
-		tmp_com = ft_strsplit(split_com[i], ' ');
+		tmp_com = SPLIT(split_com[i], ' ');
 		if (tmp_com)
 			ft_run_commands(tmp_com, split_com[i], envp, hist);
 		i++;
@@ -50,17 +50,15 @@ void	ft_advanced_com(char **commands, char *line, t_env *envp, t_stack hist)
 {
 	char	*exec;
 	char	**search;
-	int		success;
 
-	success = 0;
-	if (ft_contains(line, ';'))
+	if (CONTAINS(line, ';'))
 	{
 		ft_multi_com(line, envp, hist);
 		return ;
 	}
-	else if (ft_search_command((search = ft_strsplit(line, ' '))[0]) && !ft_contains(line, '>'))
+	else if (SEARCH((search = SPLIT(line, ' '))[0]) && !CONTAINS(line, '>'))
 	{
-		success = 1;
+		hist.success = 1;
 		ft_execute_commands(search, line, envp, hist);
 	}
 	else if ((exec = ft_build_exec(envp->list, commands)))
@@ -72,7 +70,7 @@ void	ft_advanced_com(char **commands, char *line, t_env *envp, t_stack hist)
 		ft_execute(commands[0], commands, line, envp->list);
 	else
 		ft_print_error(commands[0], 0);
-	if (!success)
+	if (!hist.success)
 		freecopy(search);
 }
 
