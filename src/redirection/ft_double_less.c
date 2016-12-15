@@ -16,8 +16,8 @@ void	ft_read_line(int fd, char *s)
             list[i++] = strdup(line);
         memset(line, 0, SIZE);
     }
-    if (line[0] == 4)
-    	ft_putendl("Yes");
+    if (retval == 0)
+    	ft_putendl("21sh: warning: here-document delimited by end-of-file");
     i = 0;
     while (list[i])
     {
