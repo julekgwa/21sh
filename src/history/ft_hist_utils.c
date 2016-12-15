@@ -14,7 +14,9 @@
 
 void	manage_up_down(char **buf, char **comm, t_stack *hist, int *pos)
 {
-	if (hist->size >= 0)
+	if (hist->count == -1 && hist->top != -1)
+		hist->count = hist->top;
+	if (hist->count >= 0)
 	{
 		if ((*comm = ft_keys_up_down(*buf, hist, pos)) != NULL)
 			ft_cursor(*comm, ft_strlen(*comm) + 1);

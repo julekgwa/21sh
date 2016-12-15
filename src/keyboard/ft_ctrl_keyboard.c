@@ -101,6 +101,8 @@ void	ft_cursor(char *comm, int pos)
 	ft_putstr(GRN);
 	ft_putstr("$> ");
 	ft_putstr(RESET);
+	if (comm == NULL)
+		return ;
 	while (comm[i])
 	{
 		if (i == pos - 1)

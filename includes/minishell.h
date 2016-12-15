@@ -33,8 +33,8 @@
 typedef struct	s_stack
 {
 	int			capacity;
-	int			size;
-	int			hist_count;
+	int			count;
+	int			top;
 	char		*list[4096];
 }				t_stack;
 

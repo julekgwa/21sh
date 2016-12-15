@@ -14,20 +14,21 @@
 
 char	*ft_up(t_stack *stack)
 {
-	stack->size--;
-	if (stack->size >= 0)
-		return (stack->list[stack->size]);
-	else
-		return (NULL);
+	if (stack->count == 0)
+		return (stack->list[0]);
+	return (stack->list[stack->count--]);
 }
 
 char	*ft_down(t_stack *stack)
 {
-	stack->size++;
-	if (stack->size < stack->hist_count)
-		return (stack->list[stack->size]);
-	else
-		return (NULL);
+	if (stack->count >= stack->top)
+	{
+		stack->count = stack->top;
+		return ("");
+	}
+	if (stack->count < stack->top)
+		return (stack->list[stack->count++]);
+	return ("");
 }
 
 int		ft_up_down(char *key_pressed)
@@ -51,14 +52,14 @@ char	*ft_keys_up_down(char *key_pressed, t_stack *hist, int *pos)
 	res = NULL;
 	if (ft_strequ(key, "[A") || ft_strequ(key, "[5~"))
 	{
-		if (hist->size > 0)
-		{
+		if (hist->count >= 0)
 			res = ft_up(hist);
-		}
+		if (hist->count < 0)
+			hist->count = 0;
 	}
 	else if (ft_strequ(key, "[B") || ft_strequ(key, "[6~"))
 	{
-		if (hist->size < hist->hist_count)
+		if (hist->count <= hist->top)
 			res = ft_down(hist);
 	}
 	if (res != NULL)

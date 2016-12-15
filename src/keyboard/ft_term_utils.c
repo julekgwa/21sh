@@ -25,17 +25,16 @@ void		ft_clear_screen(void)
 void		ft_create_stack(t_stack *stack)
 {
 	ft_memset(stack->list, 0, 4096);
-	stack->size = 0;
-	stack->hist_count = 0;
+	stack->count = -1;
+	stack->top = -1;
 	stack->capacity = 4096;
 }
 
 void		ft_push(t_stack *stack, char *hist)
 {
-	if (stack->size == stack->capacity)
+	if (stack->top == stack->capacity - 1)
 		return ;
-	stack->list[stack->size++] = hist;
-	stack->hist_count++;
+	stack->list[++stack->top] = hist;
 }
 
 void		ft_display_hist(t_stack hist)
