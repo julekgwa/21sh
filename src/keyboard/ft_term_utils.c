@@ -35,6 +35,7 @@ void		ft_push(t_stack *stack, char *hist)
 	if (stack->top == stack->capacity - 1)
 		return ;
 	stack->list[++stack->top] = hist;
+	stack->count = stack->top + 1;
 }
 
 void		ft_display_hist(t_stack hist)

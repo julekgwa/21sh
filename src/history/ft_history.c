@@ -16,18 +16,19 @@ char	*ft_up(t_stack *stack)
 {
 	if (stack->count == 0)
 		return (stack->list[0]);
-	return (stack->list[stack->count--]);
+	return (stack->list[--stack->count]);
 }
 
 char	*ft_down(t_stack *stack)
 {
 	if (stack->count >= stack->top)
 	{
-		stack->count = stack->top;
+		stack->count = stack->top + 1;
 		return ("");
 	}
-	if (stack->count < stack->top)
-		return (stack->list[stack->count++]);
+	if (stack->count <= stack->top)
+		return (stack->list[++stack->count]);
+	stack->count = stack->top + 1;
 	return ("");
 }
 
