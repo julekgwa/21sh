@@ -143,5 +143,6 @@ int				ft_manage_double_less_than(char **cmd);
 int				ft_term_off(struct termios *term);
 int				ft_term_on(struct termios *term);
 void			ft_someshit();
+int				ft_uneven(char *str);
 
 #endif
