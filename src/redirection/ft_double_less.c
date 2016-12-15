@@ -3,18 +3,22 @@
 void	ft_read_line(int fd, char *s)
 {
     char line[SIZE];
-    char *list[SIZE] = { 0 };
-    int i = 0;
+    char *list[SIZE];
+    int i;
     ssize_t retval;
-    memset(line, 0, SIZE);
+
+    ft_memset(line, 0, SIZE);
+    ft_memset(list, 0, SIZE * sizeof(*list));
+    i = 0;
+    ft_putstr("> ");
     while ((retval = read(1, line, SIZE)) > 0)
    {
-        
+        ft_putstr("> ");
         if (!strncmp(line, s, strlen(line) - 1))
             break;
         else
             list[i++] = strdup(line);
-        memset(line, 0, SIZE);
+        ft_memset(line, 0, SIZE);
     }
     if (retval == 0)
     	ft_putendl("21sh: warning: here-document delimited by end-of-file");
