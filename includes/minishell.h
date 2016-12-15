@@ -144,5 +144,6 @@ int				ft_term_off(struct termios *term);
 int				ft_term_on(struct termios *term);
 void			ft_someshit();
 int				ft_uneven(char *str);
+void			ft_complete_cmd(t_cmd *cmd, struct termios *term);
 
 #endif

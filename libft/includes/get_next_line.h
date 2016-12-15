@@ -7,6 +7,6 @@ int	ft_getchar(const int fd);
 #define GET_C_BUFF_SIZE 1024
 #endif
 # ifndef BUFF_SIZE
-#  define BUFF_SIZE 32
+#  define BUFF_SIZE 1024
 # endif
 #endif

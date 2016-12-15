@@ -115,6 +115,7 @@ int		main(int ac, char **av, char **envp)
 	while (42)
 	{
 		promt_val = prompt(&cmd, &hist);
+		ft_complete_cmd(&cmd, &term);
 		if (!ft_strequ(cmd.get_line, "") && ft_spaces_tabs(cmd.get_line))
 		{
 			ft_putchar('\n');
