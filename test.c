@@ -1,16 +1,42 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_double_less.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/15 14:07:17 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/15 14:12:44 by julekgwa         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <sys/wait.h>
+#ifndef SIZE
+#define SIZE 100
+#endif
 
-#include "minishell.h"
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+void	ft_putstr(char const *s)
+{
+	while (*s)
+		ft_putchar(*(s++));
+}
+
+void	ft_putendl(char const *s)
+{
+	while (*s)
+		ft_putchar(*(s++));
+	ft_putchar('\n');
+}
+
+int		ft_strequ(char const *s1, char const *s2)
+{
+	int	equal;
+
+	equal = strcmp(s1, s2);
+	if (equal == 0)
+		return (1);
+	return (0);
+}
 
 void	ft_read_line(int fd, char *s)
 {
@@ -19,8 +45,8 @@ void	ft_read_line(int fd, char *s)
 	int		i;
 	ssize_t	retval;
 
-	ft_memset(line, 0, SIZE);
-	ft_memset(list, 0, SIZE * sizeof(*list));
+	memset(line, 0, SIZE);
+	memset(list, 0, SIZE * sizeof(*list));
 	i = 0;
 	ft_putstr("> ");
 	while ((retval = read(1, line, SIZE)) > 0)
@@ -30,7 +56,7 @@ void	ft_read_line(int fd, char *s)
 			break ;
 		else
 			list[i++] = strdup(line);
-		ft_memset(line, 0, SIZE);
+		memset(line, 0, SIZE);
 	}
 	if (retval == 0)
 		ft_putendl("21sh: warning: here-document delimited by end-of-file");
@@ -113,4 +139,10 @@ int		ft_manage_double_less_than(char **cmd)
 	if (cmd[less_than_pos + 2] != NULL && cmd[less_than_pos + 3] != NULL)
 		ft_open_file_fd(less_than_pos, cmd);
 	return (less_than_pos);
+}
+
+int main()
+{
+	
+	return 0;
 }
