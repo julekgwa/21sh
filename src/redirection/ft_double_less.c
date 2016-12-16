@@ -85,14 +85,27 @@ int		ft_manage_double_less_than(char **cmd)
 	char	*delimiter;
 	int		less_than_pos;
 	int		fd[2];
+	pid_t	pid;
+	int status;
 
 	less_than_pos = ft_get_double_less_than_pos(cmd);
 	delimiter = cmd[less_than_pos + 1];
 	pipe(fd);
-	ft_read_line(fd[1], delimiter);
-	close(fd[1]);
-	dup2(fd[0], STDIN_FILENO);
-	close(fd[0]);
+	pid = fork();
+	if (pid == 0)
+	{
+		dup2(fd[0], STDIN_FILENO);
+		ft_read_line(fd[1], delimiter);
+		close(fd[0]);
+		exit(0);
+	}
+	else
+	{
+		wait(&status);
+		if (status > 0)
+			exit(1);
+	}
+	// close(fd[1]);
 	if (cmd[less_than_pos + 2] != NULL && cmd[less_than_pos + 3] != NULL)
 		ft_open_file_fd(less_than_pos, cmd);
 	return (less_than_pos);
