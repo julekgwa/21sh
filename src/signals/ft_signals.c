@@ -54,3 +54,10 @@ void	ft_someshit(void)
 	ft_putstr("$> ");
 	ft_putstr(RESET);
 }
+
+int		ft_enter_key(char **comm, int *pos)
+{
+	*pos = -1;
+	ft_cursor(*comm, *pos);
+	return (1);
+}

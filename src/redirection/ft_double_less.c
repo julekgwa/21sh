@@ -95,7 +95,6 @@ int		ft_process_here_doc(char **cmd)
 	if (pid == 0)
 	{
 		close(fd[0]);
-		dup2(fd[1], STDIN_FILENO);
 		ft_read_line(fd[1], delimiter);
 		exit(0);
 	}
