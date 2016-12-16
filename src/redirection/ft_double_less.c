@@ -6,7 +6,7 @@
 /*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 14:07:17 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/15 14:12:44 by julekgwa         ###   ########.fr       */
+/*   Updated: 2016/12/16 16:08:07 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,31 +80,31 @@ void	ft_open_file_fd(int pos, char **cmd)
 	}
 }
 
-int     ft_process_here_doc(char **cmd)
+int		ft_process_here_doc(char **cmd)
 {
-    char    *delimiter;
-    int     heredoc_pos;
-    int     fd[2];
-    pid_t   pid;
-    int     status;
+	char	*delimiter;
+	int		heredoc_pos;
+	int		fd[2];
+	pid_t	pid;
+	int		status;
 
-    heredoc_pos = ft_get_here_doc_pos(cmd);
-    delimiter = cmd[heredoc_pos + 1];
-    pipe(fd);
-    pid = fork();
-    if (pid == 0)
-    {
-        close(fd[0]);
-        dup2(fd[1], STDIN_FILENO);
-        ft_read_line(fd[1], delimiter);
-        exit(0);
-    }
-    else
-    {
-        close(fd[1]);
-        wait(&status);
-    }
-    if (cmd[heredoc_pos + 2] != NULL && cmd[heredoc_pos + 3] != NULL)
-        ft_open_file_fd(heredoc_pos, cmd);
-    return (heredoc_pos);
+	heredoc_pos = ft_get_here_doc_pos(cmd);
+	delimiter = cmd[heredoc_pos + 1];
+	pipe(fd);
+	pid = fork();
+	if (pid == 0)
+	{
+		close(fd[0]);
+		dup2(fd[1], STDIN_FILENO);
+		ft_read_line(fd[1], delimiter);
+		exit(0);
+	}
+	else
+	{
+		close(fd[1]);
+		wait(&status);
+	}
+	if (cmd[heredoc_pos + 2] != NULL && cmd[heredoc_pos + 3] != NULL)
+		ft_open_file_fd(heredoc_pos, cmd);
+	return (heredoc_pos);
 }

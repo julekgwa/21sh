@@ -146,5 +146,6 @@ void			ft_someshit();
 int				ft_uneven(char *str);
 void			ft_complete_cmd(t_cmd *cmd, struct termios *term);
 char			**ft_remove_arrow(char **str);
+int				ft_enter_key(char **comm, int *pos);
 
 #endif

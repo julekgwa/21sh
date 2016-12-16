@@ -65,13 +65,6 @@ void	ft_run_commands(char **user_comm, char *line, t_env *envp, t_stack hist)
 	ft_advanced_com(user_comm, line, envp, hist);
 }
 
-int		ft_enter_key(char **comm, int *pos)
-{
-	*pos = -1;
-	ft_cursor(*comm, *pos);
-	return (1);
-}
-
 char	*ft_build_comm(t_stack *hist, char *comm, char *buf, int pos)
 {
 	while (42)
