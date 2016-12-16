@@ -127,8 +127,8 @@ t_env			*copy_envp(int capacity, char **envp);
 void			free_envp(t_env *stack);
 int				ft_push_env(t_env *stack, char *value);
 int				ft_is_full(t_env *stack);
-int				fork_pipes(int n, char **cmd, char **envp, int i);
-int				ft_file_redirection(char **red, char **envp, int arrow, int co);
+int				fork_pipes(int n[], char **cmd, char **envp, int i);
+int				ft_file_redirection(char **red, char **envp, int arr[], int co);
 int				ft_is_redirect(char **cmd);
 int				ft_arrow_pos(char **cmd);
 int				ft_ctrl_b_f(char *buf);
@@ -139,7 +139,7 @@ int				ft_manage_file_descriptors(char **cmd);
 int				ft_get_less_than(char **cmd);
 int				ft_is_less_than(char **cmd);
 int				ft_get_here_doc_pos(char **cmd);
-int				ft_process_here_doc(char **cmd);
+int				ft_process_here_doc(char **cmd, int is_pipe);
 int				ft_term_off(struct termios *term);
 int				ft_term_on(struct termios *term);
 void			ft_someshit();
@@ -147,5 +147,6 @@ int				ft_uneven(char *str);
 void			ft_complete_cmd(t_cmd *cmd, struct termios *term);
 char			**ft_remove_arrow(char **str);
 int				ft_enter_key(char **comm, int *pos);
+int				ft_read_here_doc(int fd, char *s);
 
 #endif

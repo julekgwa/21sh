@@ -73,6 +73,7 @@ void	ft_execute(char *command, char **list_comm, char *line, char **envp)
 {
 	pid_t	pid;
 	int		status;
+	int		pipes[2];
 	char	**split_com;
 
 	if ((pid = fork()) < 0)
@@ -85,7 +86,9 @@ void	ft_execute(char *command, char **list_comm, char *line, char **envp)
 		if (CONTAINS(line, '|') || CONTAINS(line, '>') || CONTAINS(line, '<'))
 		{
 			split_com = ft_strsplit(line, '|');
-			fork_pipes(ft_array_len(split_com), split_com, envp, 0);
+			pipes[0] = ft_array_len(split_com);
+			pipes[1] = CONTAINS(line, '|') ? 1 : 0;
+			fork_pipes(pipes, split_com, envp, 0);
 			freecopy(split_com);
 		}
 		else

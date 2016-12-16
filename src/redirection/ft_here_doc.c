@@ -80,22 +80,18 @@ void	ft_open_file_fd(int pos, char **cmd)
 	}
 }
 
-int		ft_process_here_doc(char **cmd)
+void	ft_here_doc_pipe(int fd[], char *delimiter)
 {
-	char	*delimiter;
-	int		heredoc_pos;
-	int		fd[2];
 	pid_t	pid;
 	int		status;
+	int		retval;
 
-	heredoc_pos = ft_get_here_doc_pos(cmd);
-	delimiter = cmd[heredoc_pos + 1];
-	pipe(fd);
 	pid = fork();
 	if (pid == 0)
 	{
 		close(fd[0]);
-		ft_read_line(fd[1], delimiter);
+		retval = ft_read_here_doc(fd[1], delimiter);
+		ft_putnbr(retval);
 		exit(0);
 	}
 	else
@@ -103,6 +99,26 @@ int		ft_process_here_doc(char **cmd)
 		close(fd[1]);
 		wait(&status);
 	}
+}
+
+int		ft_process_here_doc(char **cmd, int is_pipe)
+{
+	char	*delimiter;
+	int		heredoc_pos;
+	int		fd[2];
+
+	heredoc_pos = ft_get_here_doc_pos(cmd);
+	delimiter = cmd[heredoc_pos + 1];
+	pipe(fd);
+	if (is_pipe)
+	{
+		ft_here_doc_pipe(fd, delimiter);
+		return (heredoc_pos);
+	}
+	ft_read_line(fd[1], delimiter);
+	close(fd[1]);
+	dup2(fd[0], STDIN_FILENO);
+	close(fd[0]);
 	if (cmd[heredoc_pos + 2] != NULL && cmd[heredoc_pos + 3] != NULL)
 		ft_open_file_fd(heredoc_pos, cmd);
 	return (heredoc_pos);

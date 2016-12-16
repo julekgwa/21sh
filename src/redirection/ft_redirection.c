@@ -36,30 +36,31 @@ void	ft_open_file(char *file_name, int arrow)
 	close(fd);
 }
 
-int		ft_file_redirection(char **red, char **envp, int arrow, int count)
+int		ft_file_redirection(char **red, char **envp, int arrow[], int count)
 {
 	char	*file_name;
 	int		arrow_pos;
 
 	file_name = red[ft_array_len(red) - 1];
+	arrow[0] = 0;
 	arrow_pos = ft_arrow_pos(red);
 	if (ft_get_less_than(red) > 0)
-		arrow = 2;
+		arrow[0] = 2;
 	while (red[count])
 	{
 		if (ft_strequ(red[count], ">>"))
 		{
-			arrow = 1;
+			arrow[0] = 1;
 			break ;
 		}
 		count++;
 	}
 	if (ft_is_less_than(red))
-		arrow_pos = ft_process_here_doc(red);
+		arrow_pos = ft_process_here_doc(red, arrow[1]);
 	else if (ft_is_file_descriptor_aggr(red))
 		arrow_pos = ft_manage_file_descriptors(red);
 	else
-		ft_open_file(file_name, arrow);
+		ft_open_file(file_name, arrow[0]);
 	red[arrow_pos] = 0;
 	return (execve(red[0], &red[0], envp));
 }
