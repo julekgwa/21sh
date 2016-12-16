@@ -138,12 +138,13 @@ int				ft_get_file_descriptor_pos(char **cmd);
 int				ft_manage_file_descriptors(char **cmd);
 int				ft_get_less_than(char **cmd);
 int				ft_is_less_than(char **cmd);
-int				ft_get_double_less_than_pos(char **cmd);
-int				ft_manage_double_less_than(char **cmd);
+int				ft_get_here_doc_pos(char **cmd);
+int				ft_process_here_doc(char **cmd);
 int				ft_term_off(struct termios *term);
 int				ft_term_on(struct termios *term);
 void			ft_someshit();
 int				ft_uneven(char *str);
 void			ft_complete_cmd(t_cmd *cmd, struct termios *term);
+char			**ft_remove_arrow(char **str);
 
 #endif

@@ -55,7 +55,7 @@ int		ft_file_redirection(char **red, char **envp, int arrow, int count)
 		count++;
 	}
 	if (ft_is_less_than(red))
-		arrow_pos = ft_manage_double_less_than(red);
+		arrow_pos = ft_process_here_doc(red);
 	else if (ft_is_file_descriptor_aggr(red))
 		arrow_pos = ft_manage_file_descriptors(red);
 	else
@@ -101,7 +101,7 @@ char	**ft_remove_arrow(char **str)
 		return (str);
 	while (str[j])
 	{
-		if (ft_strequ(str[j], "<"))
+		if (ft_strequ(str[j], "<<"))
 			j++;
 		str[i] = str[j];
 		i++;

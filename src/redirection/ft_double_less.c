@@ -39,7 +39,7 @@ void	ft_read_line(int fd, char *s)
 		write(fd, list[i], strlen(list[i]));
 }
 
-int		ft_get_double_less_than_pos(char **cmd)
+int		ft_get_here_doc_pos(char **cmd)
 {
 	int	i;
 
@@ -80,37 +80,31 @@ void	ft_open_file_fd(int pos, char **cmd)
 	}
 }
 
-int		ft_manage_double_less_than(char **cmd)
+int     ft_process_here_doc(char **cmd)
 {
-	char	*delimiter;
-	int		less_than_pos;
-	int		fd[2];
-	pid_t	pid;
-	int status;
+    char    *delimiter;
+    int     heredoc_pos;
+    int     fd[2];
+    pid_t   pid;
+    int     status;
 
-	less_than_pos = ft_get_double_less_than_pos(cmd);
-	delimiter = cmd[less_than_pos + 1];
-	pipe(fd);
-	pid = fork();
-	if (pid == 0)
-	{
-		close(fd[1]);
-		dup2(fd[0], STDIN_FILENO);
-		// ft_read_line(fd[1], delimiter);
-		close(fd[0]);
-		exit(0);
-	}
-	else
-	{
-		close(fd[0]);
-		ft_read_line(fd[1], delimiter);
-		close(fd[1]);
-		wait(&status);
-		if (status > 0)
-			exit(1);
-	}
-	// close(fd[1]);
-	if (cmd[less_than_pos + 2] != NULL && cmd[less_than_pos + 3] != NULL)
-		ft_open_file_fd(less_than_pos, cmd);
-	return (less_than_pos);
+    heredoc_pos = ft_get_here_doc_pos(cmd);
+    delimiter = cmd[heredoc_pos + 1];
+    pipe(fd);
+    pid = fork();
+    if (pid == 0)
+    {
+        close(fd[0]);
+        dup2(fd[1], STDIN_FILENO);
+        ft_read_line(fd[1], delimiter);
+        exit(0);
+    }
+    else
+    {
+        close(fd[1]);
+        wait(&status);
+    }
+    if (cmd[heredoc_pos + 2] != NULL && cmd[heredoc_pos + 3] != NULL)
+        ft_open_file_fd(heredoc_pos, cmd);
+    return (heredoc_pos);
 }
