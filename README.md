@@ -16,7 +16,7 @@ mini UNIX command interpreter.
 * the “;” command line separator
 * pipes “|”
 * redirections “<”, “>”, “<<” & “>>”
-* file descriptor aggregation
+* file descriptor aggregation (e.g. 2>&- & 1>&2)
 
 # Installation
 ```
