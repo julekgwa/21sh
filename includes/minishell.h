@@ -150,5 +150,7 @@ int				ft_enter_key(char **comm, int *pos);
 int				ft_read_here_doc(int fd, char *s);
 void			ft_remove_single_qoutes(t_cmd *cmd);
 void			ft_export(char **cmd, t_env *envp);
+void			ft_log_op(t_cmd *c, t_env *en, struct termios *t, t_stack *hi);
+int				ft_is_logical(char *line);
 
 #endif

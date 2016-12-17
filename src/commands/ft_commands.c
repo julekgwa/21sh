@@ -79,7 +79,10 @@ void	ft_pro_cmd(t_cmd *cmd, t_env *envp, struct termios *t, t_stack *hist)
 		ft_push(hist, ft_strdup(cmd->get_line));
 		ft_remove_single_qoutes(cmd);
 		ft_term_off(t);
-		ft_run_commands(cmd->user_comm, cmd->get_line, envp, *hist);
+		if (ft_is_logical(cmd->get_line))
+			ft_log_op(cmd, envp, t, hist);
+		else
+			ft_run_commands(cmd->user_comm, cmd->get_line, envp, *hist);
 		ft_term_on(t);
 	}
 }

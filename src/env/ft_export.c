@@ -15,7 +15,7 @@ void	ft_export(char **cmd, t_env *envp)
 	}
 	if (cmd[1] && CONTAINS(cmd[1], '='))
 	{
-		split = ft_strsplit(cmd[1], '=');
+		split = SPLIT(cmd[1], '=');
 		name = split[0];
 		r = NULL;
 		ft_unsetenv(name, envp, r);
