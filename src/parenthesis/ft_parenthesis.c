@@ -23,6 +23,25 @@ void	ft_check_eof(int read_value, t_cmd *cmd)
 	}
 }
 
+void	ft_remove_single_qoutes(t_cmd *cmd)
+{
+	int	i;
+	int	j;
+	int	len;
+
+	i = 0;
+	j = 0;
+	len = ft_strlen(cmd->get_line);
+	while (i < len)
+	{
+		if (cmd->get_line[j] == 39)
+			j++;
+		cmd->get_line[i] = cmd->get_line[j];
+		i++;
+		j++;
+	}
+}
+
 void	ft_complete_cmd(t_cmd *cmd, struct termios *term)
 {
 	char	complete[BUFF_SIZE];

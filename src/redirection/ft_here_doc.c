@@ -84,13 +84,12 @@ void	ft_here_doc_pipe(int fd[], char *delimiter)
 {
 	pid_t	pid;
 	int		status;
-	int		retval;
 
 	pid = fork();
 	if (pid == 0)
 	{
 		close(fd[0]);
-		retval = ft_read_here_doc(fd[1], delimiter);
+		ft_read_here_doc(fd[1], delimiter);
 		exit(0);
 	}
 	else

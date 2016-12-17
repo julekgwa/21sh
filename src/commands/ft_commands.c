@@ -77,6 +77,7 @@ void	ft_pro_cmd(t_cmd *cmd, t_env *envp, struct termios *t, t_stack *hist)
 			exit(0);
 		}
 		ft_push(hist, ft_strdup(cmd->get_line));
+		ft_remove_single_qoutes(cmd);
 		ft_term_off(t);
 		ft_run_commands(cmd->user_comm, cmd->get_line, envp, *hist);
 		ft_term_on(t);
