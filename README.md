@@ -3,13 +3,15 @@ mini UNIX command interpreter.
 
 21sh uses my own implementation of libc's functions, most of them start with `ft_`
 
-21sh implement a series of builtins: 
-* echo 
-* cd
-* setenv
-* unsetenv
-* env
-* exit
+21sh implements:
+
+* A series of builtins
+ * echo 
+ * cd
+ * setenv
+ * unsetenv
+ * env
+ * exit
 * line edition
 * the “;” command line separator
 * pipes “|”
