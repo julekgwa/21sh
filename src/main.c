@@ -14,7 +14,7 @@
 
 int		ft_search_command(char *command)
 {
-	static char	*cmd = "echo pwd cd history setenv unsetenv env exit clear";
+	static char	*cmd = "echo export pwd cd history unset setenv unsetenv env exit clear";
 	char		**comm_split;
 	int			i;
 
@@ -45,13 +45,15 @@ void	ft_execute_commands(char **cmd, char *line, t_env *envp, t_stack hist)
 		ft_putendl(dir);
 		free(dir);
 	}
+	else if (ft_strequ(cmd[0], "export"))
+		ft_export(cmd, envp);
 	else if (ft_strequ(cmd[0], "echo"))
 		ft_echo(line, envp->list);
 	else if (ft_strequ(cmd[0], "env"))
 		ft_print_env(envp);
 	else if (ft_strequ(cmd[0], "setenv"))
 		ft_set_envir(envp, line);
-	else if (ft_strequ(cmd[0], "unsetenv"))
+	else if (ft_strequ(cmd[0], "unsetenv") || ft_strequ(cmd[0], "unset"))
 		ft_unsetting_env(line, envp);
 	else if (ft_strequ(cmd[0], "history"))
 		ft_display_hist(hist);

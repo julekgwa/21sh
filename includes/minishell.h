@@ -149,5 +149,6 @@ char			**ft_remove_arrow(char **str);
 int				ft_enter_key(char **comm, int *pos);
 int				ft_read_here_doc(int fd, char *s);
 void			ft_remove_single_qoutes(t_cmd *cmd);
+void			ft_export(char **cmd, t_env *envp);
 
 #endif
