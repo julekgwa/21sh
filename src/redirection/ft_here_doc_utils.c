@@ -13,14 +13,14 @@ int	ft_read_here_doc(int fd, char *s)
 	retval = 0;
 	while ((retval = read(1, line, SIZE)) > 0)
 	{
-		if (!strncmp(line, s, strlen(line) - 1))
+		if (!ft_strncmp(line, s, ft_strlen(line) - 1))
 			break ;
 		else
-			list[i++] = strdup(line);
+			list[i++] = ft_strdup(line);
 		ft_memset(line, 0, SIZE);
 	}
 	i = -1;
 	while (list[++i])
-		write(fd, list[i], strlen(list[i]));
+		write(fd, list[i], ft_strlen(list[i]));
 	return (retval);
 }

@@ -26,17 +26,17 @@ void	ft_read_line(int fd, char *s)
 	while ((retval = read(1, line, SIZE)) > 0)
 	{
 		ft_putstr("> ");
-		if (!strncmp(line, s, strlen(line) - 1))
+		if (!ft_strncmp(line, s, ft_strlen(line) - 1))
 			break ;
 		else
-			list[i++] = strdup(line);
+			list[i++] = ft_strdup(line);
 		ft_memset(line, 0, SIZE);
 	}
 	if (retval == 0)
 		ft_putendl("21sh: warning: here-document delimited by end-of-file");
 	i = -1;
 	while (list[++i])
-		write(fd, list[i], strlen(list[i]));
+		write(fd, list[i], ft_strlen(list[i]));
 }
 
 int		ft_get_here_doc_pos(char **cmd)
@@ -91,7 +91,6 @@ void	ft_here_doc_pipe(int fd[], char *delimiter)
 	{
 		close(fd[0]);
 		retval = ft_read_here_doc(fd[1], delimiter);
-		ft_putnbr(retval);
 		exit(0);
 	}
 	else
