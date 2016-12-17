@@ -24,7 +24,15 @@ void		ft_clear_screen(void)
 
 void		ft_create_stack(t_stack *stack)
 {
+	t_search	*search;
+
+	search = (t_search *)malloc(sizeof(t_search));
 	ft_memset(stack->list, 0, 4096);
+	search->results = "";
+	search->prev_match = "";
+	search->fail = 0;
+	stack->search = search;
+	stack->ctrl_r = 0;
 	stack->count = -1;
 	stack->success = 0;
 	stack->top = -1;

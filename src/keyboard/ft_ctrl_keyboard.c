@@ -40,7 +40,7 @@ int		ft_character_keys(char *key_pressed)
 		return (0);
 }
 
-int		ft_enter_and_edit_keys(char *key_pressed, int *pos, char *comm)
+int		ft_enter_and_edit_keys(char *key_pressed, int *pos, char *comm, t_stack *hist)
 {
 	char	*key;
 	int		i;
@@ -59,7 +59,7 @@ int		ft_enter_and_edit_keys(char *key_pressed, int *pos, char *comm)
 			}
 			*(comm + i) = '\0';
 			*pos = *pos - 1;
-			ft_cursor(comm, *pos + 1);
+			ft_cursor(comm, *pos + 1, hist);
 		}
 		return (1);
 	}
@@ -92,30 +92,35 @@ int		ft_navigation_keys(char *key_pressed, int *pos, char *comm)
 	return (1);
 }
 
-void	ft_cursor(char *comm, int pos)
+void	ft_cursor(char *comm, int pos, t_stack *hist)
 {
 	int		i;
 
 	i = 0;
-	ft_someshit();
-	if (comm == NULL)
-		return ;
-	while (comm[i])
+	if (hist->ctrl_r)
+		ft_bck_i_search(comm, pos, hist);
+	else
 	{
-		if (i == pos - 1)
+		ft_someshit();
+		if (comm == NULL)
+			return ;
+		while (comm[i])
+		{
+			if (i == pos - 1)
+			{
+				tputs(tgetstr("so", NULL), 1, ft_myputchar);
+				ft_putchar(comm[i]);
+				tputs(tgetstr("se", NULL), 1, ft_myputchar);
+			}
+			else
+				ft_putchar(comm[i]);
+			i++;
+		}
+		if ((int)ft_strlen(comm) < pos)
 		{
 			tputs(tgetstr("so", NULL), 1, ft_myputchar);
-			ft_putchar(comm[i]);
+			ft_putchar(' ');
 			tputs(tgetstr("se", NULL), 1, ft_myputchar);
 		}
-		else
-			ft_putchar(comm[i]);
-		i++;
-	}
-	if ((int)ft_strlen(comm) < pos)
-	{
-		tputs(tgetstr("so", NULL), 1, ft_myputchar);
-		ft_putchar(' ');
-		tputs(tgetstr("se", NULL), 1, ft_myputchar);
 	}
 }

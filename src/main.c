@@ -74,23 +74,25 @@ char	*ft_build_comm(t_stack *hist, char *comm, char *buf, int pos)
 		hist->ret = read(0, buf, 4);
 		buf[hist->ret] = '\0';
 		if (buf[hist->ret - 1] == '\n')
-			if (ft_enter_key(&comm, &pos))
+			if (ft_enter_key(&comm, &pos, hist))
 				break ;
 		if (buf[0] == 4 && ft_strequ(comm, ""))
 			return ((comm = "exit"));
 		else if (buf[0] == 12)
-			ft_ctrl_l(comm, pos);
+			ft_ctrl_l(comm, pos, hist);
+		else if (buf[0] == 18)
+			hist->ctrl_r = 1;
 		else if (ft_ctrl_b_f(buf))
 			ft_move_word(comm, &pos, buf);
 		else if (ft_up_down(buf))
 			manage_up_down(&buf, &comm, hist, &pos);
-		else if (ft_enter_and_edit_keys(buf, &pos, comm))
+		else if (ft_enter_and_edit_keys(buf, &pos, comm, hist))
 			;
 		else if (ft_navigation_keys(buf, &pos, comm))
-			ft_cursor(comm, pos + 1);
+			ft_cursor(comm, pos + 1, hist);
 		else if (ft_character_keys(buf) && buf[0] != 27)
-			ft_process_buff(&comm, pos++, buf[0]);
-		ft_cursor(comm, pos + 1);
+			ft_process_buff(&comm, pos++, buf[0], hist);
+		ft_cursor(comm, pos + 1, hist);
 	}
 	return (comm);
 }

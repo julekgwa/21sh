@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	ft_process_buff(char **com, int pos, char c)
+void	ft_process_buff(char **com, int pos, char c, t_stack *hist)
 {
 	char	*copy;
 	char	*buffer;
@@ -38,7 +38,7 @@ void	ft_process_buff(char **com, int pos, char c)
 	}
 	ft_memcpy(*com, buffer, ft_strlen(buffer));
 	free(buffer);
-	ft_cursor(*com, pos + 2);
+	ft_cursor(*com, pos + 2, hist);
 }
 
 int		ft_ctrl_b_f(char *buf)

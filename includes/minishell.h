@@ -28,16 +28,36 @@
 # define WHT   "\x1B[37m"
 # define RESET "\x1B[0m"
 # define SIZE 100
+# define STRSTR ft_strstr
+# define SUB ft_strsub
+# define FULL ft_full_word
 # define QUOTES ft_rm_quotes
 # define CONTAINS ft_contains
 # define SEARCH ft_search_command
 # define SPLIT ft_strsplit
+
+typedef struct	s_search
+{
+	char		*prev_match;
+	char		*results;
+	int			fail;
+}				t_search;
+
+typedef	struct 	s_search_hist
+{
+	char 		*haystack;
+	char 		*needle;
+	char 		*with;
+	char 		*replace;
+}				t_search_hist;
 
 typedef struct	s_stack
 {
 	int			capacity;
 	int			count;
 	int			top;
+	t_search	*search;
+	int			ctrl_r;
 	char		*list[4096];
 	int			success;
 	int			ret;
@@ -90,13 +110,13 @@ int				ft_init_keyboard(struct termios *term, int *ac, char ***av);
 int				ft_close_keyboard(struct termios *term);
 int				ft_function_keys(char *key_pressed);
 int				ft_character_keys(char *key_pressed);
-int				ft_enter_and_edit_keys(char *key_pressed, int *pos, char *comm);
+int				ft_enter_and_edit_keys(char *key_pressed, int *pos, char *comm, t_stack *hist);
 int				ft_navigation_keys(char *key_pressed, int *pos, char *comm);
 void			ft_echo_off(char *s, struct termios *term);
 char			*ft_build_comm(t_stack *hist, char *comm, char *buf, int pos);
 int				ft_contains(char *str, char c);
-void			ft_cursor(char *comm, int pos);
-void			ft_process_buff(char **com, int pos, char c);
+void			ft_cursor(char *comm, int pos, t_stack *hist);
+void			ft_process_buff(char **com, int pos, char c, t_stack *hist);
 void			ft_create_stack(t_stack *hist);
 void			ft_push(t_stack *stack, char *hist);
 char			*ft_up(t_stack *stack);
@@ -110,7 +130,7 @@ void			ft_signalhandle(int num);
 void			ft_signal(void);
 void			init_main(int *ac, char ***av);
 void			manage_up_down(char **buf, char **com, t_stack *hist, int *pos);
-void			ft_ctrl_l(char *comm, int pos);
+void			ft_ctrl_l(char *comm, int pos, t_stack *hist);
 void			ft_run_commands(char **com, char *line, t_env *env, t_stack hi);
 void			ft_pro_cmd(t_cmd *c, t_env *en, struct termios *t, t_stack *hi);
 void			free_cmd(t_cmd *cmd);
@@ -146,11 +166,15 @@ void			ft_someshit();
 int				ft_uneven(char *str);
 void			ft_complete_cmd(t_cmd *cmd, struct termios *term);
 char			**ft_remove_arrow(char **str);
-int				ft_enter_key(char **comm, int *pos);
+int				ft_enter_key(char **comm, int *pos, t_stack *hist);
 int				ft_read_here_doc(int fd, char *s);
 void			ft_remove_single_qoutes(t_cmd *cmd);
 void			ft_export(char **cmd, t_env *envp);
 void			ft_log_op(t_cmd *c, t_env *en, struct termios *t, t_stack *hi);
 int				ft_is_logical(char *line);
+void			ft_display_cmd(char *cmd, int pos);
+void			ft_display_sp(int sp);
+char			*ft_get_prev_hist(t_stack hist);
+void			ft_bck_i_search(char *cmd, int pos, t_stack *hist);
 
 #endif

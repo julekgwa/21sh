@@ -55,9 +55,9 @@ void	ft_someshit(void)
 	ft_putstr(RESET);
 }
 
-int		ft_enter_key(char **comm, int *pos)
+int		ft_enter_key(char **comm, int *pos, t_stack *hist)
 {
 	*pos = -1;
-	ft_cursor(*comm, *pos);
+	ft_cursor(*comm, *pos, hist);
 	return (1);
 }
