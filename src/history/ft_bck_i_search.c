@@ -28,6 +28,7 @@ void	ft_search_hist(char *cmd, t_stack hist, t_search *bck_search, int found)
 	char	**l;
 	int		i;
 	int		n;
+	char	*sub_s;
 
 	if (ft_strequ(cmd, ""))
 		return ;
@@ -38,9 +39,10 @@ void	ft_search_hist(char *cmd, t_stack hist, t_search *bck_search, int found)
 		i = -1;
 		while (l[++i])
 		{
-			if (STRSTR(l[i], SUB(cmd, 0, n)) && !FULL(l, SUB(cmd, 0, n), i + 1))
+			sub_s = SUB(cmd, 0, n);
+			if (STRSTR(l[i], sub_s) && !FULL(l, sub_s, i + 1))
 			{
-				if (ft_strlen(cmd) > ft_strlen(ft_strsub(cmd, 0, n)))
+				if (ft_strlen(cmd) > ft_strlen(sub_s))
 					bck_search->fail = 1;
 				bck_search->prev_match = bck_search->results;
 				bck_search->results = l[i];
