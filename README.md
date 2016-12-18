@@ -12,11 +12,18 @@ mini UNIX command interpreter.
  * unsetenv
  * env
  * exit
+* History
+ * history n
+ * history -c
+ * !string
+ * !n
+ * !! and !-1
+ * CTRL+R (reverse-i-search)
 * line edition
 * the “;” command line separator
 * pipes “|”
 * redirections “<”, “>”, “<<” & “>>”
-* file descriptor aggregation (e.g. 2>&- & 1>&2)
+* file descriptor aggregation (e.g. ``2>&-`` & ``1>&2``)
 
 # Installation
 ```
