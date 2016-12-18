@@ -35,6 +35,7 @@ void		ft_create_stack(t_stack *stack)
 	stack->ctrl_r = 0;
 	stack->count = -1;
 	stack->success = 0;
+	stack->paste = "testing";
 	stack->top = -1;
 	stack->capacity = 4096;
 }
