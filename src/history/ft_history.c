@@ -71,7 +71,9 @@ char	*ft_keys_up_down(char *key_pressed, t_stack *hist, int *pos)
 void	ft_copy_n_paste(char **cmd, char *buf, int *pos, t_stack *hist)
 {
 	int		len;
+	char	*tmp;
 
+	tmp = "";
 	len = ft_strlen(*cmd);
 	if (buf[0] == 22)
 	{
@@ -89,8 +91,10 @@ void	ft_copy_n_paste(char **cmd, char *buf, int *pos, t_stack *hist)
 		}
 		else if (buf[0] == 24)
 		{
-			hist->paste = *cmd;
-			*cmd = ft_strdup("");
+			if (ft_strequ(*cmd, ""))
+				return ;
+			hist->paste = ft_strdup(*cmd);
+			*cmd = ft_strdup(tmp);
 			*pos = 0;
 		}
 	}

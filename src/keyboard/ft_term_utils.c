@@ -26,7 +26,7 @@ void		ft_create_stack(t_stack *stack)
 {
 	t_search	*search;
 
-	search = (t_search *)malloc(sizeof(t_search));
+	search = (t_search *)malloc(sizeof(t_search) + 1);
 	ft_memset(stack->list, 0, 4096);
 	search->results = "";
 	search->prev_match = "";
@@ -35,7 +35,7 @@ void		ft_create_stack(t_stack *stack)
 	stack->ctrl_r = 0;
 	stack->count = -1;
 	stack->success = 0;
-	stack->paste = "testing";
+	stack->paste = "";
 	stack->top = -1;
 	stack->capacity = 4096;
 }
