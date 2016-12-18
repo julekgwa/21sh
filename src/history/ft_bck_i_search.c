@@ -62,16 +62,10 @@ void	ft_bck_i_search(char *cmd, int pos, t_stack *hist)
 	hist->search->results = "";
 	hist->search->prev_match = "";
 	hist->search->fail = 0;
-	// prompt_display(hist);
 	ft_search_hist(cmd, *hist, hist->search, 1);
 	search = hist->search->results;
-	if (!ft_strequ(search, ""))
-		ft_putstr(search);
 	ft_putstr("\n");
-	if (hist->search->fail || (ft_strequ(search, "") && ft_strlen(cmd) > 0))
-		ft_putstr("failing ");
-	ft_putstr("bck-i-search: ");
-	ft_display_cmd(cmd, pos);
+	ft_display_bck_i_search(cmd, pos, hist, search);
 }
 
 void	ft_display_cmd(char *cmd, int pos)

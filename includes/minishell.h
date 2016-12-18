@@ -123,8 +123,8 @@ char			*ft_up(t_stack *stack);
 char			*ft_down(t_stack *stack);
 char			*ft_keys_up_down(char *key_pressed, t_stack *hist, int *pos);
 int				ft_up_down(char *key_pressed);
-void			ft_display_hist(t_stack hist);
-void			ft_get_hist(char *history, t_stack hist);
+void			ft_display_hist(t_stack *hist, char **history, int i, int lim);
+char			*ft_get_hist(char *history, t_stack hist);
 char			*prompt(t_cmd *command, t_stack *hist);
 void			ft_signalhandle(int num);
 void			ft_signal(void);
@@ -176,5 +176,10 @@ void			ft_display_cmd(char *cmd, int pos);
 void			ft_display_sp(int sp);
 char			*ft_get_prev_hist(t_stack hist);
 void			ft_bck_i_search(char *cmd, int pos, t_stack *hist);
+void			ft_exclamation(char **comm, t_stack *hist, int *pos);
+void			ft_man_search_replace(char **cmd, int *pos, t_stack hist);
+char			*ft_search_replace(t_search_hist s, int i, int j, int k);
+void			ft_clear_hist(t_stack *hist);
+void			ft_display_bck_i_search(char *cmd, int pos, t_stack *hist, char *search);
 
 #endif

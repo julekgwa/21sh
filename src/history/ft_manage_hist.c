@@ -21,33 +21,33 @@ void	ft_print_hist(char *str, int spaces, int iter)
 	ft_putendl(str);
 }
 
-// void	ft_display_hist(t_stack *hist, char **history, int i, int lim)
-// {
-// 	char	**list;
+void	ft_display_hist(t_stack *hist, char **history, int i, int lim)
+{
+	char	**list;
 
-// 	list = hist->list;
-// 	if (history[1] != NULL && !ft_strequ(history[1], "-c"))
-// 	{
-// 		lim = ft_atoi(history[1]);
-// 		while (i < lim && *list)
-// 			ft_print_hist(*list++, lim, i++);
-// 	}
-// 	else if (ft_array_len(history) >= 2 && ft_strequ(history[1], "-c"))
-// 		ft_clear_hist(hist);
-// 	else
-// 	{
-// 		while (*list != NULL)
-// 		{
-// 			lim = ft_strlen(ft_itoa(hist->size));
-// 			if (!ft_strequ(*list, ""))
-// 			{
-// 				ft_print_hist(*list, lim - ft_strlen(ft_itoa(i + 1)), i);
-// 				i++;
-// 			}
-// 			list++;
-// 		}
-// 	}
-// }
+	list = hist->list;
+	if (history[1] != NULL && !ft_strequ(history[1], "-c"))
+	{
+		lim = ft_atoi(history[1]);
+		while (i < lim && *list)
+			ft_print_hist(*list++, lim, i++);
+	}
+	else if (ft_array_len(history) >= 2 && ft_strequ(history[1], "-c"))
+		ft_clear_hist(hist);
+	else
+	{
+		while (*list != NULL)
+		{
+			lim = ft_strlen(ft_itoa(hist->top));
+			if (!ft_strequ(*list, ""))
+			{
+				ft_print_hist(*list, lim - ft_strlen(ft_itoa(i + 1)), i);
+				i++;
+			}
+			list++;
+		}
+	}
+}
 
 void	ft_clear_hist(t_stack *hist)
 {
@@ -109,7 +109,7 @@ void	ft_man_search_replace(char **cmd, int *pos, t_stack hist)
 	*cmd = ft_search_replace(search, 0, 0, 0);
 	if (ft_strequ(search.haystack, *cmd))
 	{
-		ft_putendl("\n42sh: substitution failed");
+		ft_putendl("\n21sh: substitution failed");
 		*cmd = "";
 	}
 	i = ft_strlen(*cmd);

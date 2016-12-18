@@ -55,9 +55,42 @@ void	ft_someshit(void)
 	ft_putstr(RESET);
 }
 
+// int		ft_enter_key(char **comm, int *pos, t_stack *hist)
+// {
+// 	*pos = -1;
+// 	ft_cursor(*comm, *pos, hist);
+// 	if (hist->ctrl_r)
+// 	{
+// 		*comm = hist->search->results;
+// 		hist->ctrl_r = 0;
+// 	}
+// 	return (1);
+// }
 int		ft_enter_key(char **comm, int *pos, t_stack *hist)
 {
 	*pos = -1;
-	ft_cursor(*comm, *pos, hist);
-	return (1);
+	if (*comm[0] == '!')
+	{
+		ft_exclamation(comm, hist, pos);
+	}
+	else if (*comm[0] == '^')
+		ft_man_search_replace(comm, pos, *hist);
+	else if (ft_end_with(*comm, ')') && !ft_start_with(*comm, '('))
+	{
+		ft_putendl("\n42sh: parse error near `)'");
+		*comm = "";
+		*pos = ft_strlen(*comm);
+		ft_cursor(*comm, *pos + 1, hist);
+	}
+	else
+	{
+		ft_cursor(*comm, *pos, hist);
+		if (hist->ctrl_r == 1)
+		{
+			*comm = hist->search->results;
+			hist->ctrl_r = 0;
+		}
+		return (1);
+	}
+	return (0);
 }

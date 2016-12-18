@@ -47,16 +47,40 @@ void		ft_push(t_stack *stack, char *hist)
 	stack->count = stack->top + 1;
 }
 
-void		ft_display_hist(t_stack hist)
+void		ft_exclamation(char **comm, t_stack *hist, int *pos)
 {
-	int		i;
+	if (ft_strequ(*comm, "!!") || ft_strequ(*comm, "!-1"))
+		*comm = ft_get_prev_hist(*hist);
+	else
+		*comm = ft_get_hist(*comm, *hist);
+	*pos = ft_strlen(*comm);
+	ft_cursor(*comm, *pos + 1, hist);
+}
 
-	i = 0;
-	while (hist.list[i])
+char	*ft_get_hist(char *history, t_stack hist)
+{
+	char	*tmp;
+	int		i;
+	char	*com;
+	int		index;
+
+	tmp = history + 1;
+	i = -1;
+	com = "";
+	if ((index = ft_atoi(tmp)))
 	{
-		ft_putnbr(i + 1);
-		ft_putstr("  ");
-		ft_putendl(hist.list[i]);
-		i++;
+		index -= 1;
+		while (hist.list[++i] && i != index)
+			if (i == index)
+				com = hist.list[i];
 	}
+	else
+	{
+		while (hist.list[++i])
+			if (ft_strncmp(tmp, hist.list[i], ft_strlen(tmp)) == 0)
+				com = hist.list[i];
+	}
+	if (ft_strequ(com, ""))
+		ft_print_error(tmp, 5);
+	return (com);
 }

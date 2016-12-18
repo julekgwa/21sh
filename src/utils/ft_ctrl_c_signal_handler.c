@@ -25,13 +25,13 @@ void	ft_print_error(char *cmd, int errorno)
 {
 	if (errorno == 0)
 	{
-		ft_putstr("minishell: ");
+		ft_putstr("21sh: ");
 		ft_putstr(cmd);
 		ft_putstr(": command not found...\n");
 	}
 	else if (errorno == 1)
 	{
-		ft_putstr("minishell: ");
+		ft_putstr("21sh: ");
 		ft_putstr(cmd);
 		ft_putstr(": Permission denied\n");
 	}
@@ -40,6 +40,12 @@ void	ft_print_error(char *cmd, int errorno)
 		ft_putstr("cd: ");
 		ft_putstr("no such file or directory: ");
 		ft_putendl(cmd);
+	}
+	else if (errorno == 5)
+	{
+		ft_putstr("\n21sh: event not found: ");
+		ft_putendl(cmd);
+		return ;
 	}
 }
 

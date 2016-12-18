@@ -55,3 +55,15 @@ void	ft_ctrl_l(char *comm, int pos, t_stack *hist)
 	ft_clear_screen();
 	ft_cursor(comm, pos + 1, hist);
 }
+
+void	ft_display_bck_i_search(char *cmd, int pos, t_stack *hist, char *search)
+{
+	if (hist->search->fail || (ft_strequ(search, "") && ft_strlen(cmd) > 0))
+		ft_putstr("(failed bck-i-search)`");
+	else
+		ft_putstr("(bck-i-search)`");
+	ft_display_cmd(cmd, pos);
+	ft_putstr("':");
+	if (!ft_strequ(search, ""))
+		ft_putstr(search);
+}
