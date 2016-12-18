@@ -21,8 +21,8 @@ mini UNIX command interpreter.
  * CTRL+R (reverse-i-search)
 * Copy and Paste
  * CTRL-K - Cut or delete what is currently in front of the cursor.
- * CTRL-W - Cut or delete the entire line that has being typed.
- * CTRL-Y - Paste the last thing you deleted (using CTRL-K or CTRL-W ).
+ * CTRL-X - Cut or delete the entire line that has being typed.
+ * CTRL-P - Paste the last thing you deleted (using CTRL-K or CTRL-X ).
 * line edition
 * the “;” command line separator
 * pipes “|”

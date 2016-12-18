@@ -78,7 +78,7 @@ char	*ft_build_comm(t_stack *hist, char *comm, char *buf, int pos)
 				break ;
 		if (buf[0] == 4 && ft_strequ(comm, ""))
 			return ((comm = "exit"));
-		else if (buf[0] == 11 || buf[0] == 23 || buf[0] == 25)
+		else if (buf[0] == 11 || buf[0] == 24 || buf[0] == 22)
 			ft_copy_n_paste(&comm, buf, &pos, hist);
 		else if (buf[0] == 12)
 			ft_ctrl_l(comm, pos, hist);
