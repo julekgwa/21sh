@@ -38,7 +38,7 @@ t_env	*copy_envp(int capacity, char **envp)
 		stack->top = -1;
 		stack->malloc_id = -1;
 		stack->list = (char **)malloc(stack->capacity * sizeof(char *));
-		memset(stack->list, 0, stack->capacity * sizeof(char *));
+		ft_memset(stack->list, 0, stack->capacity * sizeof(char *));
 		while (envp[i])
 			ft_push_env(stack, envp[i++]);
 	}

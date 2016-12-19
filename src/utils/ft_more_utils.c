@@ -51,16 +51,14 @@ void	ft_advanced_com(char **commands, char *line, t_env *envp, t_stack hist)
 	char	*exec;
 	char	**search;
 
+	search = SPLIT(line, ' ');
 	if (CONTAINS(line, ';'))
 	{
 		ft_multi_com(line, envp, hist);
 		return ;
 	}
-	else if (SEARCH((search = SPLIT(line, ' '))[0]) && !CONTAINS(line, '>'))
-	{
-		hist.success = 1;
+	else if (SEARCH(search[0]) && !CONTAINS(line, '>'))
 		ft_execute_commands(search, line, envp, hist);
-	}
 	else if ((exec = ft_build_exec(envp->list, commands)))
 	{
 		ft_execute(exec, commands, line, envp->list);
@@ -70,8 +68,7 @@ void	ft_advanced_com(char **commands, char *line, t_env *envp, t_stack hist)
 		ft_execute(commands[0], commands, line, envp->list);
 	else
 		ft_print_error(commands[0], 0);
-	if (!hist.success)
-		freecopy(search);
+	freecopy(search);
 }
 
 char	*ft_last_word(const char *s)
