@@ -17,12 +17,15 @@ void	freecopy(char **copy)
 	int	i;
 
 	i = 0;
-	while (i < ft_array_len(copy))
+	if (copy != NULL)
 	{
-		free(copy[i]);
-		i++;
+		while (copy[i] != NULL)
+		{
+			free(copy[i]);
+			i++;
+		}
+		free(copy);
 	}
-	free(copy);
 }
 
 void	freesplit(char **split)

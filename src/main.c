@@ -122,6 +122,7 @@ int		main(int ac, char **av, char **envp)
 		}
 		else
 			ft_putchar('\n');
+		free(promt_val);
 	}
 	return (0);
 }
