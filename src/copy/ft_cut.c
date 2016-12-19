@@ -14,7 +14,8 @@
 
 void	ft_paste(char **cmd, int *pos, t_stack *hist)
 {
-	*cmd = hist->paste;
+	// *cmd = hist->paste;
+	ft_strcat(*cmd, hist->paste);
 	*pos = ft_strlen(*cmd);
 }
 
@@ -39,7 +40,7 @@ void	ft_cut(char **cmd, char *buf, int *pos, t_stack *hist)
 		if (ft_strequ(*cmd, ""))
 			return ;
 		hist->paste = ft_strdup(*cmd);
-		*cmd = ft_strdup("");
+		ft_bzero(*cmd, len);
 		*pos = 0;
 	}
 }
@@ -58,7 +59,7 @@ void	ft_copy(char **cmd, char *buf, int *pos, t_stack *hist)
 			hist->paste = strndup(*cmd, *pos);
 		}
 	}
-	else if (buf[0] == 25)
+	else if (buf[0] == 9)
 	{
 		if (ft_strequ(*cmd, ""))
 			return ;
@@ -72,7 +73,7 @@ void	ft_copy_n_paste(char **cmd, char *buf, int *pos, t_stack *hist)
 		ft_paste(cmd, pos, hist);
 	else if (buf[0] == 11 || buf[0] == 24)
 		ft_cut(cmd, buf, pos, hist);
-	else if (buf[0] == 23 || buf[0] == 25)
+	else if (buf[0] == 23 || buf[0] == 9)
 		ft_copy(cmd, buf, pos, hist);
 }
 
@@ -80,7 +81,7 @@ int		ft_is_copy_n_paste(char *buf)
 {
 	if (buf[0] == 11 || buf[0] == 24 || buf[0] == 22)
 		return (1);
-	else if (buf[0] == 23 || buf[0] == 25)
+	else if (buf[0] == 23 || buf[0] == 9)
 		return (1);
 	return (0);
 }
