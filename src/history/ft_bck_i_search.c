@@ -47,8 +47,10 @@ void	ft_search_hist(char *cmd, t_stack hist, t_search *bck_search, int found)
 				bck_search->prev_match = bck_search->results;
 				bck_search->results = l[i];
 				found = 0;
+				free(sub_s);
 				break ;
 			}
+			free(sub_s);
 		}
 		n--;
 	}

@@ -183,5 +183,6 @@ char			*ft_search_replace(t_search_hist s, int i, int j, int k);
 void			ft_clear_hist(t_stack *hist);
 void			ft_display_bck_i_search(char *cmd, int pos, t_stack *hist, char *search);
 void			ft_copy_n_paste(char **cmd, char *buf, int *pos, t_stack *hist);
+int				ft_is_copy_n_paste(char *buf);
 
 #endif

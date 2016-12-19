@@ -67,35 +67,3 @@ char	*ft_keys_up_down(char *key_pressed, t_stack *hist, int *pos)
 		*pos = (int)ft_strlen(res);
 	return (res);
 }
-
-void	ft_copy_n_paste(char **cmd, char *buf, int *pos, t_stack *hist)
-{
-	int		len;
-	char	*tmp;
-
-	tmp = "";
-	len = ft_strlen(*cmd);
-	if (buf[0] == 22)
-	{
-		*cmd = ft_strdup(hist->paste);
-		*pos = ft_strlen(*cmd);
-	}
-	else
-	{
-		if (buf[0] == 11)
-		{
-			if (*pos == len || *pos > len)
-				hist->paste = "";
-			else
-				hist->paste = *cmd + *pos;
-		}
-		else if (buf[0] == 24)
-		{
-			if (ft_strequ(*cmd, ""))
-				return ;
-			hist->paste = ft_strdup(*cmd);
-			*cmd = ft_strdup(tmp);
-			*pos = 0;
-		}
-	}
-}

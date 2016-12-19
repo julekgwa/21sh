@@ -22,7 +22,7 @@ mini UNIX command interpreter.
 * Copy and Paste
  * CTRL-K - Cut or delete what is currently in front of the cursor.
  * CTRL-X - Cut or delete the entire line that has being typed.
- * CTRL-P - Paste the last thing you deleted (using CTRL-K or CTRL-X ).
+ * CTRL-V - Paste the last thing you deleted (using CTRL-K or CTRL-X ).
 * line edition
 * the “;” command line separator
 * pipes “|”
