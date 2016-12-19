@@ -6,7 +6,7 @@
 /*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/19 12:53:08 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/19 12:53:10 by julekgwa         ###   ########.fr       */
+/*   Updated: 2016/12/19 13:28:09 by ktshikot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,27 +94,23 @@ int		ft_navigation_keys(char *key_pressed, int *pos, char *comm)
 
 void	ft_cursor(char *comm, int pos, t_stack *hist)
 {
-	int		i;
-
-	i = 0;
+	hist->counter = 0;
 	if (hist->ctrl_r)
 		ft_bck_i_search(comm, pos, hist);
 	else
 	{
 		ft_someshit();
-		if (comm == NULL)
-			return ;
-		while (comm[i])
+		while (!(comm == NULL) && comm[hist->counter])
 		{
-			if (i == pos - 1)
+			if (hist->counter == pos - 1)
 			{
 				tputs(tgetstr("so", NULL), 1, ft_myputchar);
-				ft_putchar(comm[i]);
+				ft_putchar(comm[hist->counter]);
 				tputs(tgetstr("se", NULL), 1, ft_myputchar);
 			}
 			else
-				ft_putchar(comm[i]);
-			i++;
+				ft_putchar(comm[hist->counter]);
+			hist->counter++;
 		}
 		if ((int)ft_strlen(comm) < pos)
 		{

@@ -45,3 +45,20 @@ void	ft_clear_screen(void)
 {
 	tputs(tgetstr("cl", NULL), 1, ft_myputchar);
 }
+
+void	ft_intermidiate(char **comm, int *pos, t_stack *hist, char *buf)
+{
+	if (buf[0] == 12)
+		ft_ctrl_l(*comm, *pos, hist);
+	else if (buf[0] == 18)
+		hist->ctrl_r = 1;
+	else if (ft_ctrl_b_f(buf))
+		ft_move_word(*comm, pos, buf);
+	else if (ft_up_down(buf))
+		manage_up_down(&buf, comm, hist, pos);
+	if (buf[0] == 16)
+	{
+		*comm = ft_get_prev_hist(*hist);
+		*pos = ft_strlen(*comm);
+	}
+}

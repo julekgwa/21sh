@@ -63,6 +63,7 @@ typedef struct	s_stack
 	char		*paste;
 	int			success;
 	int			ret;
+	int			counter;
 }				t_stack;
 
 typedef struct	s_comms
@@ -185,5 +186,6 @@ void			ft_clear_hist(t_stack *hist);
 void			ft_display_bck_i_search(char *cmd, int pos, t_stack *hist, char *search);
 void			ft_copy_n_paste(char **cmd, char *buf, int *pos, t_stack *hist);
 int				ft_is_copy_n_paste(char *buf);
+void			ft_intermidiate(char **comm, int *pos, t_stack *hist, char *buf);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: goisetsi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/07 17:26:38 by goisetsi          #+#    #+#             */
-/*   Updated: 2016/12/13 16:28:37 by julekgwa         ###   ########.fr       */
+/*   Updated: 2016/12/19 13:23:21 by ktshikot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,10 @@ char	*ft_build_comm(t_stack *hist, char *comm, char *buf, int pos)
 			return ((comm = "exit"));
 		else if (ft_is_copy_n_paste(buf))
 			ft_copy_n_paste(&comm, buf, &pos, hist);
-		else if (buf[0] == 12)
-			ft_ctrl_l(comm, pos, hist);
-		else if (buf[0] == 18)
-			hist->ctrl_r = 1;
-		else if (ft_ctrl_b_f(buf))
-			ft_move_word(comm, &pos, buf);
-		else if (ft_up_down(buf))
-			manage_up_down(&buf, &comm, hist, &pos);
+		else if (buf[0] == 12 || buf[0] == 18)
+			ft_intermidiate(&comm, &pos, hist, buf);
+		else if (ft_ctrl_b_f(buf) || ft_up_down(buf))
+			ft_intermidiate(&comm, &pos, hist, buf);
 		else if (ft_enter_and_edit_keys(buf, &pos, comm, hist))
 			;
 		else if (ft_navigation_keys(buf, &pos, comm))
@@ -126,7 +122,6 @@ int		main(int ac, char **av, char **envp)
 		}
 		else
 			ft_putchar('\n');
-		free(promt_val);
 	}
 	return (0);
 }

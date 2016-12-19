@@ -6,7 +6,7 @@
 /*   By: goisetsi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/07 17:30:29 by goisetsi          #+#    #+#             */
-/*   Updated: 2016/08/07 17:30:32 by goisetsi         ###   ########.fr       */
+/*   Updated: 2016/12/19 13:25:38 by ktshikot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,9 @@ void	ft_execute(char *command, char **list_comm, char *line, char **envp)
 
 	if ((pid = fork()) < 0)
 	{
-		ft_putendl("unable to start child process");
 		exit(1);
 	}
-	if (pid == 0)
+	else if (pid == 0)
 	{
 		if (CONTAINS(line, '|') || CONTAINS(line, '>') || CONTAINS(line, '<'))
 		{
