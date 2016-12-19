@@ -6,7 +6,7 @@
 /*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/05 07:30:59 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/09/06 09:59:20 by goisetsi         ###   ########.fr       */
+/*   Updated: 2016/12/19 12:49:45 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	ft_display_hist(t_stack *hist, char **history, int i, int lim)
 
 void	ft_clear_hist(t_stack *hist)
 {
-	// int	fd;
 	int	i;
 
 	i = 0;
@@ -62,9 +61,6 @@ void	ft_clear_hist(t_stack *hist)
 	}
 	hist->count = 0;
 	hist->top = 0;
-	// fd = open(hist->hist_file, O_TRUNC);
-	// if (fd)
-	// 	close(fd);
 }
 
 char	*ft_search_replace(t_search_hist s, int i, int j, int k)

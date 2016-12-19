@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_cut.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/12/19 12:31:47 by julekgwa          #+#    #+#             */
+/*   Updated: 2016/12/19 12:33:39 by julekgwa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	ft_paste(char **cmd, int *pos, t_stack *hist)
@@ -12,24 +24,24 @@ void	ft_cut(char **cmd, char *buf, int *pos, t_stack *hist)
 
 	len = ft_strlen(*cmd);
 	if (buf[0] == 11)
+	{
+		if (*pos == len || *pos > len)
+			hist->paste = "";
+		else
 		{
-			if (*pos == len || *pos > len)
-				hist->paste = "";
-			else
-			{
-				hist->paste = strndup(*cmd, *pos);
-				*cmd = *cmd + *pos;
-				*pos = ft_strlen(*cmd);
-			}
+			hist->paste = strndup(*cmd, *pos);
+			*cmd = *cmd + *pos;
+			*pos = ft_strlen(*cmd);
 		}
-		else if (buf[0] == 24)
-		{
-			if (ft_strequ(*cmd, ""))
-				return ;
-			hist->paste = ft_strdup(*cmd);
-			*cmd = ft_strdup("");
-			*pos = 0;
-		}
+	}
+	else if (buf[0] == 24)
+	{
+		if (ft_strequ(*cmd, ""))
+			return ;
+		hist->paste = ft_strdup(*cmd);
+		*cmd = ft_strdup("");
+		*pos = 0;
+	}
 }
 
 void	ft_copy(char **cmd, char *buf, int *pos, t_stack *hist)
@@ -38,21 +50,20 @@ void	ft_copy(char **cmd, char *buf, int *pos, t_stack *hist)
 
 	len = ft_strlen(*cmd);
 	if (buf[0] == 23)
+	{
+		if (*pos == len || *pos > len)
+			hist->paste = "";
+		else
 		{
-			if (*pos == len || *pos > len)
-				hist->paste = "";
-			else
-			{
-				hist->paste = strndup(*cmd, *pos);
-				// *pos = ft_strlen(*cmd);
-			}
+			hist->paste = strndup(*cmd, *pos);
 		}
-		else if (buf[0] == 25)
-		{
-			if (ft_strequ(*cmd, ""))
-				return ;
-			hist->paste = ft_strdup(*cmd);
-		}
+	}
+	else if (buf[0] == 25)
+	{
+		if (ft_strequ(*cmd, ""))
+			return ;
+		hist->paste = ft_strdup(*cmd);
+	}
 }
 
 void	ft_copy_n_paste(char **cmd, char *buf, int *pos, t_stack *hist)

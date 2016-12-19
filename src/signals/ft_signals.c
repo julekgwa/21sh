@@ -55,17 +55,6 @@ void	ft_someshit(void)
 	ft_putstr(RESET);
 }
 
-// int		ft_enter_key(char **comm, int *pos, t_stack *hist)
-// {
-// 	*pos = -1;
-// 	ft_cursor(*comm, *pos, hist);
-// 	if (hist->ctrl_r)
-// 	{
-// 		*comm = hist->search->results;
-// 		hist->ctrl_r = 0;
-// 	}
-// 	return (1);
-// }
 int		ft_enter_key(char **comm, int *pos, t_stack *hist)
 {
 	*pos = -1;

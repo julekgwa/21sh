@@ -14,11 +14,13 @@
 
 int		ft_search_command(char *command)
 {
-	static char	*cmd = "echo export pwd cd history unset setenv unsetenv env exit clear";
+	static char	*cmd = "echo pwd cd history setenv unsetenv env exit clear";
 	char		**comm_split;
 	int			i;
 
 	i = 0;
+	if (EQUAL(command, "export") || EQUAL(command, "unset"))
+		return (1);
 	comm_split = ft_strsplit(cmd, ' ');
 	while (comm_split[i])
 	{

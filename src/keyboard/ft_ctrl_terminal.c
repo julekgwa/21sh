@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ctrl_terminal.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: goisetsi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/08/07 17:32:58 by goisetsi          #+#    #+#             */
-/*   Updated: 2016/08/07 17:33:33 by goisetsi         ###   ########.fr       */
+/*   Created: 2016/12/19 12:52:32 by julekgwa          #+#    #+#             */
+/*   Updated: 2016/12/19 12:57:42 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_init_keyboard(struct termios *term, int *ac, char ***av)
+int		ft_init_keyboard(struct termios *term, int *ac, char ***av)
 {
 	(void)ac;
 	(void)av;
@@ -31,7 +31,7 @@ int	ft_init_keyboard(struct termios *term, int *ac, char ***av)
 	return (1);
 }
 
-int	ft_close_keyboard(struct termios *term)
+int		ft_close_keyboard(struct termios *term)
 {
 	term->c_lflag |= (ECHO | ECHOE | ICANON);
 	if (tcsetattr(0, 0, term) == -1)
@@ -39,4 +39,9 @@ int	ft_close_keyboard(struct termios *term)
 	tputs(tgetstr("te", NULL), 1, ft_myputchar);
 	tputs(tgetstr("ve", NULL), 1, ft_myputchar);
 	return (1);
+}
+
+void	ft_clear_screen(void)
+{
+	tputs(tgetstr("cl", NULL), 1, ft_myputchar);
 }

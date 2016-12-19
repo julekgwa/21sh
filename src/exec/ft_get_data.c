@@ -96,7 +96,5 @@ void	ft_execute(char *command, char **list_comm, char *line, char **envp)
 		exit(0);
 	}
 	else
-	{
 		wait(&status);
-	}
 }

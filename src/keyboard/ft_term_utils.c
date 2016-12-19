@@ -3,26 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_term_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: goisetsi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/08/07 17:32:58 by goisetsi          #+#    #+#             */
-/*   Updated: 2016/08/07 17:33:09 by goisetsi         ###   ########.fr       */
+/*   Created: 2016/12/19 12:52:55 by julekgwa          #+#    #+#             */
+/*   Updated: 2016/12/19 12:57:01 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int			ft_myputchar(int c)
+int		ft_myputchar(int c)
 {
 	return (write(2, &c, 1));
 }
 
-void		ft_clear_screen(void)
-{
-	tputs(tgetstr("cl", NULL), 1, ft_myputchar);
-}
-
-void		ft_create_stack(t_stack *stack)
+void	ft_create_stack(t_stack *stack)
 {
 	t_search	*search;
 
@@ -40,7 +35,7 @@ void		ft_create_stack(t_stack *stack)
 	stack->capacity = 4096;
 }
 
-void		ft_push(t_stack *stack, char *hist)
+void	ft_push(t_stack *stack, char *hist)
 {
 	if (stack->top == stack->capacity - 1)
 		return ;
@@ -48,7 +43,7 @@ void		ft_push(t_stack *stack, char *hist)
 	stack->count = stack->top + 1;
 }
 
-void		ft_exclamation(char **comm, t_stack *hist, int *pos)
+void	ft_exclamation(char **comm, t_stack *hist, int *pos)
 {
 	if (ft_strequ(*comm, "!!") || ft_strequ(*comm, "!-1"))
 		*comm = ft_get_prev_hist(*hist);
@@ -84,7 +79,7 @@ char	*ft_get_hist(char *history, t_stack hist)
 	if (ft_strequ(com, ""))
 	{
 		ft_print_error(tmp, 5);
-		return strdup(com);
+		return (strdup(com));
 	}
 	return (com);
 }

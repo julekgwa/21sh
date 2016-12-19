@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ctrl_keyboard.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: goisetsi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/08/07 17:32:58 by goisetsi          #+#    #+#             */
-/*   Updated: 2016/08/07 17:33:07 by goisetsi         ###   ########.fr       */
+/*   Created: 2016/12/19 12:53:08 by julekgwa          #+#    #+#             */
+/*   Updated: 2016/12/19 12:53:10 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,26 +40,26 @@ int		ft_character_keys(char *key_pressed)
 		return (0);
 }
 
-int		ft_enter_and_edit_keys(char *key_pressed, int *pos, char *comm, t_stack *hist)
+int		ft_enter_and_edit_keys(char *press, int *pos, char *cmd, t_stack *hist)
 {
 	char	*key;
 	int		i;
 
-	key = key_pressed + 1;
+	key = press + 1;
 	i = *pos - 1;
-	if (key_pressed[0] == 127 || ft_strequ(key, "[3~"))
+	if (press[0] == 127 || ft_strequ(key, "[3~"))
 	{
-		if (*pos > 0 && *comm)
+		if (*pos > 0 && *cmd)
 		{
 			ft_putstr("\33[2K\r");
-			while (*(comm + i) != '\0')
+			while (*(cmd + i) != '\0')
 			{
-				*(comm + i) = *(comm + i + 1);
+				*(cmd + i) = *(cmd + i + 1);
 				i++;
 			}
-			*(comm + i) = '\0';
+			*(cmd + i) = '\0';
 			*pos = *pos - 1;
-			ft_cursor(comm, *pos + 1, hist);
+			ft_cursor(cmd, *pos + 1, hist);
 		}
 		return (1);
 	}

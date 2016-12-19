@@ -32,6 +32,7 @@
 # define SUB ft_strsub
 # define FULL ft_full_word
 # define QUOTES ft_rm_quotes
+# define EQUAL ft_strequ
 # define CONTAINS ft_contains
 # define SEARCH ft_search_command
 # define SPLIT ft_strsplit
