@@ -63,7 +63,7 @@ void	ft_complete_cmd(t_cmd *cmd, struct termios *term)
 				break ;
 			ft_putstr("> ");
 		}
-		cmd->get_line = complete;
+		ft_strcpy(cmd->get_line, complete);
 		ft_check_eof(retvalue, cmd);
 		ft_term_on(term);
 	}

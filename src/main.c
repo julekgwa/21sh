@@ -61,7 +61,7 @@ void	ft_execute_commands(char **cmd, char *line, t_env *envp, t_stack hist)
 		ft_display_hist(&hist, cmd, 0, 0);
 	else if (ft_strequ(cmd[0], "clear"))
 		tputs(tgetstr("cl", NULL), 1, ft_myputchar);
-	freecopy(cmd);
+	// freecopy(cmd);
 }
 
 void	ft_run_commands(char **user_comm, char *line, t_env *envp, t_stack hist)
