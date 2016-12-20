@@ -6,7 +6,7 @@
 /*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/19 12:52:55 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/19 12:57:01 by julekgwa         ###   ########.fr       */
+/*   Updated: 2016/12/20 10:25:45 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,21 @@ void	ft_push(t_stack *stack, char *hist)
 
 void	ft_exclamation(char **comm, t_stack *hist, int *pos)
 {
+	char	*tmp;
+	int		i;
+
+	tmp = NULL;
+	i = 0;
 	if (ft_strequ(*comm, "!!") || ft_strequ(*comm, "!-1"))
 		*comm = ft_get_prev_hist(*hist);
 	else
-		*comm = ft_get_hist(*comm, *hist);
+		*comm = ft_get_hist(*comm, *hist, tmp, i);
 	*pos = ft_strlen(*comm);
 	ft_cursor(*comm, *pos + 1, hist);
 }
 
-char	*ft_get_hist(char *history, t_stack hist)
+char	*ft_get_hist(char *history, t_stack hist, char *tmp, int i)
 {
-	char	*tmp;
-	int		i;
 	char	*com;
 	int		index;
 

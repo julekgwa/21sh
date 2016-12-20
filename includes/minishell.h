@@ -127,7 +127,7 @@ char			*ft_down(t_stack *stack);
 char			*ft_keys_up_down(char *key_pressed, t_stack *hist, int *pos);
 int				ft_up_down(char *key_pressed);
 void			ft_display_hist(t_stack *hist, char **history, int i, int lim);
-char			*ft_get_hist(char *history, t_stack hist);
+char			*ft_get_hist(char *history, t_stack hist, char *tmp, int i);
 char			*prompt(t_cmd *command, t_stack *hist);
 void			ft_signalhandle(int num);
 void			ft_signal(void);

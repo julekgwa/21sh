@@ -6,7 +6,7 @@
 /*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/05 07:30:22 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/09/05 07:30:34 by julekgwa         ###   ########.fr       */
+/*   Updated: 2016/12/20 11:08:50 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,34 +25,30 @@ int		ft_full_word(char **list, char *cmd, int i)
 
 void	ft_search_hist(char *cmd, t_stack hist, t_search *bck_search, int found)
 {
-	char	**l;
 	int		i;
-	int		n;
 	char	*sub_s;
 
 	if (ft_strequ(cmd, ""))
 		return ;
-	l = hist.list;
-	n = ft_strlen(cmd);
-	while (n && found)
+	hist.counter = ft_strlen(cmd) + 1;
+	while (--hist.counter && found)
 	{
 		i = -1;
-		while (l[++i])
+		while (hist.list[++i])
 		{
-			sub_s = SUB(cmd, 0, n);
-			if (STRSTR(l[i], sub_s) && !FULL(l, sub_s, i + 1))
+			sub_s = SUB(cmd, 0, hist.counter);
+			if (STRSTR(hist.list[i], sub_s) && !FULL(hist.list, sub_s, i + 1))
 			{
 				if (ft_strlen(cmd) > ft_strlen(sub_s))
 					bck_search->fail = 1;
 				bck_search->prev_match = bck_search->results;
-				bck_search->results = l[i];
+				bck_search->results = hist.list[i];
 				found = 0;
 				free(sub_s);
 				break ;
 			}
 			free(sub_s);
 		}
-		n--;
 	}
 }
 
