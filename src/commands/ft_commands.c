@@ -67,17 +67,21 @@ void	free_cmd(t_cmd *cmd)
 
 void	ft_pro_cmd(t_cmd *cmd, t_env *envp, struct termios *t, t_stack *hist)
 {
+	char	*tmp;
+
+	tmp = ft_strdup(cmd->get_line);
+	ft_remove_single_qoutes(cmd);
+	cmd->user_comm = ft_strsplit(cmd->get_line, ' ');
 	if (cmd->user_comm != NULL)
 	{
 		if (ft_strequ(cmd->user_comm[0], "exit"))
 		{
-			free_envp(envp);
+			free_list(envp);
 			free_cmd(cmd);
 			ft_close_keyboard(t);
 			exit(0);
 		}
-		ft_push(hist, ft_strdup(cmd->get_line));
-		ft_remove_single_qoutes(cmd);
+		ft_push(hist, tmp);
 		ft_term_off(t);
 		if (ft_is_logical(cmd->get_line))
 			ft_log_op(cmd, envp, t, hist);

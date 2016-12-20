@@ -6,7 +6,7 @@
 /*   By: goisetsi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/07 17:26:38 by goisetsi          #+#    #+#             */
-/*   Updated: 2016/12/19 13:23:21 by ktshikot         ###   ########.fr       */
+/*   Updated: 2016/12/20 09:10:42 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	ft_execute_commands(char **cmd, char *line, t_env *envp, t_stack hist)
 		ft_display_hist(&hist, cmd, 0, 0);
 	else if (ft_strequ(cmd[0], "clear"))
 		tputs(tgetstr("cl", NULL), 1, ft_myputchar);
-	// freecopy(cmd);
 }
 
 void	ft_run_commands(char **user_comm, char *line, t_env *envp, t_stack hist)
@@ -116,7 +115,6 @@ int		main(int ac, char **av, char **envp)
 		if (!ft_strequ(cmd.get_line, "") && ft_spaces_tabs(cmd.get_line))
 		{
 			ft_putchar('\n');
-			cmd.user_comm = ft_strsplit(cmd.get_line, ' ');
 			ft_pro_cmd(&cmd, envp_copy, &term, &hist);
 			freecopy(cmd.user_comm);
 		}

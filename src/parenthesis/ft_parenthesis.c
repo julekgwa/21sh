@@ -34,7 +34,7 @@ void	ft_remove_single_qoutes(t_cmd *cmd)
 	len = ft_strlen(cmd->get_line);
 	while (i < len)
 	{
-		if (cmd->get_line[j] == 39)
+		if (cmd->get_line[j] == 39 || cmd->get_line[j] == 34)
 			j++;
 		cmd->get_line[i] = cmd->get_line[j];
 		i++;

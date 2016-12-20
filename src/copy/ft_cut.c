@@ -14,7 +14,6 @@
 
 void	ft_paste(char **cmd, int *pos, t_stack *hist)
 {
-	// *cmd = hist->paste;
 	ft_strcat(*cmd, hist->paste);
 	*pos = ft_strlen(*cmd);
 }

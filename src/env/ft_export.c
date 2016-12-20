@@ -17,7 +17,9 @@ void	ft_export(char **cmd, t_env *envp)
 	char	*name;
 	char	**split;
 	char	**r;
+	int		i;
 
+	i = 0;
 	if (cmd[1][0] == '=')
 	{
 		ft_putstr("21sh: export: `");
@@ -31,7 +33,12 @@ void	ft_export(char **cmd, t_env *envp)
 		name = split[0];
 		r = NULL;
 		ft_unsetenv(name, envp, r);
-		ft_push_env(envp, cmd[1]);
+		ft_push_env(envp, ft_strdup(cmd[1]));
+		if (i)
+		{
+			if (envp->malloc_id == -1)
+				envp->malloc_id = envp->top - 1;
+		}
 		freecopy(split);
 	}
 }
