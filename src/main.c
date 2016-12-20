@@ -77,7 +77,9 @@ char	*ft_build_comm(t_stack *hist, char *comm, char *buf, int pos)
 		if (buf[hist->ret - 1] == '\n')
 			if (ft_enter_key(&comm, &pos, hist))
 				break ;
-		if (buf[0] == 4 && ft_strequ(comm, ""))
+		if (buf[0] == '\t')
+			ft_print_results(comm);
+		else if (buf[0] == 4 && ft_strequ(comm, ""))
 			return ((comm = "exit"));
 		else if (ft_is_copy_n_paste(buf))
 			ft_copy_n_paste(&comm, buf, &pos, hist);

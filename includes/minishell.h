@@ -16,6 +16,9 @@
 # include <signal.h>
 # include <sys/wait.h>
 # include <termios.h>
+# include <sys/types.h>
+# include <dirent.h>
+# include <sys/dir.h>
 # include <termcap.h>
 # include <sys/stat.h>
 # include <fcntl.h>
@@ -188,5 +191,6 @@ void			ft_copy_n_paste(char **cmd, char *buf, int *pos, t_stack *hist);
 int				ft_is_copy_n_paste(char *buf);
 void			ft_intermidiate(char **comm, int *pos, t_stack *hist, char *buf);
 void			free_list(t_env *stack);
+void			ft_print_results(char *prefix);
 
 #endif
