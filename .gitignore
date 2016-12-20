@@ -206,3 +206,4 @@ jspm_packages
 .yarn-integrity
 *.o
 21sh
+21sh.dSYM/
