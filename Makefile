@@ -22,14 +22,15 @@ SRC = ./src/main.c ./src/commands/ft_commands.c ./src/utils/ft_ctrl_c_signal_han
 	./src/parenthesis/ft_parenthesis.c ./src/parenthesis/ft_parenthesis_utils.c \
 	./src/redirection/ft_here_doc_utils.c ./src/env/ft_export.c ./src/logical/ft_logical_op.c \
 	./src/history/ft_bck_i_search.c ./src/history/ft_manage_hist.c ./src/copy/ft_cut.c \
-	./src/auto/ft_auto_search.c ./src/auto/ft_auto_utils.c
+	./src/auto/ft_auto_search.c ./src/auto/ft_auto_utils.c ./src/auto/ft_auto_misc.c
 OBJECT = main.o ft_commands.o ft_ctrl_c_signal_handler.o ft_cd.o ft_echo.o \
 	ft_env.o ft_utils.o ft_get_data.o ft_more_utils.o ft_ctrl_terminal.o \
 	ft_term_utils.o ft_ctrl_keyboard.o ft_manage_pipes.o ft_manage_buff.o \
 	ft_history.o ft_signals.o ft_hist_utils.o ft_free.o ft_cmd_utils.o ft_env_utils.o \
 	ft_redirection.o ft_redirection_utils.o ft_here_doc.o ft_parenthesis.o \
 	ft_parenthesis_utils.o ft_here_doc_utils.o ft_export.o ft_logical_op.o \
-	ft_bck_i_search.o ft_manage_hist.o ft_cut.o ft_auto_search.o ft_auto_utils.o
+	ft_bck_i_search.o ft_manage_hist.o ft_cut.o ft_auto_search.o ft_auto_utils.o \
+	ft_auto_misc.o
 FLAGS = -Wall -Wextra -Werror -g3
 OPTIONS = -c -I libft/includes/ -I includes/
 

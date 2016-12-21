@@ -47,7 +47,28 @@ int	ft_in_array(char **av, int len, char *needle)
 	return (0);
 }
 
-t_list	*ft_read_cmd_dir(t_list *head, char *needle)
+t_list	*ft_search_system(t_list *head, char *needle)
+{
+	DIR				*dir;
+	struct dirent	*dp;
+	int				len;
+	char			*dir_name;
+
+	dir_name = ft_get_dirname(&needle);
+	len = ft_strlen(needle);
+	if ((dir = opendir(dir_name)))
+	{
+		while ((dp = readdir(dir)) != NULL)
+		{
+			if (ft_strncmp(needle, dp->d_name, len) == 0)
+				head = prepend(head, dp->d_name);
+		}
+	}
+	closedir(dir);
+	return (head);
+}
+
+t_list	*ft_search_binaries(t_list *head, char *needle)
 {
 	DIR				*dir;
 	struct dirent	*dp;

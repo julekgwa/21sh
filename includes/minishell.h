@@ -192,12 +192,15 @@ int				ft_is_copy_n_paste(char *buf);
 void			ft_intermidiate(char **comm, int *pos, t_stack *hist, char *buf);
 void			free_list(t_env *stack);
 void			ft_print_results(char **prefix, int *pos);
-void			ft_autocomplete(char *str);
+void			ft_autocomplete(char **str, int *pos);
+void			ft_display_list(t_list *head);
 int				ft_is_cmd(char *line);
 int				ft_list_size(t_list *begin_list);
-t_list			*ft_read_cmd_dir(t_list *head, char *needle);
-t_list			*prepend(t_list* head,char *content);
+t_list			*ft_search_binaries(t_list *head, char *needle);
+t_list			*ft_search_system(t_list *head, char *needle);
+t_list			*prepend(t_list* head, char *content);
 int				ft_in_array(char **av, int len, char *needle);
 int				ft_str_has(char *str, char s[]);
+char			*ft_get_dirname(char **needle);
 
 #endif

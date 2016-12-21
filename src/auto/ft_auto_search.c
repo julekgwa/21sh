@@ -69,31 +69,63 @@ t_list	*ft_read_files(char *str)
 	split = SPLIT(str, ' ');
 	len = ft_array_len(split);
 	if (ft_is_cmd(str) || ft_str_has(split[len - 1], ";|&"))
-		head = ft_read_cmd_dir(head, split[len - 1]);
+		head = ft_search_binaries(head, split[len - 1]);
+	else
+		head = ft_search_system(head, split[len - 1]);
 	freesplit(split);
 	return (head);
 }
 
-void	ft_autocomplete(char *str)
+void	ft_process_search(char *cmd, char *result, char *tmp, int *pos)
+{
+	char	*search;
+	char	**split;
+	int		len;
+
+	split = SPLIT(cmd, ' ');
+	search = split[ft_array_len(split) - 1];
+	ft_get_dirname(&search);
+	len = ft_strlen(search);
+	if (tmp)
+	{
+		strcat(cmd, result + len);
+		*pos = ft_strlen(cmd);
+		strcat(cmd, tmp + 1);
+	}
+	else
+	{
+		strcat(cmd, result + len);
+		*pos = ft_strlen(cmd);
+	}
+	freesplit(split);
+}
+
+void	ft_autocomplete(char **str, int *pos)
 {
 	t_list	*head;
 	t_list	*tmp;
+	char	search[256];
+	char	*tmp_str;
 	int		size;
 
-	head = ft_read_files(str);
+	ft_memset(search, 0, 256);
+	tmp_str = NULL;
+	if (*pos < (int)ft_strlen(*str))
+	{
+		strncpy(search, *str, *pos);
+		tmp_str = *str + *pos;
+	}
+	else
+		strcpy(search, *str);
+	head = ft_read_files(search);
 	tmp = head;
 	size = ft_list_size(head);
 	if (size == 1)
 	{
-		ft_putendl(head->content);
+		ft_process_search(search, head->content, tmp_str, pos);
+		strcpy(*str, search);
 	}
 	else
-	{
-		while (head)
-		{
-			ft_putendl(head->content);
-			head = head->next;
-		}
-	}
+		ft_display_list(head);
 	ft_freenodes(tmp);
 }
