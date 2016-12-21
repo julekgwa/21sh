@@ -191,6 +191,7 @@ void			ft_copy_n_paste(char **cmd, char *buf, int *pos, t_stack *hist);
 int				ft_is_copy_n_paste(char *buf);
 void			ft_intermidiate(char **comm, int *pos, t_stack *hist, char *buf);
 void			free_list(t_env *stack);
-void			ft_print_results(char *prefix);
+void			ft_print_results(char **prefix, int *pos);
+void	ft_testing(char *str);
 
 #endif
