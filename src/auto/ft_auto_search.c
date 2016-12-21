@@ -30,38 +30,6 @@ t_list	*prepend(t_list* head,char *content)
 	return (head);
 }
 
-t_list	*ft_new_item(char *name)
-{
-	t_list	*new;
-	int		len;
-
-	len = strlen(name);
-	new = (t_list *)malloc(sizeof(t_list));
-	if (new)
-	{
-		new->content = (char *)malloc(sizeof(char) * (len + 1));
-		if (new->content)
-		{
-			strcpy(new->content, name);
-			new->content_size = len;
-			new->next = NULL;
-		}
-	}
-	return (new);
-}
-
-void	ft_list(t_list *head, char *name)
-{
-	t_list	*tmp;
-	t_list	*next;
-
-	tmp = head;
-	while (tmp->next)
-		tmp = tmp->next;
-	next = ft_new_item(name);
-	tmp->next = next;
-}
-
 void	ft_freenodes(t_list *head)
 {
 	t_list	*tmp;
@@ -93,26 +61,20 @@ int	ft_list_size(t_list *begin_list)
 
 t_list	*ft_read_files(char *str)
 {
-	DIR				*dir;
-	struct dirent	*dp;
-	int				len;
-	t_list 			*head;
+	t_list 	*head;
+	char	**split;
+	int		len;
 
 	head = NULL;
-	len = strlen(str);
-	if ((dir = opendir("/home/julekgwa")))
-	{
-		while ((dp = readdir(dir)) != NULL)
-		{
-			if (strncmp(str, dp->d_name, len) == 0)
-				head = prepend(head, dp->d_name);
-		}
-	}
-	closedir(dir);
+	split = SPLIT(str, ' ');
+	len = ft_array_len(split);
+	if (ft_is_cmd(str) || ft_str_has(split[len - 1], ";|&"))
+		head = ft_read_cmd_dir(head, split[len - 1]);
+	freesplit(split);
 	return (head);
 }
 
-void	ft_testing(char *str)
+void	ft_autocomplete(char *str)
 {
 	t_list	*head;
 	t_list	*tmp;
