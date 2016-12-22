@@ -108,24 +108,27 @@ void	ft_autocomplete(char **str, int *pos)
 	char	*tmp_str;
 	int		size;
 
-	ft_memset(search, 0, 256);
-	tmp_str = NULL;
-	if (*pos < (int)ft_strlen(*str))
+	if (!ft_strequ(*str,""))
 	{
-		strncpy(search, *str, *pos);
-		tmp_str = *str + *pos;
+		ft_memset(search, 0, 256);
+		tmp_str = NULL;
+		if (*pos < (int)ft_strlen(*str))
+		{
+			strncpy(search, *str, *pos);
+			tmp_str = *str + *pos;
+		}
+		else
+			strcpy(search, *str);
+		head = ft_read_files(search);
+		tmp = head;
+		size = ft_list_size(head);
+		if (size == 1)
+		{
+			ft_process_search(search, head->content, tmp_str, pos);
+			strcpy(*str, search);
+		}
+		else if (size > 1)
+			ft_display_list(head);
+		ft_freenodes(tmp);
 	}
-	else
-		strcpy(search, *str);
-	head = ft_read_files(search);
-	tmp = head;
-	size = ft_list_size(head);
-	if (size == 1)
-	{
-		ft_process_search(search, head->content, tmp_str, pos);
-		strcpy(*str, search);
-	}
-	else if (size > 1)
-		ft_display_list(head);
-	ft_freenodes(tmp);
 }
