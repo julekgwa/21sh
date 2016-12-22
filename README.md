@@ -23,6 +23,9 @@ mini UNIX command interpreter.
  * CTRL-K - Cut or delete what is currently in front of the cursor.
  * CTRL-X - Cut or delete the entire line that has being typed.
  * CTRL-V - Paste the last thing you deleted (using CTRL-K or CTRL-X ).
+* Auto complete
+* unset
+* export
 * line edition
 * the “;” command line separator
 * pipes “|”
