@@ -18,6 +18,11 @@ char	*ft_get_search_value(char *needle, int *pos)
 	int	len;
 
 	len = ft_strlen(needle);
+	if (!CONTAINS(needle, '/'))
+	{
+		*pos = 0;
+		return (needle);
+	}
 	while (len >= 0)
 	{
 		if (needle[len] == '/')
@@ -43,7 +48,7 @@ char	*ft_get_dirname(char **needle)
 	ft_memset(dir, 0, sizeof(char) * (strlen(*needle) + 1));
 	ft_strncpy(dir, *needle, pos);
 	if (ft_strequ(dir, ""))
-		dir = ".";
+		strcpy(dir, ".");
 	else if (ft_strncmp(dir, "~/", 2) == 0)
 		dir = getenv("HOME");
 	*needle = filename;

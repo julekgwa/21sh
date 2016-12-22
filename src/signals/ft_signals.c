@@ -67,7 +67,8 @@ int		ft_enter_key(char **comm, int *pos, t_stack *hist)
 	else if (ft_end_with(*comm, ')') && !ft_start_with(*comm, '('))
 	{
 		ft_putendl("\n42sh: parse error near `)'");
-		*comm = "";
+		ft_memset(*comm, 0, ft_strlen(*comm));
+		ft_strcpy(*comm, "");
 		*pos = ft_strlen(*comm);
 		ft_cursor(*comm, *pos + 1, hist);
 	}

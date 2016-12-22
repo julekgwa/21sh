@@ -33,6 +33,8 @@ int		ft_start_with(char *str, char c)
 
 int		ft_end_with(char *str, char c)
 {
+	if (ft_strequ(str, ""))
+		return (0);
 	if (str && str[ft_strlen(str) - 1] == c)
 		return (1);
 	return (0);
