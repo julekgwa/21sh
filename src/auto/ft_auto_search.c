@@ -72,7 +72,7 @@ t_list	*ft_read_files(char *str)
 		head = ft_search_binaries(head, split[len - 1]);
 	else
 		head = ft_search_system(head, split[len - 1]);
-	freesplit(split);
+	freecopy(split);
 	return (head);
 }
 
@@ -84,7 +84,7 @@ void	ft_process_search(char *cmd, char *result, char *tmp, int *pos)
 
 	split = SPLIT(cmd, ' ');
 	search = split[ft_array_len(split) - 1];
-	ft_get_dirname(&search);
+	free(ft_get_dirname(&search));
 	len = ft_strlen(search);
 	if (tmp)
 	{
@@ -97,7 +97,7 @@ void	ft_process_search(char *cmd, char *result, char *tmp, int *pos)
 		strcat(cmd, result + len);
 		*pos = ft_strlen(cmd);
 	}
-	freesplit(split);
+	freecopy(split);
 }
 
 void	ft_autocomplete(char **str, int *pos)

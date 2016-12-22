@@ -64,6 +64,7 @@ t_list	*ft_search_system(t_list *head, char *needle)
 				head = prepend(head, dp->d_name);
 		}
 	}
+	free(dir_name);
 	closedir(dir);
 	return (head);
 }
