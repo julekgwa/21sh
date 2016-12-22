@@ -29,7 +29,7 @@ int	ft_is_cmd(char *line)
 		if (ft_in_array(sep, ft_array_len(sep), split[len -2]))
 			retval = 1;
 	}
-	freesplit(split);
+	freecopy(split);
 	return (retval);
 }
 

@@ -125,7 +125,7 @@ void	ft_autocomplete(char **str, int *pos)
 		ft_process_search(search, head->content, tmp_str, pos);
 		strcpy(*str, search);
 	}
-	else
+	else if (size > 1)
 		ft_display_list(head);
 	ft_freenodes(tmp);
 }
