@@ -51,13 +51,13 @@ void	ft_advanced_com(char **commands, char *line, t_env *envp, t_stack hist)
 	char	*exec;
 	char	**search;
 
-	search = SPLIT(line, ' ');
 	if (CONTAINS(line, ';'))
 	{
 		ft_multi_com(line, envp, hist);
 		return ;
 	}
-	else if (SEARCH(search[0]) && !CONTAINS(line, '>'))
+	search = SPLIT(line, ' ');
+	if (SEARCH(search[0]) && !CONTAINS(line, '>'))
 		ft_execute_commands(search, line, envp, hist);
 	else if ((exec = ft_build_exec(envp->list, commands)))
 	{
