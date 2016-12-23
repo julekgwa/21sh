@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	ft_read_here_doc(int fd, char *s)
+int		ft_read_here_doc(int fd, char *s)
 {
 	char	line[SIZE];
 	char	*list[SIZE];
@@ -35,4 +35,44 @@ int	ft_read_here_doc(int fd, char *s)
 	while (list[++i])
 		write(fd, list[i], ft_strlen(list[i]));
 	return (retval);
+}
+
+int		ft_is_redirect_in_out(char **cmd)
+{
+	int	i;
+	int	count;
+
+	count = 0;
+	i = 0;
+	while (cmd[i])
+	{
+		if (ft_strequ(cmd[i], "<") || ft_strequ(cmd[i], "<<"))
+			count++;
+		else if (ft_strequ(cmd[i], ">") || ft_strequ(cmd[i], ">>"))
+			count++;
+		i++;
+	}
+	return (count);
+}
+
+void	ft_redirect_left_right(char **cmd)
+{
+	int		arrow;
+	int		pos;
+	char	*filename;
+
+	if (STD_INOUT(cmd) != 2)
+		return ;
+	arrow = ft_find_arrow(cmd);
+	if (arrow == 0)
+		pos = ft_get_here_doc_pos(cmd, ">");
+	else if (arrow == 1)
+		pos = ft_get_here_doc_pos(cmd, ">>");
+	if (cmd[pos + 1] == NULL)
+	{
+		ft_putendl("21sh: syntax error near unexpected token `newline'");
+		return ;
+	}
+	filename = cmd[pos + 1];
+	ft_open_file(filename, arrow);
 }

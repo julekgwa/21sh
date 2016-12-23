@@ -35,6 +35,8 @@
 # define SUB ft_strsub
 # define FULL ft_full_word
 # define QUOTES ft_rm_quotes
+# define LENGTH ft_array_len
+# define STD_INOUT ft_is_redirect_in_out
 # define EQUAL ft_strequ
 # define CONTAINS ft_contains
 # define SEARCH ft_search_command
@@ -164,14 +166,16 @@ int				ft_get_file_descriptor_pos(char **cmd);
 int				ft_manage_file_descriptors(char **cmd);
 int				ft_get_less_than(char **cmd);
 int				ft_is_less_than(char **cmd);
-int				ft_get_here_doc_pos(char **cmd);
+int				ft_get_here_doc_pos(char **cmd, char *doc);
 int				ft_process_here_doc(char **cmd, int is_pipe);
 int				ft_term_off(struct termios *term);
 int				ft_term_on(struct termios *term);
 void			ft_someshit();
 int				ft_uneven(char *str);
 void			ft_complete_cmd(t_cmd *cmd, struct termios *term);
-char			**ft_remove_arrow(char **str);
+int				ft_find_arrow(char **str);
+void			ft_redirect_left_right(char **cmd);
+void			ft_open_file(char *file_name, int arrow);
 int				ft_enter_key(char **comm, int *pos, t_stack *hist);
 int				ft_read_here_doc(int fd, char *s);
 void			ft_remove_single_qoutes(t_cmd *cmd);
@@ -202,5 +206,6 @@ t_list			*prepend(t_list* head, char *content);
 int				ft_in_array(char **av, int len, char *needle);
 int				ft_str_has(char *str, char s[]);
 char			*ft_get_dirname(char **needle);
+int				ft_is_redirect_in_out(char **cmd);
 
 #endif

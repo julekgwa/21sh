@@ -39,14 +39,14 @@ void	ft_read_line(int fd, char *s)
 		write(fd, list[i], ft_strlen(list[i]));
 }
 
-int		ft_get_here_doc_pos(char **cmd)
+int		ft_get_here_doc_pos(char **cmd, char *doc)
 {
 	int	i;
 
 	i = 0;
 	while (cmd[i])
 	{
-		if (ft_strequ(cmd[i], "<<"))
+		if (ft_strequ(cmd[i], doc))
 			return (i);
 		i++;
 	}
@@ -105,7 +105,7 @@ int		ft_process_here_doc(char **cmd, int is_pipe)
 	int		heredoc_pos;
 	int		fd[2];
 
-	heredoc_pos = ft_get_here_doc_pos(cmd);
+	heredoc_pos = ft_get_here_doc_pos(cmd, "<<");
 	delimiter = cmd[heredoc_pos + 1];
 	pipe(fd);
 	if (is_pipe)

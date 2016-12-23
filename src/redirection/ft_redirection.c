@@ -41,26 +41,21 @@ int		ft_file_redirection(char **red, char **envp, int arrow[], int count)
 	char	*file_name;
 	int		arrow_pos;
 
-	file_name = red[ft_array_len(red) - 1];
 	arrow[0] = 0;
 	arrow_pos = ft_arrow_pos(red);
+	(void)count;
+	file_name = red[arrow_pos + 1];
 	if (ft_get_less_than(red) > 0)
 		arrow[0] = 2;
-	while (red[count])
-	{
-		if (ft_strequ(red[count], ">>"))
-		{
-			arrow[0] = 1;
-			break ;
-		}
-		count++;
-	}
+	else if (STD_INOUT(red) != 2 && ft_in_array(red, LENGTH(red), ">>"))
+		arrow[0] = ft_find_arrow(red);
 	if (ft_is_less_than(red))
 		arrow_pos = ft_process_here_doc(red, arrow[1]);
 	else if (ft_is_file_descriptor_aggr(red))
 		arrow_pos = ft_manage_file_descriptors(red);
 	else
 		ft_open_file(file_name, arrow[0]);
+	ft_redirect_left_right(red);
 	red[arrow_pos] = 0;
 	return (execve(red[0], &red[0], envp));
 }
@@ -91,23 +86,18 @@ int		ft_is_redirect(char **cmd)
 	return (0);
 }
 
-char	**ft_remove_arrow(char **str)
+int		ft_find_arrow(char **str)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	if (!ft_is_redirect(str))
-		return (str);
-	while (str[j])
+	while (str[i])
 	{
-		if (ft_strequ(str[j], "<<"))
-			j++;
-		str[i] = str[j];
+		if (ft_strequ(str[i], ">>"))
+			j = 1;
 		i++;
-		j++;
 	}
-	str[--j] = 0;
-	return (str);
+	return (j);
 }
