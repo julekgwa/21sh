@@ -22,7 +22,7 @@ int	ft_is_cmd(char *line)
 	retval = 0;
 	split = SPLIT(line, ' ');
 	len = ft_array_len(split);
-	if (len == 1)
+	if (len == 1 && ft_isalpha(line[0]))
 		retval = 1;
 	else if (len > 2)
 	{
