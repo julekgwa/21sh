@@ -156,7 +156,7 @@ void			free_envp(t_env *stack);
 int				ft_push_env(t_env *stack, char *value);
 int				ft_is_full(t_env *stack);
 int				fork_pipes(int n[], char **cmd, char **envp, int i);
-int				ft_file_redirection(char **red, char **envp, int arr[], int co);
+int				ft_file_redirection(char **red, char **envp, int arr[]);
 int				ft_is_redirect(char **cmd);
 int				ft_arrow_pos(char **cmd);
 int				ft_ctrl_b_f(char *buf);

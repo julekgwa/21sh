@@ -36,14 +36,13 @@ void	ft_open_file(char *file_name, int arrow)
 	close(fd);
 }
 
-int		ft_file_redirection(char **red, char **envp, int arrow[], int count)
+int		ft_file_redirection(char **red, char **envp, int arrow[])
 {
 	char	*file_name;
 	int		arrow_pos;
 
 	arrow[0] = 0;
 	arrow_pos = ft_arrow_pos(red);
-	(void)count;
 	file_name = red[arrow_pos + 1];
 	if (ft_get_less_than(red) > 0)
 		arrow[0] = 2;
