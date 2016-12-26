@@ -47,7 +47,9 @@ void	ft_print_env(t_env *stack)
 	i = 0;
 	while (i <= stack->top)
 	{
-		ft_putendl(stack->list[i++]);
+		if (stack->list[i])
+			ft_putendl(stack->list[i]);
+		i++;
 	}
 }
 

@@ -31,6 +31,7 @@
 # define WHT   "\x1B[37m"
 # define RESET "\x1B[0m"
 # define SIZE 100
+# define MAX_HASH 1027
 # define STRSTR ft_strstr
 # define SUB ft_strsub
 # define FULL ft_full_word
@@ -48,6 +49,13 @@ typedef struct	s_search
 	char		*results;
 	int			fail;
 }				t_search;
+
+typedef struct		s_item
+{
+	char			*key;
+	char			*value;
+	struct s_item	*next;
+}					t_hash_item;
 
 typedef	struct 	s_search_hist
 {

@@ -75,7 +75,7 @@ void	ft_modpwd(int f, char *oldpwd, t_env *envp)
 {
 	char	*current;
 
-	if ((f = 1))
+	if (f != -1)
 	{
 		current = getcwd(NULL, 0);
 		ft_setenv("OLDPWD", oldpwd, 1, envp);

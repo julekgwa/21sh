@@ -65,7 +65,7 @@ int		ft_unsetenv(const char *name, t_env *envp, char **r)
 	{
 		if (ft_strncmp(*r, name, len) != 0 || (*r)[len] != '=')
 			*w++ = *r;
-		if (ft_strncmp(*r, name, len) == 0 || (*r)[len] == '=')
+		else if (ft_strncmp(*r, name, len) == 0 || (*r)[len] == '=')
 		{
 			if (i >= envp->malloc_id && envp->malloc_id != -1)
 				free(*r);
