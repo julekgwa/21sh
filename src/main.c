@@ -68,7 +68,7 @@ void	ft_run_commands(char **user_comm, char *line, t_env *envp, t_stack hist)
 	ft_advanced_com(user_comm, line, envp, hist);
 }
 
-char	*ft_build_comm(t_stack *hist, char *comm, char *buf, int pos, char **envp)
+char	*ft_build_comm(t_stack *hist, char *comm, char *buf, int pos)
 {
 	while (42)
 	{
@@ -78,7 +78,7 @@ char	*ft_build_comm(t_stack *hist, char *comm, char *buf, int pos, char **envp)
 			if (ft_enter_key(&comm, &pos, hist))
 				break ;
 		if (buf[0] == '\t')
-			ft_autocomplete(&comm, &pos, envp);
+			ft_autocomplete(&comm, &pos, hist->envp);
 		else if (buf[0] == 4 && ft_strequ(comm, ""))
 			return ((comm = "exit"));
 		else if (ft_is_copy_n_paste(buf))
@@ -106,13 +106,13 @@ int		main(int ac, char **av, char **envp)
 	t_env			*envp_copy;
 	char			*promt_val;
 
-	ft_create_stack(&hist);
+	ft_create_stack(&hist, envp);
 	envp_copy = copy_envp(4096, envp);
 	ft_init_keyboard(&term, &ac, &av);
 	signal(SIGINT, ft_ctrl_c_signal_handler);
 	while (42)
 	{
-		promt_val = prompt(&cmd, &hist, envp_copy->list);
+		promt_val = prompt(&cmd, &hist);
 		ft_complete_cmd(&cmd, &term);
 		if (!ft_strequ(cmd.get_line, "") && ft_spaces_tabs(cmd.get_line))
 		{

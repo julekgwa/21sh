@@ -15,9 +15,7 @@
 void	ft_ctrl_c_signal_handler(int signum)
 {
 	ft_putstr("\n");
-	ft_putstr(GRN);
-	ft_putstr("$> ");
-	ft_putstr(RESET);
+	ft_cmd_prompt();
 	(void)signum;
 }
 
@@ -49,7 +47,7 @@ void	ft_print_error(char *cmd, int errorno)
 	}
 }
 
-char	*prompt(t_cmd *command, t_stack *hist, char **envp)
+char	*prompt(t_cmd *command, t_stack *hist)
 {
 	char			*comm;
 	char			*buf;
@@ -62,7 +60,7 @@ char	*prompt(t_cmd *command, t_stack *hist, char **envp)
 	tputs(tgetstr("so", NULL), 1, ft_myputchar);
 	ft_putchar(' ');
 	tputs(tgetstr("se", NULL), 1, ft_myputchar);
-	command->get_line = ft_build_comm(hist, comm, buf, pos, envp);
+	command->get_line = ft_build_comm(hist, comm, buf, pos);
 	free(buf);
 	return (comm);
 }
@@ -84,4 +82,17 @@ char	**envp_cpy(char **envp)
 		}
 	}
 	return (copy);
+}
+
+int		ft_array_len(char **arr)
+{
+	int	count;
+
+	count = 0;
+	while (*arr)
+	{
+		count++;
+		arr++;
+	}
+	return (count);
 }

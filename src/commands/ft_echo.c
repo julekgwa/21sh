@@ -12,19 +12,6 @@
 
 #include "minishell.h"
 
-int		ft_array_len(char **arr)
-{
-	int	count;
-
-	count = 0;
-	while (*arr)
-	{
-		count++;
-		arr++;
-	}
-	return (count);
-}
-
 char	ft_specila_char(char c)
 {
 	if (c == 'b')
@@ -73,6 +60,20 @@ int		ft_check_options(char opt, const char *options)
 	return (0);
 }
 
+void	ft_environ_value(char *env, char **envp)
+{
+	char	*tmp;
+
+	if (ft_start_with(env, '$'))
+	{
+		tmp = ft_get_env(env, envp);
+		if (tmp)
+			ft_putstr_char(QUOTES(tmp), ' ');
+	}
+	else
+		ft_putstr_char(QUOTES(env), ' ');
+}
+
 void	ft_echo(char *echo, char **envp)
 {
 	char	**split;
@@ -89,13 +90,7 @@ void	ft_echo(char *echo, char **envp)
 		{
 			count++;
 			while (split[count])
-			{
-				if (ft_start_with(split[count], '$'))
-					ft_putstr_char(QUOTES(ft_get_env(split[count], envp)), ' ');
-				else
-					ft_putstr_char(QUOTES(split[count]), ' ');
-				count++;
-			}
+				ft_environ_value(split[count++], envp);
 			ft_putchar('\n');
 		}
 	}

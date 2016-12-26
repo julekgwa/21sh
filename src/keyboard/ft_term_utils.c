@@ -17,7 +17,7 @@ int		ft_myputchar(int c)
 	return (write(2, &c, 1));
 }
 
-void	ft_create_stack(t_stack *stack)
+void	ft_create_stack(t_stack *stack, char **envp)
 {
 	t_search	*search;
 
@@ -30,6 +30,7 @@ void	ft_create_stack(t_stack *stack)
 	stack->ctrl_r = 0;
 	stack->count = -1;
 	stack->success = 0;
+	stack->envp = envp;
 	stack->paste = "";
 	stack->top = -1;
 	stack->capacity = 4096;
