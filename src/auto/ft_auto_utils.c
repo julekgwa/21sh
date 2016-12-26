@@ -77,11 +77,11 @@ t_list	*ft_search_binaries(t_list *head, char *needle)
 	int				i;
 	char			*search[] = {"/bin", "/usr/bin", "/usr/sbin", "/sbin", 0};
 
-	i = 0;
+	i = -1;
 	if (ft_start_with(needle, ';'))
 		needle = needle + 1;
 	len = ft_strlen(needle);
-	while (search[i])
+	while (search[++i])
 	{
 		if ((dir = opendir(search[i])))
 		{
@@ -94,7 +94,6 @@ t_list	*ft_search_binaries(t_list *head, char *needle)
 		closedir(dir);
 		if (ft_list_size(head))
 			break ;
-		i++;
 	}
 	return (head);
 }
