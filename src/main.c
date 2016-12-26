@@ -80,12 +80,10 @@ char	*ft_build_comm(t_stack *hist, char *comm, char *buf, int pos)
 		if (buf[0] == '\t')
 			ft_autocomplete(&comm, &pos, hist->envp);
 		else if (buf[0] == 4 && ft_strequ(comm, ""))
-			return ((comm = "exit"));
+			return (ft_strdup("exit"));
 		else if (ft_is_copy_n_paste(buf))
 			ft_copy_n_paste(&comm, buf, &pos, hist);
-		else if (buf[0] == 12 || buf[0] == 18)
-			ft_intermidiate(&comm, &pos, hist, buf);
-		else if (ft_ctrl_b_f(buf) || ft_up_down(buf))
+		else if (ft_is_inter(buf) || ft_up_down(buf))
 			ft_intermidiate(&comm, &pos, hist, buf);
 		else if (ft_enter_and_edit_keys(buf, &pos, comm, hist))
 			;
@@ -114,14 +112,12 @@ int		main(int ac, char **av, char **envp)
 	{
 		promt_val = prompt(&cmd, &hist);
 		ft_complete_cmd(&cmd, &term);
+		ft_putchar('\n');
 		if (!ft_strequ(cmd.get_line, "") && ft_spaces_tabs(cmd.get_line))
 		{
-			ft_putchar('\n');
 			ft_pro_cmd(&cmd, envp_copy, &term, &hist);
 			freecopy(cmd.user_comm);
 		}
-		else
-			ft_putchar('\n');
 		free(promt_val);
 	}
 	return (0);

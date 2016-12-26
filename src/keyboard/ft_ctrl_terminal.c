@@ -62,3 +62,12 @@ void	ft_intermidiate(char **comm, int *pos, t_stack *hist, char *buf)
 		*pos = ft_strlen(*comm);
 	}
 }
+
+int		ft_is_inter(char *buf)
+{
+	if (buf[0] == 12 || buf[0] == 18 || buf[0] == 2 || buf[0] == 6)
+		return (1);
+	else if (buf[0] == 16)
+		return (1);
+	return (0);
+}

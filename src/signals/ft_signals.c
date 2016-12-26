@@ -92,9 +92,7 @@ int		ft_enter_key(char **comm, int *pos, t_stack *hist)
 {
 	*pos = -1;
 	if (*comm[0] == '!')
-	{
 		ft_exclamation(comm, hist, pos);
-	}
 	else if (*comm[0] == '^')
 		ft_man_search_replace(comm, pos, *hist);
 	else if (ft_end_with(*comm, ')') && !ft_start_with(*comm, '('))

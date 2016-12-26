@@ -90,7 +90,7 @@ t_list	*ft_read_files(char *str, char **envp)
 	return (head);
 }
 
-void	ft_process_search(char *cmd, char *result, char *tmp, int *pos)
+char	*ft_process_search(char *cmd, char *result, char *tmp, int *pos)
 {
 	char	*search;
 	char	**split;
@@ -114,6 +114,7 @@ void	ft_process_search(char *cmd, char *result, char *tmp, int *pos)
 		*pos = ft_strlen(cmd);
 	}
 	freecopy(split);
+	return (cmd);
 }
 
 void	ft_autocomplete(char **str, int *pos, char **envp)
@@ -139,10 +140,7 @@ void	ft_autocomplete(char **str, int *pos, char **envp)
 		tmp = head;
 		size = ft_list_size(head);
 		if (size == 1)
-		{
-			ft_process_search(search, head->content, tmp_str, pos);
-			strcpy(*str, search);
-		}
+			ft_strcpy(*str, ft_process_search(search, head->content, tmp_str, pos));
 		else if (size > 1)
 			ft_display_list(head);
 		ft_freenodes(tmp);

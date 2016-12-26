@@ -217,5 +217,6 @@ int				ft_in_array(char **av, int len, char *needle);
 int				ft_str_has(char *str, char s[]);
 char			*ft_get_dirname(char **needle);
 int				ft_is_redirect_in_out(char **cmd);
+int				ft_is_inter(char *buf);
 
 #endif

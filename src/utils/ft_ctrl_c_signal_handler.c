@@ -56,6 +56,7 @@ char	*prompt(t_cmd *command, t_stack *hist)
 	buf = ft_memalloc(GET_C_BUFF_SIZE);
 	comm = ft_memalloc(1000);
 	pos = 0;
+	hist->counter = 1;
 	ft_cmd_prompt();
 	tputs(tgetstr("so", NULL), 1, ft_myputchar);
 	ft_putchar(' ');
