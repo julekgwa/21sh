@@ -62,6 +62,6 @@ void	free_list(t_env *stack)
 void	free_envp(t_env *stack)
 {
 	free_list(stack);
-	freecopy(stack->list);
+	free(stack->list);
 	free(stack);
 }

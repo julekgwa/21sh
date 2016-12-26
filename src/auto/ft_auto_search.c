@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_auto_search.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/12/26 02:04:05 by julekgwa          #+#    #+#             */
+/*   Updated: 2016/12/26 02:05:08 by julekgwa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 t_list	*create(char *content,t_list* next)
@@ -59,7 +71,7 @@ int	ft_list_size(t_list *begin_list)
 	return (i);
 }
 
-t_list	*ft_read_files(char *str)
+t_list	*ft_read_files(char *str, char **envp)
 {
 	t_list 	*head;
 	char	**split;
@@ -68,7 +80,9 @@ t_list	*ft_read_files(char *str)
 	head = NULL;
 	split = SPLIT(str, ' ');
 	len = ft_array_len(split);
-	if (ft_is_cmd(str) || ft_str_has(split[len - 1], ";|&"))
+	if (ft_start_with(split[len - 1], '$'))
+		head = ft_auto_environ(head, envp, split[len - 1]);
+	else if (ft_is_cmd(str) || ft_str_has(split[len - 1], ";|&"))
 		head = ft_search_binaries(head, split[len - 1]);
 	else
 		head = ft_search_system(head, split[len - 1]);
@@ -84,6 +98,8 @@ void	ft_process_search(char *cmd, char *result, char *tmp, int *pos)
 
 	split = SPLIT(cmd, ' ');
 	search = split[ft_array_len(split) - 1];
+	if (ft_start_with(search, '$'))
+		search = split[ft_array_len(split) - 1] + 1;
 	free(ft_get_dirname(&search));
 	len = ft_strlen(search);
 	if (tmp)
@@ -100,7 +116,7 @@ void	ft_process_search(char *cmd, char *result, char *tmp, int *pos)
 	freecopy(split);
 }
 
-void	ft_autocomplete(char **str, int *pos)
+void	ft_autocomplete(char **str, int *pos, char **envp)
 {
 	t_list	*head;
 	t_list	*tmp;
@@ -119,7 +135,7 @@ void	ft_autocomplete(char **str, int *pos)
 		}
 		else
 			strcpy(search, *str);
-		head = ft_read_files(search);
+		head = ft_read_files(search, envp);
 		tmp = head;
 		size = ft_list_size(head);
 		if (size == 1)

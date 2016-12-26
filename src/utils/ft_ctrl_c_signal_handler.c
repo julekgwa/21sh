@@ -49,7 +49,7 @@ void	ft_print_error(char *cmd, int errorno)
 	}
 }
 
-char	*prompt(t_cmd *command, t_stack *hist)
+char	*prompt(t_cmd *command, t_stack *hist, char **envp)
 {
 	char			*comm;
 	char			*buf;
@@ -58,13 +58,11 @@ char	*prompt(t_cmd *command, t_stack *hist)
 	buf = ft_memalloc(GET_C_BUFF_SIZE);
 	comm = ft_memalloc(1000);
 	pos = 0;
-	ft_putstr(GRN);
-	ft_putstr("$> ");
-	ft_putstr(RESET);
+	ft_cmd_prompt();
 	tputs(tgetstr("so", NULL), 1, ft_myputchar);
 	ft_putchar(' ');
 	tputs(tgetstr("se", NULL), 1, ft_myputchar);
-	command->get_line = ft_build_comm(hist, comm, buf, pos);
+	command->get_line = ft_build_comm(hist, comm, buf, pos, envp);
 	free(buf);
 	return (comm);
 }

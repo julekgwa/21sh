@@ -47,11 +47,44 @@ void	ft_signalhandle(int num)
 	}
 }
 
-void	ft_someshit(void)
+char	*ft_get_current_dir(char **envp)
 {
+	char	*cwd;
+	int		i;
+	char	*home;
+
+	cwd = NULL;
+	home = ft_get_env("$HOME", envp);
+	cwd = getcwd(NULL, 0);
+	i = ft_strlen(cwd);
+	if (ft_strequ(cwd, home))
+		return ("~");
+	if (ft_strequ(cwd, "/"))
+		return ("/");
+	while (i)
+	{
+		if (cwd[i] == '/')
+			break ;
+		i--;
+	}
+	i++;
+	return (cwd + i);
+}
+
+void	ft_cmd_prompt(void)
+{
+	char 	hostname[128];
+	char 	*user;
+
+	gethostname(hostname, sizeof hostname);
+	user = getenv("USERNAME");
 	ft_putstr("\33[2K\r");
 	ft_putstr(GRN);
-	ft_putstr("$> ");
+	ft_putstr("[");
+	ft_putstr(user);
+	ft_putstr("@");
+	ft_putstr(hostname);
+	ft_putstr("]$ ");
 	ft_putstr(RESET);
 }
 

@@ -54,3 +54,22 @@ char	*ft_get_dirname(char **needle)
 	*needle = filename;
 	return (dir);
 }
+
+t_list	*ft_auto_environ(t_list *head, char **envp, char *needle)
+{
+	int		i;
+	char	**tmp;
+	int		len;
+
+	i = 0;
+	len = ft_strlen(needle);
+	while (envp[i])
+	{
+		tmp = SPLIT(envp[i], '=');
+		if (ft_strncmp(needle + 1, tmp[0], len - 1) == 0)
+			head = prepend(head, tmp[0]);
+		i++;
+		freecopy(tmp);
+	}
+	return (head);
+}

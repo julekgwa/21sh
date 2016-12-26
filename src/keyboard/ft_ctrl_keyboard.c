@@ -99,7 +99,7 @@ void	ft_cursor(char *comm, int pos, t_stack *hist)
 		ft_bck_i_search(comm, pos, hist);
 	else
 	{
-		ft_someshit();
+		ft_cmd_prompt();
 		while (!(comm == NULL) && comm[hist->counter])
 		{
 			if (hist->counter == pos - 1)
