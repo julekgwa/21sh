@@ -26,7 +26,7 @@ int		ft_contains(char *str, char c)
 	return (0);
 }
 
-void	ft_multi_com(t_cmd *cmd, t_env *envp, t_stack hist)
+void	ft_multi_com(t_cmd *cmd, t_env *envp, t_stack *hist)
 {
 	t_cmd	*tmp;
 	char	**split_com;
@@ -48,7 +48,7 @@ void	ft_multi_com(t_cmd *cmd, t_env *envp, t_stack hist)
 	free(tmp);
 }
 
-void	ft_advanced_com(t_cmd *cmd, t_env *envp, t_stack hist)
+void	ft_advanced_com(t_cmd *cmd, t_env *envp, t_stack *hist)
 {
 	char	*exec;
 	char	**search;
@@ -61,10 +61,10 @@ void	ft_advanced_com(t_cmd *cmd, t_env *envp, t_stack hist)
 	search = SPLIT(cmd->get_line, ' ');
 	if (SEARCH(search[0]) && !CONTAINS(cmd->get_line, '>'))
 		ft_execute_commands(search, cmd->get_line, envp, hist);
-	else if ((exec = ft_build_exec(cmd->user_comm, &hist)))
-		EXECUTE(exec, cmd, envp->list, &hist);
+	else if ((exec = ft_build_exec(cmd->user_comm, hist)))
+		EXECUTE(exec, cmd, envp->list, hist);
 	else if (ft_is_execute(cmd->user_comm[0]))
-		EXECUTE(cmd->user_comm[0], cmd, envp->list, &hist);
+		EXECUTE(cmd->user_comm[0], cmd, envp->list, hist);
 	else
 		ft_print_error(cmd->user_comm[0], 0);
 	freecopy(search);

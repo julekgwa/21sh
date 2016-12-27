@@ -78,7 +78,7 @@ int		ft_unsetenv(const char *name, t_env *envp, char **r)
 	return (0);
 }
 
-void	ft_unsetting_env(char *names, t_env *envp)
+void	ft_unsetting_env(char *names, t_env *envp, t_stack *hist)
 {
 	char	**variables;
 	char	**r;
@@ -95,14 +95,16 @@ void	ft_unsetting_env(char *names, t_env *envp)
 	{
 		while (variables[i])
 		{
-			ft_unsetenv(variables[i], envp, r);
+			len = ft_unsetenv(variables[i], envp, r);
+			if (len == 0 && ft_strequ(variables[i], "PATH"))
+				ft_free_hash_table(hist->hash);
 			i++;
 		}
 	}
 	freecopy(variables);
 }
 
-void	ft_set_envir(t_env *envp, char *str)
+void	ft_set_envir(t_env *envp, char *str, t_stack *hist)
 {
 	char	*value;
 	char	*name;
@@ -126,6 +128,7 @@ void	ft_set_envir(t_env *envp, char *str)
 	if (ft_start_with(name, '"'))
 		ft_putendl("setenv: Variable name must begin with a letter.");
 	else
-		ft_setenv(name, value, 1, envp);
+		len = ft_setenv(name, value, 1, envp);
+	ft_set_hash_table(len, name, envp->list, hist);
 	freecopy(split);
 }

@@ -84,22 +84,3 @@ void			ft_insert_item(t_hash *hash[], const char *key, const char *val)
 		hash[code] = item;
 	}
 }
-
-void			ft_free_hash_table(t_hash *table[])
-{
-	int		i;
-	t_hash	*tmp;
-	t_hash	*head;
-
-	i = 0;
-	while (i < MAX_HASH)
-	{
-		head = table[i];
-		while ((tmp = head) != NULL)
-		{
-			head = head->next;
-			ft_free_item(tmp);
-		}
-		i++;
-	}
-}

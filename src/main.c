@@ -35,7 +35,7 @@ int		ft_search_command(char *command)
 	return (0);
 }
 
-void	ft_execute_commands(char **cmd, char *line, t_env *envp, t_stack hist)
+void	ft_execute_commands(char **cmd, char *line, t_env *envp, t_stack *hist)
 {
 	char *dir;
 
@@ -54,16 +54,16 @@ void	ft_execute_commands(char **cmd, char *line, t_env *envp, t_stack hist)
 	else if (ft_strequ(cmd[0], "env"))
 		ft_print_env(envp);
 	else if (ft_strequ(cmd[0], "setenv"))
-		ft_set_envir(envp, line);
+		ft_set_envir(envp, line, hist);
 	else if (ft_strequ(cmd[0], "unsetenv") || ft_strequ(cmd[0], "unset"))
-		ft_unsetting_env(line, envp);
+		ft_unsetting_env(line, envp, hist);
 	else if (ft_strequ(cmd[0], "history"))
-		ft_display_hist(&hist, cmd, 0);
+		ft_display_hist(hist, cmd, 0);
 	else if (ft_strequ(cmd[0], "clear"))
 		tputs(tgetstr("cl", NULL), 1, ft_myputchar);
 }
 
-void	ft_run_commands(t_cmd *cmd, t_env *envp, t_stack hist)
+void	ft_run_commands(t_cmd *cmd, t_env *envp, t_stack *hist)
 {
 	ft_advanced_com(cmd, envp, hist);
 }
