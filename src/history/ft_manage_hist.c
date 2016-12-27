@@ -48,16 +48,9 @@ void	ft_display_hist(t_stack *hist, char **history, int lim)
 
 void	ft_clear_hist(t_stack *hist)
 {
-	int	i;
-
-	i = 0;
-	while (hist->list[i])
-	{
-		ft_memset(hist->list[i], '\0', ft_strlen(hist->list[i]));
-		i++;
-	}
-	hist->count = 0;
-	hist->top = 0;
+	ft_memset(hist->list, 0, sizeof(hist->list));
+	hist->count = -1;
+	hist->top = -1;
 }
 
 char	*ft_search_replace(t_search_hist s, int i, int j, int k)
