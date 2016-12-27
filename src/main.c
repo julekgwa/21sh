@@ -79,8 +79,8 @@ char	*ft_build_comm(t_stack *hist, char *comm, char *buf, int pos)
 				break ;
 		if (buf[0] == '\t')
 			ft_autocomplete(&comm, &pos, hist->envp);
-		else if (buf[0] == 4 && ft_strequ(comm, ""))
-			return (ft_strdup("exit"));
+		else if (ft_ctrl_d(&comm, buf))
+			break ;
 		else if (ft_is_copy_n_paste(buf))
 			ft_copy_n_paste(&comm, buf, &pos, hist);
 		else if (ft_is_inter(buf) || ft_up_down(buf))

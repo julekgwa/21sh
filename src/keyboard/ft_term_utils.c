@@ -23,6 +23,7 @@ void	ft_create_stack(t_stack *stack, char **envp)
 
 	search = (t_search *)malloc(sizeof(t_search) + 1);
 	ft_memset(stack->list, 0, 4096);
+	ft_memset(&stack->hash, 0, sizeof(t_hash_item *) * MAX_HASH);
 	search->results = "";
 	search->prev_match = "";
 	search->fail = 0;

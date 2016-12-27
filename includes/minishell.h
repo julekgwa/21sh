@@ -169,5 +169,6 @@ int		ft_str_has(char *str, char s[]);
 char	*ft_get_dirname(char **needle);
 int		ft_is_redirect_in_out(char **cmd);
 int		ft_is_inter(char *buf);
+int     ft_ctrl_d(char **cmd, char *buf);
 
 #endif

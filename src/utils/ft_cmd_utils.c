@@ -12,14 +12,17 @@
 
 #include "minishell.h"
 
-void	ft_exit(char **cmd, char *get_line)
+int	ft_ctrl_d(char **cmd, char *buf)
 {
-	freecopy(cmd);
-	free(get_line);
-	exit(0);
+	if (buf[0] == 4 && ft_strequ(*cmd, ""))
+	{
+		ft_strcpy(*cmd, "exit");
+		return (1);
+	}
+	return (0);
 }
 
-int		ft_spaces_tabs(char *s)
+int	ft_spaces_tabs(char *s)
 {
 	int	i;
 
@@ -33,7 +36,7 @@ int		ft_spaces_tabs(char *s)
 	return (0);
 }
 
-int		ft_user_dir(char *dir, char **envp)
+int	ft_user_dir(char *dir, char **envp)
 {
 	char	*home;
 	int		success;
@@ -49,7 +52,7 @@ int		ft_user_dir(char *dir, char **envp)
 	return (-1);
 }
 
-int		ft_term_off(struct termios *term)
+int	ft_term_off(struct termios *term)
 {
 	term->c_lflag |= (ECHO | ECHOE | ICANON);
 	if (tcsetattr(0, 0, term) == -1)
@@ -58,7 +61,7 @@ int		ft_term_off(struct termios *term)
 	return (1);
 }
 
-int		ft_term_on(struct termios *term)
+int	ft_term_on(struct termios *term)
 {
 	if (tgetent(NULL, getenv("TERM")) < 1)
 		return (0);
