@@ -173,6 +173,7 @@ int     ft_ctrl_d(char **cmd, char *buf);
 void    ft_hash_table_bin(t_hash *table[], char **path);
 void    ft_insert_item(t_hash *table[], const char *key, const char *value);
 t_hash  *ft_search(t_hash *head, const char *key);
+void    ft_free_hash_table(t_hash *table[]);
 int     ft_is_pipe_or_redirect(char *line);
 
 #endif

@@ -65,9 +65,13 @@ char	*ft_build_exec(char **split, t_stack *hist)
 {
 	unsigned int	code;
 	char			*str;
+	t_hash			*tmp;
 
 	code = ft_hash_code(split[0]);
-	str = ft_search(hist->hash[code], split[0])->value;
+	tmp = ft_search(hist->hash[code], split[0]);
+	if (code > MAX_HASH || !tmp)
+		return (NULL);
+	str = tmp->value;
 	if (access(str, F_OK) == 0)
 		return (str);
 	return (NULL);

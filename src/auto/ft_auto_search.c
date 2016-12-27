@@ -45,6 +45,7 @@ t_list	*prepend(t_list* head,char *content)
 void	ft_freenodes(t_list *head)
 {
 	t_list	*tmp;
+
 	while ((tmp = head) != NULL)
 	{
 		head = head->next;

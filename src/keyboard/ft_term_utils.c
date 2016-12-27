@@ -40,6 +40,7 @@ void	ft_create_stack(t_stack *stack, char **envp)
 	stack->paste = "";
 	stack->top = -1;
 	stack->capacity = 4096;
+	freecopy(split);
 }
 
 void	ft_push(t_stack *stack, char *hist)

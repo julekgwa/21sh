@@ -78,6 +78,7 @@ void	ft_pro_cmd(t_cmd *cmd, t_env *envp, struct termios *t, t_stack *hist)
 		{
 			free_envp(envp);
 			free_cmd(cmd);
+			ft_free_hash_table(hist->hash);
 			ft_close_keyboard(t);
 			exit(0);
 		}
