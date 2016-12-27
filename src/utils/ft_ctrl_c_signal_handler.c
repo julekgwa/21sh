@@ -47,7 +47,7 @@ void	ft_print_error(char *cmd, int errorno)
 	}
 }
 
-char	*prompt(t_cmd *command, t_stack *hist)
+void	prompt(t_cmd *command, t_stack *hist)
 {
 	char			*comm;
 	char			*buf;
@@ -61,9 +61,9 @@ char	*prompt(t_cmd *command, t_stack *hist)
 	tputs(tgetstr("so", NULL), 1, ft_myputchar);
 	ft_putchar(' ');
 	tputs(tgetstr("se", NULL), 1, ft_myputchar);
-	command->get_line = ft_build_comm(hist, comm, buf, pos);
+	command->get_line = strdup(ft_build_comm(hist, comm, buf, pos));
 	free(buf);
-	return (comm);
+	free(comm);
 }
 
 char	**envp_cpy(char **envp)

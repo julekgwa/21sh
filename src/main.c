@@ -102,7 +102,6 @@ int		main(int ac, char **av, char **envp)
 	t_stack			hist;
 	t_cmd			cmd;
 	t_env			*envp_copy;
-	char			*promt_val;
 
 	ft_create_stack(&hist, envp);
 	envp_copy = copy_envp(4096, envp);
@@ -110,15 +109,14 @@ int		main(int ac, char **av, char **envp)
 	signal(SIGINT, ft_ctrl_c_signal_handler);
 	while (42)
 	{
-		promt_val = prompt(&cmd, &hist);
+		prompt(&cmd, &hist);
 		ft_complete_cmd(&cmd, &term);
 		ft_putchar('\n');
 		if (!ft_strequ(cmd.get_line, "") && ft_spaces_tabs(cmd.get_line))
 		{
 			ft_pro_cmd(&cmd, envp_copy, &term, &hist);
-			freecopy(cmd.user_comm);
+			free_cmd(&cmd);
 		}
-		free(promt_val);
 	}
 	return (0);
 }
