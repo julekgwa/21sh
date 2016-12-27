@@ -26,26 +26,6 @@ int		ft_contains(char *str, char c)
 	return (0);
 }
 
-// void	ft_multi_com(char *get_line, t_env *envp, t_stack hist)
-// {
-// 	char	**tmp_com;
-// 	char	**split_com;
-// 	int		i;
-
-// 	split_com = SPLIT(get_line, ';');
-// 	i = 0;
-// 	while (split_com[i])
-// 	{
-// 		tmp_com = SPLIT(split_com[i], ' ');
-// 		if (tmp_com)
-// 			ft_run_commands(tmp_com, split_com[i], envp, hist);
-// 		i++;
-// 		freesplit(tmp_com);
-// 	}
-// 	if (split_com)
-// 		freecopy(split_com);
-// }
-
 void	ft_multi_com(t_cmd *cmd, t_env *envp, t_stack hist)
 {
 	t_cmd	*tmp;
@@ -57,7 +37,7 @@ void	ft_multi_com(t_cmd *cmd, t_env *envp, t_stack hist)
 	i = 0;
 	while (split_com[i])
 	{
-		tmp->get_line = strdup(split_com[i]);
+		tmp->get_line = ft_strdup(split_com[i]);
 		tmp->user_comm = SPLIT(tmp->get_line, ' ');
 		ft_run_commands(tmp, envp, hist);
 		free_cmd(tmp);
