@@ -11,33 +11,27 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-char	*ft_itoa(int n)
+char	*ft_itoa(int nbr)
 {
-	char	*str;
+	static char	rep[] = "0123456789";
+	static char buff[65];
+	char		*ptr;
+	long int	neg;
 
-	if (n > 2147483647)
-		return (NULL);
-	if (!(str = (char *)malloc(sizeof(char *))))
-		return (NULL);
-	if (n >= 0)
+	ptr = &buff[64];
+	*ptr = '\0';
+	neg = nbr;
+	if (neg < 0)
+		neg *= -1;
+	if (nbr == 0)
+		*--ptr = rep[neg % 10];
+	while (neg != 0)
 	{
-		while (n != 0)
-		{
-			*(--str) = '0' + (n % 10);
-			n /= 10;
-		}
-		return (str);
+		*--ptr = rep[neg % 10];
+		neg /= 10;
 	}
-	else
-	{
-		while (n != 0)
-		{
-			*(--str) = '0' - (n % 10);
-			n /= 10;
-		}
-		*(--str) = '-';
-	}
-	return (str);
+	if (nbr < 0)
+		*--ptr = '-';
+	return (ptr);
 }

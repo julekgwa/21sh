@@ -58,7 +58,7 @@ void	ft_execute_commands(char **cmd, char *line, t_env *envp, t_stack hist)
 	else if (ft_strequ(cmd[0], "unsetenv") || ft_strequ(cmd[0], "unset"))
 		ft_unsetting_env(line, envp);
 	else if (ft_strequ(cmd[0], "history"))
-		ft_display_hist(&hist, cmd, 0, 0);
+		ft_display_hist(&hist, cmd, 0);
 	else if (ft_strequ(cmd[0], "clear"))
 		tputs(tgetstr("cl", NULL), 1, ft_myputchar);
 }
