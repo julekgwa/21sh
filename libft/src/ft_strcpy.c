@@ -6,7 +6,7 @@
 /*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 13:39:53 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/05/10 13:51:57 by julekgwa         ###   ########.fr       */
+/*   Updated: 2016/12/27 11:53:11 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 char	*ft_strcpy(char *dst, const char *src)
 {
-	while (*src)
-		*dst++ = *src++;
-	*(++dst) = '\0';
-	return (dst);
+	char	*orig;
+
+	orig = dst;
+	while((*dst++ = *src++) != '\0')
+		;
+	return (orig);
 }
