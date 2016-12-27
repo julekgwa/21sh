@@ -63,9 +63,9 @@ void	ft_execute_commands(char **cmd, char *line, t_env *envp, t_stack hist)
 		tputs(tgetstr("cl", NULL), 1, ft_myputchar);
 }
 
-void	ft_run_commands(char **user_comm, char *line, t_env *envp, t_stack hist)
+void	ft_run_commands(t_cmd *cmd, t_env *envp, t_stack hist)
 {
-	ft_advanced_com(user_comm, line, envp, hist);
+	ft_advanced_com(cmd, envp, hist);
 }
 
 char	*ft_build_comm(t_stack *hist, char *comm, char *buf, int pos)

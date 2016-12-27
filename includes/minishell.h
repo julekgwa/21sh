@@ -33,6 +33,7 @@
 # define SIZE 100
 # define MAX_HASH 1027
 # define STRSTR ft_strstr
+# define EXECUTE ft_execute
 # define SUB ft_strsub
 # define FULL ft_full_word
 # define QUOTES ft_rm_quotes
@@ -117,7 +118,7 @@ char			*ft_build_exec(char **envp, char **split);
 int				ft_is_execute(char *command);
 void			ft_execute(char *cmd, char **l_cmd, char *line, char **envp);
 void			ft_print_error(char *cmd, int errorno);
-void			ft_advanced_com(char **cmd, char *line, t_env *envp, t_stack h);
+void			ft_advanced_com(t_cmd *cmd, t_env *envp, t_stack h);
 int				ft_search_command(char *command);
 void			ft_execute_commands(char **cmd, char *l, t_env *p, t_stack hi);
 char			*ft_get_str(char **av);
@@ -148,7 +149,7 @@ void			ft_signal(void);
 void			init_main(int *ac, char ***av);
 void			manage_up_down(char **buf, char **com, t_stack *hist, int *pos);
 void			ft_ctrl_l(char *comm, int pos, t_stack *hist);
-void			ft_run_commands(char **com, char *line, t_env *env, t_stack hi);
+void			ft_run_commands(t_cmd *cmd, t_env *env, t_stack hi);
 void			ft_pro_cmd(t_cmd *c, t_env *en, struct termios *t, t_stack *hi);
 void			free_cmd(t_cmd *cmd);
 void			freecopy(char **copy);
