@@ -24,7 +24,7 @@ typedef struct		s_item
 	char			*key;
 	char			*value;
 	struct s_item	*next;
-}					t_hash_item;
+}					t_hash;
 
 typedef struct		s_search_hist
 {
@@ -40,7 +40,7 @@ typedef struct		s_stack
 	int				count;
 	int				top;
 	t_search		*search;
-    t_hash_item     *hash[MAX_HASH];
+    t_hash     		*hash[MAX_HASH];
 	int				ctrl_r;
 	char			*list[4096];
 	char			*paste;
@@ -63,3 +63,5 @@ typedef struct		s_env
 	int				capacity;
 	int				malloc_id;
 }					t_env;
+
+unsigned int		ft_hash_code(const char *key);

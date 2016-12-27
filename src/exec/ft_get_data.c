@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_data.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: goisetsi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/08/07 17:30:29 by goisetsi          #+#    #+#             */
-/*   Updated: 2016/12/19 13:25:38 by ktshikot         ###   ########.fr       */
+/*   Created: 2016/12/27 17:09:59 by julekgwa          #+#    #+#             */
+/*   Updated: 2016/12/27 17:10:01 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,31 +34,42 @@ char	**getpath(char **envp)
 	return (NULL);
 }
 
-char	*ft_build_exec(char **envp, char **split)
+void	ft_hash_table_bin(t_hash *table[], char **path)
 {
-	char	**new;
-	char	*str;
-	int		i;
-	char	*join;
+	DIR				*dir;
+	struct dirent	*dp;
+	char			bin[256];
+	int				i;
 
-	i = 0;
-	new = getpath(envp);
-	if (new == NULL)
-		return (NULL);
-	while (new[i] != '\0')
+	i  = -1;
+	ft_memset(bin, 0, 256);
+	while (path[++i])
 	{
-		join = ft_strjoin(new[i], "/");
-		str = ft_strjoin(join, split[0]);
-		if (access(str, F_OK) == 0)
+		if ((dir = opendir(path[i])))
 		{
-			free(join);
-			freecopy(new);
-			return (str);
+			while ((dp = readdir(dir)) != NULL)
+			{
+				ft_strcpy(bin, path[i]);
+				ft_strcat(bin, "/");
+				ft_strcat(bin, dp->d_name);
+				if (strcmp(dp->d_name, ".") && strcmp(dp->d_name, ".."))
+					ft_insert_item(table, dp->d_name, bin);
+			}
+			ft_memset(bin, 0, 256);
 		}
-		i++;
-		ft_free_str(str, join);
+		closedir(dir);
 	}
-	freecopy(new);
+}
+
+char	*ft_build_exec(char **split, t_stack *hist)
+{
+	unsigned int	code;
+	char			*str;
+
+	code = ft_hash_code(split[0]);
+	str = ft_search(hist->hash[code], split[0])->value;
+	if (access(str, F_OK) == 0)
+		return (str);
 	return (NULL);
 }
 
@@ -69,7 +80,7 @@ int		ft_is_execute(char *command)
 	return (0);
 }
 
-void	ft_execute(char *command, char **list_comm, char *line, char **envp)
+void	ft_execute(char *command, t_cmd *cmd, char **envp, t_stack *hist)
 {
 	pid_t	pid;
 	int		status;
@@ -77,21 +88,20 @@ void	ft_execute(char *command, char **list_comm, char *line, char **envp)
 	char	**split_com;
 
 	if ((pid = fork()) < 0)
-	{
 		exit(1);
-	}
 	else if (pid == 0)
 	{
-		if (CONTAINS(line, '|') || CONTAINS(line, '>') || CONTAINS(line, '<'))
+		if (ft_is_pipe_or_redirect(cmd->get_line))
 		{
-			split_com = ft_strsplit(line, '|');
+			split_com = ft_strsplit(cmd->get_line, '|');
 			pipes[0] = ft_array_len(split_com);
-			pipes[1] = CONTAINS(line, '|') ? 1 : 0;
-			fork_pipes(pipes, split_com, envp, 0);
+			pipes[1] = CONTAINS(cmd->get_line, '|') ? 1 : 0;
+			hist->counter = 0;
+			fork_pipes(pipes, split_com, envp, hist);
 			freecopy(split_com);
 		}
 		else
-			execve(command, &list_comm[0], envp);
+			execve(command, &cmd->user_comm[0], envp);
 		exit(0);
 	}
 	else

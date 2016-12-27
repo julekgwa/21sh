@@ -6,7 +6,7 @@
 /*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/24 01:39:54 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/24 01:48:48 by julekgwa         ###   ########.fr       */
+/*   Updated: 2016/12/27 15:57:10 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,21 @@ unsigned int	ft_hash_code(const char *key)
 	return (sum % MAX_HASH);
 }
 
-void			ft_free_item(t_hash_item *item)
+void			ft_free_item(t_hash *item)
 {
 	free(item->key);
 	free(item->value);
 	free(item);
 }
 
-void			ft_delete_item(t_hash_item *table[], const char *key)
+void			ft_delete_item(t_hash *table[], const char *key)
 {
-	t_hash_item	**link;
+	t_hash	**link;
 
 	link = &table[ft_hash_code(key)];
 	while (*link)
 	{
-		t_hash_item *tmp = *link;
+		t_hash *tmp = *link;
 		if (strcmp(tmp->key, key) == 0)
 		{
 			*link = tmp->next;
@@ -53,9 +53,9 @@ void			ft_delete_item(t_hash_item *table[], const char *key)
 	}
 }
 
-t_hash_item		*ft_search(t_hash_item *head,const char *key)
+t_hash		*ft_search(t_hash *head, const char *key)
 {
-	t_hash_item *cursor;
+	t_hash *cursor;
 
 	cursor = head;
 	while(cursor != NULL)
@@ -67,28 +67,28 @@ t_hash_item		*ft_search(t_hash_item *head,const char *key)
 	return (NULL);
 }
 
-void			ft_insert_item(t_hash_item *table[], const char *key, const char *value)
+void			ft_insert_item(t_hash *hash[], const char *key, const char *val)
 {
 	unsigned int	code;
-	t_hash_item		*item;
+	t_hash			*item;
 
 	code = ft_hash_code(key);
-	item = (t_hash_item *)malloc(sizeof(*item));
+	item = (t_hash *)malloc(sizeof(*item));
 	if (item != NULL)
 	{
-		if (ft_search(table[code], key))
-			ft_delete_item(table, key);
+		if (ft_search(hash[code], key))
+			ft_delete_item(hash, key);
 		item->key = strdup(key);
-		item->value = strdup(value);
-		item->next = table[code];
-		table[code] = item;
+		item->value = strdup(val);
+		item->next = hash[code];
+		hash[code] = item;
 	}
 }
 
-void			ft_display_hash_table(t_hash_item *table[])
+void			ft_display_hash_table(t_hash *table[])
 {
-	int			i;
-	t_hash_item	*tmp;
+	int		i;
+	t_hash	*tmp;
 
 	i = 0;
 	while (i < MAX_HASH)

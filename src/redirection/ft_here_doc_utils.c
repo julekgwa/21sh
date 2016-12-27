@@ -76,3 +76,10 @@ void	ft_redirect_left_right(char **cmd)
 	filename = cmd[pos + 1];
 	ft_open_file(filename, arrow);
 }
+
+int		ft_is_pipe_or_redirect(char *line)
+{
+	if (CONTAINS(line, '|') || CONTAINS(line, '>') || CONTAINS(line, '<'))
+		return (1);
+	return (0);
+}

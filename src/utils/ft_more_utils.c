@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_more_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: goisetsi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/08/07 17:35:34 by goisetsi          #+#    #+#             */
-/*   Updated: 2016/08/07 17:35:42 by goisetsi         ###   ########.fr       */
+/*   Created: 2016/12/27 17:01:06 by julekgwa          #+#    #+#             */
+/*   Updated: 2016/12/27 17:01:09 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,10 @@ void	ft_advanced_com(t_cmd *cmd, t_env *envp, t_stack hist)
 	search = SPLIT(cmd->get_line, ' ');
 	if (SEARCH(search[0]) && !CONTAINS(cmd->get_line, '>'))
 		ft_execute_commands(search, cmd->get_line, envp, hist);
-	else if ((exec = ft_build_exec(envp->list, cmd->user_comm)))
-	{
-		EXECUTE(exec, cmd->user_comm, cmd->get_line, envp->list);
-		free(exec);
-	}
+	else if ((exec = ft_build_exec(cmd->user_comm, &hist)))
+		EXECUTE(exec, cmd, envp->list, &hist);
 	else if (ft_is_execute(cmd->user_comm[0]))
-		EXECUTE(cmd->user_comm[0], cmd->user_comm, cmd->get_line, envp->list);
+		EXECUTE(cmd->user_comm[0], cmd, envp->list, &hist);
 	else
 		ft_print_error(cmd->user_comm[0], 0);
 	freecopy(search);

@@ -6,7 +6,7 @@
 /*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/19 12:52:55 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/20 10:25:45 by julekgwa         ###   ########.fr       */
+/*   Updated: 2016/12/27 15:31:53 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,15 @@ int		ft_myputchar(int c)
 void	ft_create_stack(t_stack *stack, char **envp)
 {
 	t_search	*search;
+	char		*path;
+	char		**split;
 
 	search = (t_search *)malloc(sizeof(t_search) + 1);
 	ft_memset(stack->list, 0, 4096);
-	ft_memset(&stack->hash, 0, sizeof(t_hash_item *) * MAX_HASH);
+	ft_memset(&stack->hash, 0, sizeof(t_hash *) * MAX_HASH);
+	path = ft_get_env("$PATH", envp);
+	split = ft_strsplit(path, ':');
+	ft_hash_table_bin(stack->hash, split);
 	search->results = "";
 	search->prev_match = "";
 	search->fail = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: goisetsi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/08/07 17:23:09 by goisetsi          #+#    #+#             */
-/*   Updated: 2016/12/27 14:32:18 by julekgwa         ###   ########.fr       */
+/*   Created: 2016/12/27 17:27:36 by julekgwa          #+#    #+#             */
+/*   Updated: 2016/12/27 17:27:40 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ char	*ft_remove_qoutes(char *s);
 char	*ft_rm_quotes(char *s);
 char	**ft_check_env(char **cmd, char **envp);
 void	ft_unsetting_env(char *names, t_env *envp);
-char	*ft_build_exec(char **envp, char **split);
+char	*ft_build_exec(char **split, t_stack *hist);
 int		ft_is_execute(char *command);
-void	ft_execute(char *cmd, char **l_cmd, char *line, char **envp);
+void	ft_execute(char *cmd, t_cmd *usr_cmd, char **envp, t_stack *hist);
 void	ft_print_error(char *cmd, int errorno);
 void	ft_advanced_com(t_cmd *cmd, t_env *envp, t_stack h);
 int		ft_search_command(char *command);
@@ -114,7 +114,7 @@ t_env	*copy_envp(int capacity, char **envp);
 void	free_envp(t_env *stack);
 int		ft_push_env(t_env *stack, char *value);
 int		ft_is_full(t_env *stack);
-int		fork_pipes(int n[], char **cmd, char **envp, int i);
+int		fork_pipes(int n[], char **cmd, char **envp, t_stack *hist);
 int		ft_file_redirection(char **red, char **envp, int arr[]);
 int		ft_is_redirect(char **cmd);
 int		ft_arrow_pos(char **cmd);
@@ -170,5 +170,9 @@ char	*ft_get_dirname(char **needle);
 int		ft_is_redirect_in_out(char **cmd);
 int		ft_is_inter(char *buf);
 int     ft_ctrl_d(char **cmd, char *buf);
+void    ft_hash_table_bin(t_hash *table[], char **path);
+void    ft_insert_item(t_hash *table[], const char *key, const char *value);
+t_hash  *ft_search(t_hash *head, const char *key);
+int     ft_is_pipe_or_redirect(char *line);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_manage_pipes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: goisetsi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/08/07 17:35:02 by goisetsi          #+#    #+#             */
-/*   Updated: 2016/08/07 17:35:05 by goisetsi         ###   ########.fr       */
+/*   Created: 2016/12/27 17:27:04 by julekgwa          #+#    #+#             */
+/*   Updated: 2016/12/27 17:27:07 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_execute_child_proc(int in[], int out, char **cmd, char **envp)
 	}
 }
 
-int		fork_pipes(int n[], char **cmd, char **envp, int i)
+int		fork_pipes(int n[], char **cmd, char **envp, t_stack *hist)
 {
 	int		in[2];
 	int		fd[2];
@@ -43,22 +43,22 @@ int		fork_pipes(int n[], char **cmd, char **envp, int i)
 
 	in[0] = 0;
 	in[1] = n[1];
-	while (i < n[0] - 1)
+	while (hist->counter < n[0] - 1)
 	{
 		pipe(fd);
-		cmd_s = ft_strsplit(cmd[i], ' ');
+		cmd_s = ft_strsplit(cmd[hist->counter], ' ');
 		if (!ft_is_execute(cmd_s[0]))
-			cmd_s[0] = ft_build_exec(envp, cmd_s);
+			cmd_s[0] = ft_build_exec(cmd_s, hist);
 		ft_execute_child_proc(in, fd[1], cmd_s, envp);
 		close(fd[1]);
 		in[0] = fd[0];
-		i++;
+		hist->counter++;
 	}
 	if (in[0] != 0)
 		dup2(in[0], 0);
-	cmd_s = ft_strsplit(cmd[i], ' ');
+	cmd_s = ft_strsplit(cmd[hist->counter], ' ');
 	if (!ft_is_execute(cmd_s[0]))
-		cmd_s[0] = ft_build_exec(envp, cmd_s);
+		cmd_s[0] = ft_build_exec(cmd_s, hist);
 	if (ft_is_redirect(cmd_s))
 		return (ft_file_redirection(cmd_s, envp, n));
 	return (execve(cmd_s[0], &cmd_s[0], envp));
