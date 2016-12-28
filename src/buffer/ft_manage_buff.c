@@ -43,7 +43,7 @@ void	ft_process_buff(char **com, int pos, char c, t_stack *hist)
 
 int		ft_ctrl_b_f(char *buf)
 {
-	if (buf[0] == 2 || buf[0] == 6)
+	if (buf[0] == 2 || buf[0] == 6 || EQUAL(buf, "5D") || EQUAL(buf, "5C"))
 		return (1);
 	else
 		return (0);
@@ -54,7 +54,7 @@ void	ft_move_word(char *cmd, int *pos, char *buf)
 	int	i;
 
 	i = *pos;
-	if (buf[0] == 2)
+	if (buf[0] == 2 || EQUAL(buf, "5D"))
 	{
 		if (cmd[i - 1] == ' ')
 			i -= 2;
@@ -62,7 +62,7 @@ void	ft_move_word(char *cmd, int *pos, char *buf)
 			i--;
 		*pos = i + 1;
 	}
-	else if (buf[0] == 6)
+	else if (buf[0] == 6 || EQUAL(buf, "5C"))
 	{
 		if (cmd[i + 1] == ' ')
 			i += 2;

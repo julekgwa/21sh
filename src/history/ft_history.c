@@ -90,9 +90,6 @@ char	*ft_get_hist(char *history, t_stack hist, char *tmp, int i)
 				com = hist.list[i];
 	}
 	if (ft_strequ(com, ""))
-	{
 		ft_print_error(tmp, 5);
-		return (strdup(com));
-	}
 	return (com);
 }
