@@ -129,7 +129,7 @@ int		ft_get_here_doc_pos(char **cmd, char *doc);
 int		ft_process_here_doc(char **cmd, int is_pipe);
 int		ft_term_off(struct termios *term);
 int		ft_term_on(struct termios *term);
-void	ft_cmd_prompt();
+void	ft_cmd_prompt(void);
 int		ft_uneven(char *str);
 void	ft_complete_cmd(t_cmd *cmd, struct termios *term);
 int		ft_find_arrow(char **str);

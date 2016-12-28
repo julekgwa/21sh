@@ -47,36 +47,42 @@ void	ft_signalhandle(int num)
 	}
 }
 
-char	*ft_get_current_dir(char **envp)
+char	*ft_get_current_dir(void)
 {
 	char	*cwd;
 	int		i;
 	char	*home;
+	char	*dir;
 
 	cwd = NULL;
-	home = ft_get_env("$HOME", envp);
+	home = getenv("HOME");
 	cwd = getcwd(NULL, 0);
-	i = ft_strlen(cwd);
+	dir = ft_memalloc(ft_strlen(cwd) + 1);
+	ft_memset(dir, 0, ft_strlen(cwd) + 1);
 	if (ft_strequ(cwd, home))
-		return ("~");
-	if (ft_strequ(cwd, "/"))
-		return ("/");
+		ft_strcpy(cwd, "~");
+	i = ft_strlen(cwd);
 	while (i)
 	{
-		if (cwd[i] == '/')
+		if (cwd[i--] == '/')
+		{
+			i += 2;
 			break ;
-		i--;
+		}
 	}
-	i++;
-	return (cwd + i);
+	ft_strcpy(dir, cwd + i);
+	free(cwd);
+	return (dir);
 }
 
 void	ft_cmd_prompt(void)
 {
 	char 	hostname[128];
 	char 	*user;
+	char	*dir;
 
 	gethostname(hostname, sizeof hostname);
+	dir = ft_get_current_dir();
 	user = getenv("USERNAME");
 	ft_putstr("\33[2K\r");
 	ft_putstr(GRN);
@@ -84,8 +90,15 @@ void	ft_cmd_prompt(void)
 	ft_putstr(user);
 	ft_putstr("@");
 	ft_putstr(hostname);
+	ft_putstr(RESET);
+	ft_putstr(" ");
+	ft_putstr(CYN);
+	ft_putstr(dir);
+	ft_putstr(RESET);
+	ft_putstr(GRN);
 	ft_putstr("]$ ");
 	ft_putstr(RESET);
+	free(dir);
 }
 
 int		ft_enter_key(char **comm, int *pos, t_stack *hist)
