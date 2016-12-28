@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_hist_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: goisetsi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/08/07 17:37:50 by goisetsi          #+#    #+#             */
-/*   Updated: 2016/08/07 17:38:03 by goisetsi         ###   ########.fr       */
+/*   Created: 2016/12/28 10:46:01 by julekgwa          #+#    #+#             */
+/*   Updated: 2016/12/28 10:46:03 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ void	manage_up_down(char **buf, char **comm, t_stack *hist, int *pos)
 		hist->count = hist->top + 1;
 	if (hist->count >= 0)
 	{
-		if ((*comm = ft_keys_up_down(*buf, hist, pos)) != NULL)
-			ft_cursor(*comm, ft_strlen(*comm) + 1, hist);
+		ft_memset(*comm, 0, BUFF_SIZE);
+		ft_strcpy(*comm, ft_keys_up_down(*buf, hist, pos));
+		ft_cursor(*comm, ft_strlen(*comm) + 1, hist);
 	}
 }
 

@@ -92,11 +92,15 @@ void	ft_man_search_replace(char **cmd, int *pos, t_stack hist)
 	search.haystack = ft_get_prev_hist(hist);
 	search.needle = split[0];
 	search.with = split[1];
-	*cmd = ft_search_replace(search, 0, 0, 0);
+	ft_memset(*cmd, 0, BUFF_SIZE);
+	ft_strcpy(*cmd, ft_search_replace(search, 0, 0, 0));
 	if (ft_strequ(search.haystack, *cmd))
 	{
 		ft_putendl("\n21sh: substitution failed");
-		*cmd = "";
+		ft_memset(*cmd, 0, BUFF_SIZE);
+		ft_strcpy(*cmd, "");
+		*pos = 0;
+		return ;
 	}
 	i = ft_strlen(*cmd);
 	ft_cursor(*cmd, i + 1, &hist);

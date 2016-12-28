@@ -86,3 +86,22 @@ void	ft_display_cmd(char *cmd, int pos)
 		i++;
 	}
 }
+
+void	ft_exclamation(char **comm, t_stack *hist, int *pos)
+{
+	char	*tmp;
+	char	cmd[BUFF_SIZE];
+	int		i;
+
+	tmp = NULL;
+	i = 0;
+	ft_memset(cmd, 0, BUFF_SIZE);
+	ft_strcpy(cmd, *comm);
+	ft_memset(*comm, 0, BUFF_SIZE);
+	if (ft_strequ(cmd, "!!") || ft_strequ(cmd, "!-1"))
+		ft_strcpy(*comm, ft_get_prev_hist(*hist));
+	else
+		ft_strcpy(*comm, ft_get_hist(cmd, *hist, tmp, i));
+	*pos = ft_strlen(*comm);
+	ft_cursor(*comm, *pos + 1, hist);
+}

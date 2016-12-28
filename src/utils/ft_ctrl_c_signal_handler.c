@@ -54,9 +54,9 @@ void	prompt(t_cmd *cmd, t_stack *hist)
 	int				pos;
 
 	buf = ft_memalloc(GET_C_BUFF_SIZE);
-	comm = ft_memalloc(1000);
-	cmd->get_line = ft_memalloc(1000);
-	ft_memset(cmd->get_line, 0, 1000);
+	comm = ft_memalloc(BUFF_SIZE);
+	cmd->get_line = ft_memalloc(BUFF_SIZE);
+	ft_memset(cmd->get_line, 0, BUFF_SIZE);
 	pos = 0;
 	hist->counter = 1;
 	ft_cmd_prompt();
