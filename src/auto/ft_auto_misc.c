@@ -56,13 +56,13 @@ char	*ft_get_dirname(char **needle)
 
 	pos = 0;
 	filename = ft_get_search_value(*needle, &pos);
-	dir = (char *)malloc(sizeof(char) * (strlen(*needle) + 1));
-	ft_memset(dir, 0, sizeof(char) * (strlen(*needle) + 1));
+	dir = (char *)malloc(sizeof(char) * BUFF_SIZE);
+	ft_memset(dir, 0, sizeof(char) * BUFF_SIZE);
 	ft_strncpy(dir, *needle, pos);
 	if (ft_strequ(dir, ""))
-		strcpy(dir, ".");
+		ft_strcpy(dir, ".");
 	else if (ft_strncmp(dir, "~/", 2) == 0)
-		dir = getenv("HOME");
+		ft_strcpy(dir, getenv("HOME"));
 	*needle = filename;
 	return (dir);
 }
