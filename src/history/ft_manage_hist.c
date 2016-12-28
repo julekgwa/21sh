@@ -84,6 +84,7 @@ char	*ft_search_replace(t_search_hist s, int i, int j, int k)
 void	ft_man_search_replace(char **cmd, int *pos, t_stack hist)
 {
 	char			**split;
+	char			*search_str;
 	t_search_hist	search;
 	int				i;
 
@@ -93,16 +94,17 @@ void	ft_man_search_replace(char **cmd, int *pos, t_stack hist)
 	search.needle = split[0];
 	search.with = split[1];
 	ft_memset(*cmd, 0, BUFF_SIZE);
-	ft_strcpy(*cmd, ft_search_replace(search, 0, 0, 0));
+	search_str = ft_search_replace(search, 0, 0, 0);
+	ft_strcpy(*cmd, search_str);
 	if (ft_strequ(search.haystack, *cmd))
 	{
 		ft_putendl("\n21sh: substitution failed");
 		ft_memset(*cmd, 0, BUFF_SIZE);
 		ft_strcpy(*cmd, "");
-		*pos = 0;
-		return ;
 	}
 	i = ft_strlen(*cmd);
 	ft_cursor(*cmd, i + 1, &hist);
 	*pos = i;
+	freecopy(split);
+	free(search_str);
 }

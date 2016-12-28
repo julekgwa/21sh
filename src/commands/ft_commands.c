@@ -61,8 +61,18 @@ char	*ft_pwd(void)
 
 void	free_cmd(t_cmd *cmd)
 {
-	freecopy(cmd->user_comm);
-	free(cmd->get_line);
+	if (cmd->user_comm)
+	{
+		freecopy(cmd->user_comm);
+		cmd->user_comm = NULL;
+	}
+	if (cmd->get_line)
+	{
+		free(cmd->get_line);
+		cmd->get_line = NULL;
+	}
+	if (cmd->user_comm || cmd->get_line)
+		free_cmd(cmd);
 }
 
 void	ft_pro_cmd(t_cmd *cmd, t_env *envp, struct termios *t, t_stack *hist)

@@ -58,7 +58,6 @@ void	prompt(t_cmd *cmd, t_stack *hist)
 	cmd->get_line = ft_memalloc(BUFF_SIZE);
 	ft_memset(cmd->get_line, 0, BUFF_SIZE);
 	pos = 0;
-	hist->counter = 1;
 	ft_cmd_prompt();
 	tputs(tgetstr("so", NULL), 1, ft_myputchar);
 	ft_putchar(' ');

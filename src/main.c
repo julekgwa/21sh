@@ -115,8 +115,9 @@ int		main(int ac, char **av, char **envp)
 		if (!ft_strequ(cmd.get_line, "") && ft_spaces_tabs(cmd.get_line))
 		{
 			ft_pro_cmd(&cmd, envp_copy, &term, &hist);
-			free_cmd(&cmd);
+			freecopy(cmd.user_comm);
 		}
+		free(cmd.get_line);
 	}
 	return (0);
 }
