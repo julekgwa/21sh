@@ -12,28 +12,6 @@
 
 #include "minishell.h"
 
-char	**getpath(char **envp)
-{
-	int		i;
-	char	**s1;
-	char	**s2;
-
-	i = 0;
-	while (envp[i])
-	{
-		s1 = ft_strsplit(envp[i], '=');
-		if (ft_strequ(s1[0], "PATH"))
-		{
-			s2 = ft_strsplit(s1[1], ':');
-			freecopy(s1);
-			return (s2);
-		}
-		i++;
-		freecopy(s1);
-	}
-	return (NULL);
-}
-
 void	ft_hash_table_bin(t_hash *table[], char **path)
 {
 	DIR				*dir;
