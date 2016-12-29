@@ -28,7 +28,8 @@ SRC = ./src/ft_memset.c ./src/ft_bzero.c ./src/ft_memcpy.c ./src/ft_memccpy.c ./
       ./src/ft_neg_to_pos.c ./src/ft_str_contains.c ./src/ft_strhex_lower.c ./src/ft_base.c \
       ./src/ft_putnstr.c ./src/ft_num_digits.c ./src/ft_manage_c.c ./src/ft_find_width.c \
       ./src/ft_handle_s.c ./src/ft_strhex.c ./src/ft_putwchar_t.c ./src/ft_handle_prec.c \
-      ./src/ft_manage_width.c ./src/ft_realloc.c ./src/get_next_line.c ./src/ft_getchar.c
+      ./src/ft_manage_width.c ./src/ft_realloc.c ./src/get_next_line.c ./src/ft_getchar.c \
+      ./src/ft_lstsize.c
 OBJECT = ft_memset.o ft_bzero.o ft_memcpy.o ft_memccpy.o ft_memmove.o \
       ft_memchr.o ft_memcmp.o ft_strlen.o ft_strnstr.o \
       ft_strdup.o ft_strcpy.o ft_strncpy.o ft_strcat.o ft_strncat.o \
@@ -46,7 +47,7 @@ OBJECT = ft_memset.o ft_bzero.o ft_memcpy.o ft_memccpy.o ft_memmove.o \
       ft_neg_to_pos.o ft_str_contains.o ft_strhex_lower.o ft_base.o \
       ft_putnstr.o ft_num_digits.o ft_manage_c.o ft_find_width.o \
       ft_handle_s.o ft_strhex.o ft_putwchar_t.o ft_handle_prec.o \
-      ft_manage_width.o ft_realloc.o get_next_line.o ft_getchar.o
+      ft_manage_width.o ft_realloc.o get_next_line.o ft_getchar.o ft_lstsize.o
 FLAGS = -Wall -Wextra -Werror
 OPTIONS = -c -I ./includes/
 

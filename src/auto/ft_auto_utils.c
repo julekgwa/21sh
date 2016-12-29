@@ -49,50 +49,26 @@ int	ft_in_array(char **av, int len, char *needle)
 
 t_list	*ft_search_system(t_list *head, char *needle)
 {
-	DIR				*dir;
-	struct dirent	*dp;
-	int				len;
-	char			*dir_name;
+	char	*dir_name;
 
 	dir_name = ft_get_dirname(&needle);
-	len = ft_strlen(needle);
-	if ((dir = opendir(dir_name)))
-	{
-		while ((dp = readdir(dir)) != NULL)
-		{
-			if (ft_strncmp(needle, dp->d_name, len) == 0)
-				head = prepend(head, dp->d_name);
-		}
-	}
+	head = ft_scan_dir(head, needle, dir_name);
 	free(dir_name);
-	closedir(dir);
 	return (head);
 }
 
 t_list	*ft_search_binaries(t_list *head, char *needle)
 {
-	DIR				*dir;
-	struct dirent	*dp;
-	int				len;
-	int				i;
-	char			*search[] = {"/bin", "/usr/bin", "/usr/sbin", "/sbin", 0};
+	int		i;
+	char	*search[] = {"/bin", "/usr/bin", "/usr/sbin", "/sbin", 0};
 
 	i = -1;
 	if (ft_start_with(needle, ';'))
 		needle = needle + 1;
-	len = ft_strlen(needle);
 	while (search[++i])
 	{
-		if ((dir = opendir(search[i])))
-		{
-			while ((dp = readdir(dir)) != NULL)
-			{
-				if (strncmp(needle, dp->d_name, len) == 0)
-					head = prepend(head, dp->d_name);
-			}
-		}
-		closedir(dir);
-		if (ft_list_size(head))
+		head = ft_scan_dir(head, needle, search[i]);
+		if (ft_lstsize(head))
 			break ;
 	}
 	return (head);

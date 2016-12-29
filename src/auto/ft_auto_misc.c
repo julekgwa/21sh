@@ -12,17 +12,21 @@
 
 #include "minishell.h"
 
-void	ft_display_list(t_list *head)
+void	ft_display_n_free_list(t_list *head, int size, t_list *tmp)
 {
     t_list *cursor;
 
-    cursor = head;
-    ft_putchar('\n');
-    while(cursor != NULL)
+    if (size > 1)
     {
-        ft_putendl(cursor->content);
-        cursor = cursor->next;
-    }
+	    cursor = head;
+	    ft_putchar('\n');
+	    while(cursor != NULL)
+	    {
+	        ft_putendl(cursor->content);
+	        cursor = cursor->next;
+	    }
+	}
+    ft_freenodes(tmp);
 }
 
 char	*ft_get_search_value(char *needle, int *pos)
@@ -83,5 +87,31 @@ t_list	*ft_auto_environ(t_list *head, char **envp, char *needle)
 		i++;
 		freecopy(tmp);
 	}
+	return (head);
+}
+
+t_list	*ft_scan_dir(t_list *head, char *needle, char *dir_name)
+{
+	DIR				*dir;
+	struct dirent	*dp;
+	int				len;
+	char			tmp[256];
+
+	len = ft_strlen(needle);
+	ft_memset(tmp, 0, 256);
+	if ((dir = opendir(dir_name)))
+	{
+		while ((dp = readdir(dir)) != NULL)
+		{
+			if (ft_strncmp(needle, dp->d_name, len) == 0)
+			{
+				strcpy(tmp, dp->d_name);
+				if (ft_is_dir(tmp))
+					strcat(tmp, "/");
+				head = prepend(head, tmp);
+			}
+		}
+	}
+	closedir(dir);
 	return (head);
 }

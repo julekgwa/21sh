@@ -157,13 +157,13 @@ void	free_list(t_env *stack);
 void	free_cmd(t_cmd *cmd);
 void	ft_print_results(char **prefix, int *pos);
 void	ft_autocomplete(char **str, int *pos, char **envp);
-void	ft_display_list(t_list *head);
+void	ft_display_n_free_list(t_list *head, int size, t_list *tmp);
 int		ft_is_cmd(char *line);
-int		ft_list_size(t_list *begin_list);
 t_list	*ft_search_binaries(t_list *head, char *needle);
 t_list	*ft_search_system(t_list *head, char *needle);
 t_list	*ft_auto_environ(t_list *head, char **envp, char *needle);
 t_list	*prepend(t_list* head, char *content);
+void    ft_freenodes(t_list *head);
 int		ft_in_array(char **av, int len, char *needle);
 int		ft_str_has(char *str, char s[]);
 char	*ft_get_dirname(char **needle);
@@ -177,5 +177,7 @@ void    ft_free_hash_table(t_hash *table[]);
 void    ft_delete_item(t_hash *table[], const char *key);
 int     ft_is_pipe_or_redirect(char *line);
 void    ft_set_hash_table(int res, char *name, char **envp, t_stack *hist);
+int     ft_is_dir(const char *path);
+t_list  *ft_scan_dir(t_list *head, char *needle, char *dir_name);
 
 #endif

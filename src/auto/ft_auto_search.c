@@ -42,36 +42,6 @@ t_list	*prepend(t_list* head,char *content)
 	return (head);
 }
 
-void	ft_freenodes(t_list *head)
-{
-	t_list	*tmp;
-
-	while ((tmp = head) != NULL)
-	{
-		head = head->next;
-		free(tmp->content);
-		free(tmp);
-	}
-}
-
-int	ft_list_size(t_list *begin_list)
-{
-	int		i;
-	t_list	*list;
-
-	i = 0;
-	list = begin_list;
-	if (list)
-	{
-		while (list)
-		{
-			i++;
-			list = list->next;
-		}
-	}
-	return (i);
-}
-
 t_list	*ft_read_files(char *str, char **envp)
 {
 	t_list 	*head;
@@ -124,7 +94,6 @@ void	ft_autocomplete(char **str, int *pos, char **envp)
 	t_list	*tmp;
 	char	search[256];
 	char	*tmp_str;
-	int		size;
 
 	if (!ft_strequ(*str,""))
 	{
@@ -139,11 +108,8 @@ void	ft_autocomplete(char **str, int *pos, char **envp)
 			strcpy(search, *str);
 		head = ft_read_files(search, envp);
 		tmp = head;
-		size = ft_list_size(head);
-		if (size == 1)
+		if (ft_lstsize(head) == 1)
 			ft_strcpy(*str, ft_process_search(search, head->content, tmp_str, pos));
-		else if (size > 1)
-			ft_display_list(head);
-		ft_freenodes(tmp);
+		ft_display_n_free_list(head, ft_lstsize(head), tmp);
 	}
 }

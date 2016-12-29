@@ -39,3 +39,15 @@ void	ft_free_str(char *str, char *join)
 	free(str);
 	free(join);
 }
+
+void	ft_freenodes(t_list *head)
+{
+	t_list	*tmp;
+
+	while ((tmp = head) != NULL)
+	{
+		head = head->next;
+		free(tmp->content);
+		free(tmp);
+	}
+}

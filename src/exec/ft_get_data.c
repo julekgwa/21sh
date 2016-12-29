@@ -89,3 +89,13 @@ void	ft_execute(char *command, t_cmd *cmd, char **envp, t_stack *hist)
 	else
 		wait(&status);
 }
+
+int		ft_is_dir(const char *path)
+{
+    struct stat path_stat;
+
+    ft_memset(&path_stat, 0, sizeof(struct stat));
+    if (stat(path, &path_stat) < 0)
+    	return (0);
+    return S_ISDIR(path_stat.st_mode);
+}
