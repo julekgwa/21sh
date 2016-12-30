@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/09 14:33:15 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/09/10 16:36:18 by julekgwa         ###   ########.fr       */
+/*   Updated: 2016/12/29 21:52:26 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int		ft_file_redirection(char **red, char **envp, int arrow[])
 		ft_open_file(file_name, arrow[0]);
 	ft_redirect_left_right(red);
 	red[arrow_pos] = 0;
-	return (execve(red[0], &red[0], envp));
+	return (ft_execute_cmd(red[0], &red[0], envp));
 }
 
 int		ft_arrow_pos(char **cmd)

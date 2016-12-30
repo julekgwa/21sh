@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 17:26:31 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/27 17:26:33 by julekgwa         ###   ########.fr       */
+/*   Updated: 2016/12/29 13:00:28 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	ft_run_commands(t_cmd *cmd, t_env *envp, t_stack *hist)
 	ft_advanced_com(cmd, envp, hist);
 }
 
-char	*ft_build_comm(t_stack *hist, char *comm, char *buf, int pos)
+char	*ft_build_cmd(t_stack *hist, char *comm, char *buf, int pos)
 {
 	while (42)
 	{

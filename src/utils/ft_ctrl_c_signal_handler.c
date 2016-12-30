@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ctrl_c_signal_handler.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 17:23:04 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/27 17:23:07 by julekgwa         ###   ########.fr       */
+/*   Updated: 2016/12/30 02:38:46 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,12 @@ void	ft_ctrl_c_signal_handler(int signum)
 
 void	ft_print_error(char *cmd, int errorno)
 {
-	if (errorno == 0)
-	{
-		ft_putstr("21sh: ");
-		ft_putstr(cmd);
-		ft_putstr(": command not found...\n");
-	}
-	else if (errorno == 1)
-	{
-		ft_putstr("21sh: ");
-		ft_putstr(cmd);
-		ft_putstr(": Permission denied\n");
-	}
-	else if (errorno == 3)
+	if (errorno == 3)
 	{
 		ft_putstr("cd: ");
 		ft_putstr("no such file or directory: ");
 		ft_putendl(cmd);
+		return ;
 	}
 	else if (errorno == 5)
 	{
@@ -45,6 +34,14 @@ void	ft_print_error(char *cmd, int errorno)
 		ft_putendl(cmd);
 		return ;
 	}
+	ft_putstr("21sh: ");
+	ft_putstr(cmd);
+	if (errorno == 1)
+		ft_putstr(": Permission denied\n");
+	else if (errorno == 0)
+		ft_putstr(": command not found...\n");
+	else if (errorno == 2)
+		ft_putstr(": Is a directory\n");
 }
 
 void	prompt(t_cmd *cmd, t_stack *hist)
@@ -62,7 +59,7 @@ void	prompt(t_cmd *cmd, t_stack *hist)
 	tputs(tgetstr("so", NULL), 1, ft_myputchar);
 	ft_putchar(' ');
 	tputs(tgetstr("se", NULL), 1, ft_myputchar);
-	strcpy(cmd->get_line, ft_build_comm(hist, comm, buf, pos));
+	strcpy(cmd->get_line, ft_build_cmd(hist, comm, buf, pos));
 	free(buf);
 	free(comm);
 }

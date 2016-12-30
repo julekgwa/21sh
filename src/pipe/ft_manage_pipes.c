@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_manage_pipes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 17:27:04 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/27 17:27:07 by julekgwa         ###   ########.fr       */
+/*   Updated: 2016/12/30 03:20:52 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	ft_execute_child_proc(int in[], int out, char **cmd, char **envp)
 		if (ft_is_redirect(cmd))
 			ft_file_redirection(cmd, envp, in);
 		else
-			execve(cmd[0], &cmd[0], envp);
+			ft_execute_cmd(cmd[0], &cmd[0], envp);
+		exit(0);
 	}
 }
 
@@ -61,5 +62,5 @@ int		fork_pipes(int n[], char **cmd, char **envp, t_stack *hist)
 		cmd_s[0] = ft_build_exec(cmd_s, hist);
 	if (ft_is_redirect(cmd_s))
 		return (ft_file_redirection(cmd_s, envp, n));
-	return (execve(cmd_s[0], &cmd_s[0], envp));
+	return (ft_execute_cmd(cmd_s[0], &cmd_s[0], envp));
 }

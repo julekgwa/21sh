@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 17:27:36 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/27 17:27:40 by julekgwa         ###   ########.fr       */
+/*   Updated: 2016/12/29 19:35:57 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int		ft_character_keys(char *key_pressed);
 int		ft_enter_and_edit_keys(char *press, int *pos, char *com, t_stack *hist);
 int		ft_navigation_keys(char *key_pressed, int *pos, char *comm);
 void	ft_echo_off(char *s, struct termios *term);
-char	*ft_build_comm(t_stack *hist, char *comm, char *buf, int pos);
+char	*ft_build_cmd(t_stack *hist, char *comm, char *buf, int pos);
 int		ft_contains(char *str, char c);
 void	ft_cursor(char *comm, int pos, t_stack *hist);
 void	ft_process_buff(char **com, int pos, char c, t_stack *hist);
@@ -179,5 +179,6 @@ int     ft_is_pipe_or_redirect(char *line);
 void    ft_set_hash_table(int res, char *name, char **envp, t_stack *hist);
 int     ft_is_dir(const char *path);
 t_list  *ft_scan_dir(t_list *head, char *needle, char *dir_name);
+int     ft_execute_cmd(char *com, char **cmd, char **envp);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_data.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 17:09:59 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/27 17:10:01 by julekgwa         ###   ########.fr       */
+/*   Updated: 2016/12/29 22:51:31 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	ft_execute(char *command, t_cmd *cmd, char **envp, t_stack *hist)
 			freecopy(split_com);
 		}
 		else
-			execve(command, &cmd->user_comm[0], envp);
+			ft_execute_cmd(command, cmd->user_comm, envp);
 		exit(0);
 	}
 	else
