@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_manage_hist.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/05 07:30:59 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/27 10:20:37 by julekgwa         ###   ########.fr       */
+/*   Updated: 2016/12/30 04:49:24 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	ft_man_search_replace(char **cmd, int *pos, t_stack hist)
 	i = *pos;
 	search.haystack = ft_get_prev_hist(hist);
 	search.needle = split[0];
-	search.with = split[1];
+	search.with = split[1] ? split[1] : "";
 	ft_memset(*cmd, 0, BUFF_SIZE);
 	search_str = ft_search_replace(search, 0, 0, 0);
 	ft_strcpy(*cmd, search_str);

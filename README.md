@@ -15,6 +15,7 @@ mini UNIX command interpreter.
 * History
  * history n
  * history -c
+ * ^string^string^
  * !string
  * !n
  * !! and !-1

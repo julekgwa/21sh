@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 17:27:36 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/29 19:35:57 by julekgwa         ###   ########.fr       */
+/*   Updated: 2016/12/30 06:50:26 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,5 +180,6 @@ void    ft_set_hash_table(int res, char *name, char **envp, t_stack *hist);
 int     ft_is_dir(const char *path);
 t_list  *ft_scan_dir(t_list *head, char *needle, char *dir_name);
 int     ft_execute_cmd(char *com, char **cmd, char **envp);
+void    ft_str_substitution(char **str, char **envp);
 
 #endif

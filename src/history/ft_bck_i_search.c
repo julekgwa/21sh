@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bck_i_search.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/05 07:30:22 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/20 11:08:50 by julekgwa         ###   ########.fr       */
+/*   Updated: 2016/12/30 06:57:23 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	ft_bck_i_search(char *cmd, int pos, t_stack *hist)
 	hist->search->results = "";
 	hist->search->prev_match = "";
 	hist->search->fail = 0;
+	ft_cmd_prompt();
 	ft_search_hist(cmd, *hist, hist->search, 1);
 	search = hist->search->results;
 	ft_putstr("\n");
