@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/05 07:30:59 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/30 04:49:24 by julekgwa         ###   ########.fr       */
+/*   Updated: 2016/12/30 12:38:42 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*ft_search_replace(t_search_hist s, int i, int j, int k)
 	{
 		if (s.haystack[i] == s.needle[0])
 		{
-			if (!ft_strncmp(s.haystack + i, s.needle, ft_strlen(s.needle) - 1))
+			if (!ft_strncmp(s.haystack + i, s.needle, ft_strlen(s.needle)))
 			{
 				j = 0;
 				while (s.with[j])

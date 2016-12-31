@@ -6,15 +6,16 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 17:27:36 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/30 06:50:26 by julekgwa         ###   ########.fr       */
+/*   Updated: 2016/12/31 00:47:28 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include "libft.h"
-#include "structs.h"
+# include "structs.h"
 # include <signal.h>
+# include <sys/ioctl.h>
 # include <sys/wait.h>
 # include <termios.h>
 # include <sys/types.h>
@@ -157,12 +158,13 @@ void	free_list(t_env *stack);
 void	free_cmd(t_cmd *cmd);
 void	ft_print_results(char **prefix, int *pos);
 void	ft_autocomplete(char **str, int *pos, char **envp);
-void	ft_display_n_free_list(t_list *head, int size, t_list *tmp);
+void    ft_display_n_free_list(t_list *head, int size, t_list *tmp, int cols);
 int		ft_is_cmd(char *line);
 t_list	*ft_search_binaries(t_list *head, char *needle);
 t_list	*ft_search_system(t_list *head, char *needle);
 t_list	*ft_auto_environ(t_list *head, char **envp, char *needle);
 t_list	*prepend(t_list* head, char *content);
+t_list  *ft_auto_builtins(t_list *head, char *needle);
 void    ft_freenodes(t_list *head);
 int		ft_in_array(char **av, int len, char *needle);
 int		ft_str_has(char *str, char s[]);
@@ -181,5 +183,9 @@ int     ft_is_dir(const char *path);
 t_list  *ft_scan_dir(t_list *head, char *needle, char *dir_name);
 int     ft_execute_cmd(char *com, char **cmd, char **envp);
 void    ft_str_substitution(char **str, char **envp);
+void    ft_print_item(char *str, int num_sp);
+int     ft_get_cols(void);
+int     ft_get_max_strlen(t_list *head);
+void    ft_append_slash(char tmp[], char *filename);
 
 #endif

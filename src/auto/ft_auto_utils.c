@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_auto_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarquez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/20 09:49:02 by amarquez          #+#    #+#             */
-/*   Updated: 2016/12/20 15:46:08 by amarquez         ###   ########.fr       */
+/*   Updated: 2016/12/31 00:48:06 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ t_list	*ft_search_binaries(t_list *head, char *needle)
 	i = -1;
 	if (ft_start_with(needle, ';'))
 		needle = needle + 1;
+	head = ft_auto_builtins(head, needle);
 	while (search[++i])
 	{
 		head = ft_scan_dir(head, needle, search[i]);

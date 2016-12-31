@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/30 03:54:29 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/30 07:26:02 by julekgwa         ###   ########.fr       */
+/*   Updated: 2016/12/31 00:23:32 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,18 @@ void    ft_str_substitution(char **str, char **envp)
         return ;
     split = ft_strsplit(*str, ' ');
     needle = get_needle(split);
-    with = ft_get_env(needle, envp);
+    with = ft_get_env(needle, envp) ? ft_get_env(needle, envp) : "";
     if (*needle == '~')
     {
         needle = "~";
         with = ft_get_env("$HOME", envp);
     }
-    with = with ? with : "";
     replace.needle = needle;
     replace.with = with;
     replace.haystack = *str;
     result = ft_search_replace(replace, 0, 0, 0);
-    memset(*str, 0, BUFF_SIZE);
-    strcpy(*str, result);
+    ft_memset(*str, 0, BUFF_SIZE);
+    ft_strcpy(*str, result);
     freecopy(split);
     free(result);
     if (ft_contains(*str, '$') || ft_contains(*str, '~'))

@@ -6,25 +6,38 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/26 05:39:09 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/29 19:26:08 by julekgwa         ###   ########.fr       */
+/*   Updated: 2016/12/31 00:01:18 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_display_n_free_list(t_list *head, int size, t_list *tmp)
+void	ft_display_n_free_list(t_list *head, int size, t_list *tmp, int cols)
 {
+	int max_len;
+	int curr_len;
+	int tmp_cols;
     t_list *cursor;
 
     if (size > 1)
     {
 	    cursor = head;
+	    tmp_cols = cols;
+		max_len = ft_get_max_strlen(head);
 	    ft_putchar('\n');
 	    while(cursor != NULL)
 	    {
-	        ft_putendl(cursor->content);
+	        curr_len = ft_strlen(cursor->content);
+			if (curr_len > tmp_cols)
+			{
+				write(1, "\r", 1);
+				tmp_cols = cols;
+			}
+			ft_print_item(cursor->content, max_len - curr_len + 1);
+			tmp_cols -= max_len + 1;
 	        cursor = cursor->next;
 	    }
+	    write(1, "\n", 1);
 	}
     ft_freenodes(tmp);
 }
@@ -103,13 +116,15 @@ t_list	*ft_scan_dir(t_list *head, char *needle, char *dir_name)
 	{
 		while ((dp = readdir(dir)) != NULL)
 		{
-			if (ft_strncmp(needle, dp->d_name, len) == 0)
+			ft_append_slash(tmp, dp->d_name);
+			if (EQUAL(needle, " "))
 			{
-				strcpy(tmp, dp->d_name);
-				if (ft_is_dir(tmp))
-					strcat(tmp, "/");
-				head = prepend(head, tmp);
+				if (!EQUAL(dp->d_name, ".") && !EQUAL(dp->d_name, ".."))
+					head = prepend(head, tmp);
 			}
+			else if (ft_strncmp(needle, dp->d_name, len) == 0)
+				head = prepend(head, tmp);
+			ft_memset(tmp, 0, 256);
 		}
 	}
 	closedir(dir);

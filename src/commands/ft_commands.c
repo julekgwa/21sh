@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/29 07:45:09 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/30 07:02:56 by julekgwa         ###   ########.fr       */
+/*   Updated: 2016/12/30 12:12:56 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 char	*ft_get_env(const char *env, char **env_list)
 {
+	if (*env != '$')
+		return (NULL);
 	env += 1;
 	while (*env_list)
 	{
