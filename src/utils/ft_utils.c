@@ -6,13 +6,13 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/29 07:48:45 by julekgwa          #+#    #+#             */
-/*   Updated: 2017/01/01 16:01:09 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/01 16:03:43 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_rm_qoutes(char *cmd)
+char	*ft_rm_quotes(char *cmd)
 {
 	int	i;
 	int	j;
