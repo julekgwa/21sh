@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_manage_buff.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/28 10:44:34 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/28 10:44:38 by julekgwa         ###   ########.fr       */
+/*   Updated: 2016/12/31 16:01:40 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,24 @@ void	ft_move_word(char *cmd, int *pos, char *buf)
 			i++;
 		}
 		*pos = i + 1;
+	}
+}
+
+void	ft_display_cmd(char *cmd, int pos)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (i == pos - 1)
+		{
+			tputs(tgetstr("so", NULL), 1, ft_myputchar);
+			ft_putchar(cmd[i]);
+			tputs(tgetstr("se", NULL), 1, ft_myputchar);
+		}
+		else
+			ft_putchar(cmd[i]);
+		i++;
 	}
 }

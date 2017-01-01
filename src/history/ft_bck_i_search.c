@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/05 07:30:22 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/30 06:57:23 by julekgwa         ###   ########.fr       */
+/*   Updated: 2016/12/31 16:12:41 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,23 +69,24 @@ void	ft_bck_i_search(char *cmd, int pos, t_stack *hist)
 	ft_display_bck_i_search(cmd, pos, hist, search);
 }
 
-void	ft_display_cmd(char *cmd, int pos)
+char	*ft_get_hist_by_num(char *cmd, t_stack *hist)
 {
-	int	i;
+	int		i;
+	int		hist_num;
+	char	*tmp;
 
 	i = 0;
-	while (cmd[i])
+	tmp = "";
+	hist_num = ft_atoi(cmd + 1);
+	while (hist->list[i] && i < hist_num)
 	{
-		if (i == pos - 1)
-		{
-			tputs(tgetstr("so", NULL), 1, ft_myputchar);
-			ft_putchar(cmd[i]);
-			tputs(tgetstr("se", NULL), 1, ft_myputchar);
-		}
-		else
-			ft_putchar(cmd[i]);
+		if ((i + 1) == hist_num)
+			tmp = hist->list[i];
 		i++;
 	}
+	if (EQUAL(tmp, ""))
+		ft_print_error(cmd, 5);
+	return (tmp);
 }
 
 void	ft_exclamation(char **comm, t_stack *hist, int *pos)
@@ -101,6 +102,8 @@ void	ft_exclamation(char **comm, t_stack *hist, int *pos)
 	ft_memset(*comm, 0, BUFF_SIZE);
 	if (ft_strequ(cmd, "!!") || ft_strequ(cmd, "!-1"))
 		ft_strcpy(*comm, ft_get_prev_hist(*hist));
+	else if (cmd[0] == '!' && ft_isdigit(cmd[1]))
+		ft_strcpy(*comm, ft_get_hist_by_num(cmd, hist));
 	else
 		ft_strcpy(*comm, ft_get_hist(cmd, *hist, tmp, i));
 	*pos = ft_strlen(*comm);

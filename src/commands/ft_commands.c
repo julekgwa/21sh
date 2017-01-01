@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/29 07:45:09 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/30 12:12:56 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/01 15:47:22 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	ft_pro_cmd(t_cmd *cmd, t_env *envp, struct termios *t, t_stack *hist)
 
 	tmp = ft_strdup(cmd->get_line);
 	ft_str_substitution(&cmd->get_line, envp->list);
-	ft_remove_single_qoutes(cmd);
+	// ft_remove_single_qoutes(cmd);
 	cmd->user_comm = ft_strsplit(cmd->get_line, ' ');
 	if (cmd->user_comm != NULL)
 	{

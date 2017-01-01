@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 17:09:59 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/29 22:51:31 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/01 15:44:27 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*ft_build_exec(char **split, t_stack *hist)
 	char			*str;
 	t_hash			*tmp;
 
-	code = ft_hash_code(split[0]);
+	code = ft_hash_code(QUOTES(split[0]));
 	tmp = ft_search(hist->hash[code], split[0]);
 	if (code > MAX_HASH || !tmp)
 		return (NULL);

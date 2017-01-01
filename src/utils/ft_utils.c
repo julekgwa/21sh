@@ -3,25 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/29 07:48:45 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/29 07:48:47 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/01 16:01:09 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_rm_quotes(char *s)
+char	*ft_rm_qoutes(char *cmd)
 {
-	int	slen;
+	int	i;
+	int	j;
+	int	len;
 
-	if (ft_start_with(s, '"'))
-		s += 1;
-	slen = ft_strlen(s);
-	if (ft_end_with(s, '"'))
-		s[slen - 1] = '\0';
-	return (s);
+	i = 0;
+	j = 0;
+	len = ft_strlen(cmd);
+	while (j < len)
+	{
+		if (cmd[j] == 39 || cmd[j] == 34)
+			j++;
+		cmd[i] = cmd[j];
+		i++;
+		j++;
+	}
+	return (cmd);
 }
 
 int		ft_start_with(char *str, char c)

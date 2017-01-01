@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/30 20:30:12 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/31 00:50:50 by julekgwa         ###   ########.fr       */
+/*   Updated: 2016/12/31 14:28:09 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_list	*ft_auto_builtins(t_list *head, char *needle)
 	int			len;
 	static char	*cmd[] = 
 	{
-		"echo", "pwd", "cd", "history", "setenv", "unsetenv", "env", 
+		"history", "setenv", "unsetenv",
 		"exit", "clear", "export", "unset",
 		0
 	};

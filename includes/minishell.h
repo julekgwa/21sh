@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 17:27:36 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/31 00:47:28 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/01 15:49:57 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define EXECUTE ft_execute
 # define SUB ft_strsub
 # define FULL ft_full_word
-# define QUOTES ft_rm_quotes
+# define QUOTES ft_rm_qoutes
 # define LENGTH ft_array_len
 # define STD_INOUT ft_is_redirect_in_out
 # define EQUAL ft_strequ
@@ -61,7 +61,7 @@ int		ft_unsetenv(const char *env, t_env *envp, char **r);
 int		ft_setenv(const char *env, const char *val, int ov, t_env *enp);
 void	ft_set_envir(t_env *envp, char *str, t_stack *hist);
 char	*ft_remove_qoutes(char *s);
-char	*ft_rm_quotes(char *s);
+char	*ft_rm_qoutes(char *s);
 char	**ft_check_env(char **cmd, char **envp);
 void	ft_unsetting_env(char *names, t_env *envp, t_stack *hist);
 char	*ft_build_exec(char **split, t_stack *hist);
