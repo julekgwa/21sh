@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/29 12:37:20 by julekgwa          #+#    #+#             */
-/*   Updated: 2017/01/02 13:20:30 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/02 21:37:20 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void    ft_rm_quotes_array(char *av[], char **cmd, char *com)
 
 int ft_execute_cmd(char *com, char **cmd, char **envp)
 {
-    int exec;
+    int     exec;
     char    *av[BUFF_SIZE];
 
     ft_memset(av, 0, sizeof(char *) * BUFF_SIZE);

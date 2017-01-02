@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/29 07:45:09 by julekgwa          #+#    #+#             */
-/*   Updated: 2017/01/02 16:51:03 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/02 23:28:51 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,13 @@ void	free_cmd(t_cmd *cmd)
 		free_cmd(cmd);
 }
 
-void	ft_pro_cmd(t_cmd *cmd, t_env *envp, struct termios *t, t_stack *hist)
+int		ft_pro_cmd(t_cmd *cmd, t_env *envp, struct termios *t, t_stack *hist)
 {
 	char	*tmp;
+	int		val;
 
 	tmp = ft_strdup(cmd->get_line);
+	val = -1;
 	ft_str_substitution(&cmd->get_line, envp->list);
 	cmd->user_comm = ft_strsplit(cmd->get_line, ' ');
 	if (cmd->user_comm != NULL)
@@ -99,7 +101,9 @@ void	ft_pro_cmd(t_cmd *cmd, t_env *envp, struct termios *t, t_stack *hist)
 		if (ft_is_logical(cmd->get_line))
 			ft_log_op(cmd, envp, t, hist);
 		else
-			ft_run_commands(cmd, envp, hist);
+			val = ft_run_commands(cmd, envp, hist);
 		ft_term_on(t);
 	}
+	freecopy(cmd->user_comm);
+	return (val);
 }

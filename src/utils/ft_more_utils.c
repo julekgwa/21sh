@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_more_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 17:01:06 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/27 17:01:09 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/02 19:31:17 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,26 +48,26 @@ void	ft_multi_com(t_cmd *cmd, t_env *envp, t_stack *hist)
 	free(tmp);
 }
 
-void	ft_advanced_com(t_cmd *cmd, t_env *envp, t_stack *hist)
+int		ft_advanced_com(t_cmd *cmd, t_env *envp, t_stack *hist)
 {
 	char	*exec;
 	char	**search;
+	int		val;
 
-	if (CONTAINS(cmd->get_line, ';'))
-	{
-		ft_multi_com(cmd, envp, hist);
-		return ;
-	}
+	val = -1;
 	search = SPLIT(cmd->get_line, ' ');
-	if (SEARCH(search[0]) && !CONTAINS(cmd->get_line, '>'))
-		ft_execute_commands(search, cmd->get_line, envp, hist);
+	if (CONTAINS(cmd->get_line, ';'))
+		ft_multi_com(cmd, envp, hist);
+	else if (SEARCH(search[0]) && !CONTAINS(cmd->get_line, '>'))
+		val = ft_execute_commands(search, cmd->get_line, envp, hist);
 	else if ((exec = ft_build_exec(cmd->user_comm, hist)))
-		EXECUTE(exec, cmd, envp->list, hist);
+		val = EXECUTE(exec, cmd, envp->list, hist);
 	else if (ft_is_execute(cmd->user_comm[0]))
-		EXECUTE(cmd->user_comm[0], cmd, envp->list, hist);
+		val = EXECUTE(cmd->user_comm[0], cmd, envp->list, hist);
 	else
 		ft_print_error(cmd->user_comm[0], 0);
 	freecopy(search);
+	return (val);
 }
 
 char	*ft_last_word(const char *s)

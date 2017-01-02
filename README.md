@@ -37,6 +37,7 @@ mini UNIX command interpreter.
 * file descriptor aggregation (e.g. ``2>&-`` & ``1>&2``)
 * Go directly to the beginning or the end of a line by pressing home and end.
 * Move directly by word towards the left or the right using ctrl+LEFT and ctrl+RIGHT.
+* Simple logical operators (&& and ||)
 
 # Installation
 ```

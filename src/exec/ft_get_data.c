@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 17:09:59 by julekgwa          #+#    #+#             */
-/*   Updated: 2017/01/02 13:20:18 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/02 23:00:09 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,30 +62,33 @@ int		ft_is_execute(char *command)
 	return (0);
 }
 
-void	ft_execute(char *command, t_cmd *cmd, char **envp, t_stack *hist)
+int		ft_execute(char *command, t_cmd *cmd, char **envp, t_stack *hist)
 {
 	pid_t	pid;
 	int		status;
-	int		pipes[2];
-	char	**split_com;
+	int		value;
 
+	value = 0;
 	if ((pid = fork()) < 0)
 		exit(1);
 	else if (pid == 0)
 	{
 		if (ft_is_pipe_or_redirect(cmd->get_line))
-		{
-			split_com = ft_strsplit(cmd->get_line, '|');
-			pipes[0] = ft_array_len(split_com);
-			pipes[1] = CONTAINS(cmd->get_line, '|') ? 1 : 0;
-			hist->counter = 0;
-			fork_pipes(pipes, split_com, envp, hist);
-			freecopy(split_com);
-		}
+			ft_process_pipes(cmd->get_line, envp, hist);
 		else
 			ft_execute_cmd(command, cmd->user_comm, envp);
 		exit(0);
 	}
 	else
+	{
 		wait(&status);
+		if(WIFEXITED(status))
+		{
+			if (WEXITSTATUS(status) == 0)
+				value = 0;
+			else
+				value = -1;
+		}
+	}
+	return (value);
 }

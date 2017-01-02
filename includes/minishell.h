@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 17:27:36 by julekgwa          #+#    #+#             */
-/*   Updated: 2017/01/02 14:22:41 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/02 19:33:21 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ char	**ft_check_env(char **cmd, char **envp);
 void	ft_unsetting_env(char *names, t_env *envp, t_stack *hist);
 char	*ft_build_exec(char **split, t_stack *hist);
 int		ft_is_execute(char *command);
-void	ft_execute(char *cmd, t_cmd *usr_cmd, char **envp, t_stack *hist);
+int	    ft_execute(char *cmd, t_cmd *usr_cmd, char **envp, t_stack *hist);
 void	ft_print_error(char *cmd, int errorno);
-void	ft_advanced_com(t_cmd *cmd, t_env *envp, t_stack *hist);
+int	    ft_advanced_com(t_cmd *cmd, t_env *envp, t_stack *hist);
 int		ft_search_command(char *command);
-void	ft_execute_commands(char **cmd, char *l, t_env *p, t_stack *hi);
+int	    ft_execute_commands(char **cmd, char *l, t_env *p, t_stack *hi);
 char	*ft_get_str(char **av);
 int		ft_myputchar(int c);
 void	ft_clear_screen(void);
@@ -99,8 +99,8 @@ void	ft_signal(void);
 void	init_main(int *ac, char ***av);
 void	manage_up_down(char **buf, char **com, t_stack *hist, int *pos);
 void	ft_ctrl_l(char *comm, int pos, t_stack *hist);
-void	ft_run_commands(t_cmd *cmd, t_env *env, t_stack *hi);
-void	ft_pro_cmd(t_cmd *c, t_env *en, struct termios *t, t_stack *hi);
+int	    ft_run_commands(t_cmd *cmd, t_env *env, t_stack *hi);
+int	    ft_pro_cmd(t_cmd *c, t_env *en, struct termios *t, t_stack *hi);
 void	free_cmd(t_cmd *cmd);
 void	freecopy(char **copy);
 void	ft_free_str(char *str, char *join);
@@ -116,6 +116,7 @@ void	free_envp(t_env *stack);
 int		ft_push_env(t_env *stack, char *value);
 int		ft_is_full(t_env *stack);
 int		fork_pipes(int n[], char **cmd, char **envp, t_stack *hist);
+int     ft_process_pipes(char *line, char **envp, t_stack *hist);
 int		ft_file_redirection(char **red, char **envp, int arr[]);
 int		ft_is_redirect(char **cmd);
 int		ft_arrow_pos(char **cmd);

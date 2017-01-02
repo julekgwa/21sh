@@ -6,7 +6,7 @@
 #    By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/06 14:38:52 by ktshikot          #+#    #+#              #
-#    Updated: 2016/12/30 21:04:45 by julekgwa         ###   ########.fr        #
+#    Updated: 2017/01/02 18:31:49 by julekgwa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ SRC = ./src/main.c ./src/commands/ft_commands.c ./src/utils/ft_ctrl_c_signal_han
 	./src/history/ft_bck_i_search.c ./src/history/ft_manage_hist.c ./src/copy/ft_cut.c \
 	./src/auto/ft_auto_search.c ./src/auto/ft_auto_utils.c ./src/auto/ft_auto_misc.c \
 	./src/hash_table/ft_hash_table.c ./src/hash_table/ft_hash_table_utils.c \
-	./src/exec/ft_execute.c ./src/substitution/ft_sub.c ./src/auto/ft_format.c
+	./src/exec/ft_execute.c ./src/substitution/ft_sub.c ./src/auto/ft_format.c \
+	./src/pipe/ft_pipes_utils.c
 OBJECT = main.o ft_commands.o ft_ctrl_c_signal_handler.o ft_cd.o ft_echo.o \
 	ft_env.o ft_utils.o ft_get_data.o ft_more_utils.o ft_ctrl_terminal.o \
 	ft_term_utils.o ft_ctrl_keyboard.o ft_manage_pipes.o ft_manage_buff.o \
@@ -33,7 +34,7 @@ OBJECT = main.o ft_commands.o ft_ctrl_c_signal_handler.o ft_cd.o ft_echo.o \
 	ft_parenthesis_utils.o ft_here_doc_utils.o ft_export.o ft_logical_op.o \
 	ft_bck_i_search.o ft_manage_hist.o ft_cut.o ft_auto_search.o ft_auto_utils.o \
 	ft_auto_misc.o ft_hash_table.o ft_hash_table_utils.o ft_execute.o ft_sub.o \
-	ft_format.o
+	ft_format.o ft_pipes_utils.o
 FLAGS = -Wall -Wextra -Werror -g3
 OPTIONS = -c -I libft/includes/ -I includes/
 

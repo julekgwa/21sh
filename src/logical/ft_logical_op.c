@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/19 12:58:05 by julekgwa          #+#    #+#             */
-/*   Updated: 2017/01/02 17:40:53 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/02 23:30:08 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,23 @@ void	ft_log_op(t_cmd *cmd, t_env *envp, struct termios *t, t_stack *hist)
 	char	log[BUFF_SIZE][BUFF_SIZE];
 	char	*sep;
 	int		i;
+	t_cmd	logic;
+	int		exec;
 
 	memset(log, 0, sizeof(log[0][0]) * BUFF_SIZE * BUFF_SIZE);
+	exec = 0;
 	sep = ft_get_logical_sep(cmd->get_line);
 	i = 0;
 	split_by_word(log, cmd->user_comm, sep);
 	while (log[i] && log[i][0])
 	{
-		ft_putendl(log[i++]);
+		logic.get_line = log[i];
+		if (exec == -1 && EQUAL(sep, "&&"))
+			break ;
+		exec = ft_pro_cmd(&logic, envp, t, hist);
+		if (exec == 0 && EQUAL(sep, "||"))
+			break ;
+		i++;
 	}
-	(void)envp;
-	(void)t;
-	(void)hist;
+	free(sep);
 }

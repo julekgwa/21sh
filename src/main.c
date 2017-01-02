@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 17:26:31 by julekgwa          #+#    #+#             */
-/*   Updated: 2017/01/02 16:05:52 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/02 23:41:47 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		ft_search_command(char *command)
 	return (0);
 }
 
-void	ft_execute_commands(char **cmd, char *line, t_env *envp, t_stack *hist)
+int		ft_execute_commands(char **cmd, char *line, t_env *envp, t_stack *hist)
 {
 	char *dir;
 
@@ -61,11 +61,12 @@ void	ft_execute_commands(char **cmd, char *line, t_env *envp, t_stack *hist)
 		ft_display_hist(hist, cmd, 0);
 	else if (ft_strequ(cmd[0], "clear"))
 		tputs(tgetstr("cl", NULL), 1, ft_myputchar);
+	return (0);
 }
 
-void	ft_run_commands(t_cmd *cmd, t_env *envp, t_stack *hist)
+int		ft_run_commands(t_cmd *cmd, t_env *envp, t_stack *hist)
 {
-	ft_advanced_com(cmd, envp, hist);
+	return (ft_advanced_com(cmd, envp, hist));
 }
 
 char	*ft_build_cmd(t_stack *hist, char *comm, char *buf, int pos)
@@ -114,10 +115,7 @@ int		main(int ac, char **av, char **envp)
 		ft_complete_cmd(&cmd, &term);
 		ft_putchar('\n');
 		if (!ft_strequ(cmd.get_line, "") && ft_spaces_tabs(cmd.get_line))
-		{
 			ft_pro_cmd(&cmd, envp_copy, &term, &hist);
-			freecopy(cmd.user_comm);
-		}
 		free(cmd.get_line);
 	}
 	return (0);
