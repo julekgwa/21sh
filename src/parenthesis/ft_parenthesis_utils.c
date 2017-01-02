@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 16:09:22 by julekgwa          #+#    #+#             */
-/*   Updated: 2017/01/02 14:22:34 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/02 17:24:05 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,19 @@ int		ft_uneven(char *str)
 int		ft_is_slash_inhibitor(char *str)
 {
 	char	**split;
+	int		i;
 
 	split = SPLIT(str, ' ');
+	i = 0;
 	if (ft_array_len(split) <= 1)
+	{
+		freecopy(split);
 		return (0);
+	}
 	if (EQUAL(split[1], "\\"))
-		return (1);
-	else
-		return (0);
+		i = 1;
+	freecopy(split);
+	return (i);
 }
 
 void	ft_rm_newline(char *cmd)
