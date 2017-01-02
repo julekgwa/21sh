@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 17:27:36 by julekgwa          #+#    #+#             */
-/*   Updated: 2017/01/01 16:08:22 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/02 14:22:41 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,5 +187,9 @@ void    ft_print_item(char *str, int num_sp);
 int     ft_get_cols(void);
 int     ft_get_max_strlen(t_list *head);
 void    ft_append_slash(char tmp[], char *filename);
+void    ft_swap_or_del_chars(char *cmd, char *buf, int *pos);
+int     ft_is_slash_inhibitor(char *str);
+void    ft_process_slash_inhibitor(t_cmd *cmd, struct termios *term);
+void    ft_rm_newline(char *cmd);
 
 #endif

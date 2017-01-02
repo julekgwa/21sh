@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_history.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/28 10:46:54 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/28 10:46:56 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/02 07:46:15 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int		ft_up_down(char *key_pressed)
 	char	*key;
 
 	key = key_pressed + 1;
-	if (ft_strequ(key, "[A") || ft_strequ(key, "[5~"))
+	if (EQUAL(key, "[A") || EQUAL(key, "[5~") || key_pressed[0] == 16)
 		return (1);
-	else if (ft_strequ(key, "[B") || ft_strequ(key, "[6~"))
+	else if (EQUAL(key, "[B") || EQUAL(key, "[6~"))
 		return (1);
 	return (0);
 }
@@ -51,14 +51,14 @@ char	*ft_keys_up_down(char *key_pressed, t_stack *hist, int *pos)
 
 	key = key_pressed + 1;
 	res = "";
-	if (ft_strequ(key, "[A") || ft_strequ(key, "[5~"))
+	if (EQUAL(key, "[A") || EQUAL(key, "[5~") || key_pressed[0] == 16 || EQUAL(key_pressed, "5A"))
 	{
 		if (hist->count >= 0)
 			res = ft_up(hist);
 		if (hist->count < 0)
 			hist->count = 0;
 	}
-	else if (ft_strequ(key, "[B") || ft_strequ(key, "[6~"))
+	else if (EQUAL(key, "[B") || EQUAL(key, "[6~") || EQUAL(key_pressed, "5A"))
 	{
 		if (hist->count <= hist->top)
 			res = ft_down(hist);
@@ -89,7 +89,7 @@ char	*ft_get_hist(char *history, t_stack hist, char *tmp, int i)
 			if (ft_strncmp(tmp, hist.list[i], ft_strlen(tmp)) == 0)
 				com = hist.list[i];
 	}
-	if (ft_strequ(com, ""))
+	if (EQUAL(com, ""))
 		ft_print_error(tmp, 5);
 	return (com);
 }

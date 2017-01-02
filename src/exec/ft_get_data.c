@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 17:09:59 by julekgwa          #+#    #+#             */
-/*   Updated: 2017/01/01 15:44:27 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/02 13:20:18 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,4 @@ void	ft_execute(char *command, t_cmd *cmd, char **envp, t_stack *hist)
 	}
 	else
 		wait(&status);
-}
-
-int		ft_is_dir(const char *path)
-{
-    struct stat path_stat;
-
-    ft_memset(&path_stat, 0, sizeof(struct stat));
-    if (stat(path, &path_stat) < 0)
-    	return (0);
-    return S_ISDIR(path_stat.st_mode);
 }

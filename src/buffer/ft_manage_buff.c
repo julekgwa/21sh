@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/28 10:44:34 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/31 16:01:40 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/01 23:16:27 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,21 +76,21 @@ void	ft_move_word(char *cmd, int *pos, char *buf)
 	}
 }
 
-void	ft_display_cmd(char *cmd, int pos)
+void	ft_swap_or_del_chars(char *cmd, char *buf, int *pos)
 {
-	int	i;
+	int		i;
+	char	tmp;
 
-	i = 0;
-	while (cmd[i])
+	i = ft_strlen(cmd);
+	if (buf[0] == 8 && i > 0)
 	{
-		if (i == pos - 1)
-		{
-			tputs(tgetstr("so", NULL), 1, ft_myputchar);
-			ft_putchar(cmd[i]);
-			tputs(tgetstr("se", NULL), 1, ft_myputchar);
-		}
-		else
-			ft_putchar(cmd[i]);
-		i++;
+		cmd[i - 1] = 0;
+		*pos = ft_strlen(cmd);
+		return ;
 	}
+	if (i <= 1)
+		return ;
+	tmp = cmd[i - 1];
+	cmd[i - 1] = cmd[i - 2];
+	cmd[i - 2] = tmp;
 }

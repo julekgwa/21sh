@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 16:08:48 by julekgwa          #+#    #+#             */
-/*   Updated: 2017/01/01 15:44:14 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/02 16:13:39 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ void	ft_complete_cmd(t_cmd *cmd, struct termios *term)
 		ft_strcpy(complete, cmd->get_line);
 		while ((retvalue = read(0, line, SIZE)))
 		{
-			ft_strcat(complete, line);
+			ft_strcat(complete, "\n");
+			ft_strncat(complete, line, ft_strlen(line) - 1);
 			ft_memset(line, 0, SIZE);
 			if (!ft_uneven(complete))
 				break ;
@@ -67,4 +68,33 @@ void	ft_complete_cmd(t_cmd *cmd, struct termios *term)
 		ft_check_eof(retvalue, cmd);
 		ft_term_on(term);
 	}
+}
+
+void	ft_process_slash_inhibitor(t_cmd *cmd, struct termios *term)
+{
+	char	complete[BUFF_SIZE];
+	char	line[SIZE];
+	int		retvalue;
+
+	if (!ft_is_slash_inhibitor(cmd->get_line))
+		return ;
+	ft_memset(complete, 0, BUFF_SIZE);
+	ft_memset(line, 0, SIZE);
+	ft_strncpy(complete, cmd->get_line, ft_strlen(cmd->get_line) - 1);
+	ft_term_off(term);
+	while (42)
+	{
+        ft_putstr("\n> ");
+		retvalue = read(0, line, SIZE);
+		if (line[retvalue - 1] == '\n')
+		{
+			ft_strcat(complete, line);
+			break ;
+		}
+		ft_strcat(complete, line);
+		ft_memset(line, 0, SIZE);
+	}
+	ft_rm_newline(complete);
+	ft_strcpy(cmd->get_line, complete);
+	ft_term_on(term);
 }

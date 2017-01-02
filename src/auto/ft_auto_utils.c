@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/20 09:49:02 by amarquez          #+#    #+#             */
-/*   Updated: 2016/12/31 00:48:06 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/02 13:22:19 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,6 @@ int	ft_is_cmd(char *line)
 	}
 	freecopy(split);
 	return (retval);
-}
-
-int	ft_in_array(char **av, int len, char *needle)
-{
-	int	i;
-
-	i = 0;
-	while (i < len)
-	{
-		if (ft_strequ(av[i], needle))
-			return (1);
-		i++;
-	}
-	return (0);
 }
 
 t_list	*ft_search_system(t_list *head, char *needle)

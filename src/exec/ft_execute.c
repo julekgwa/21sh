@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/29 12:37:20 by julekgwa          #+#    #+#             */
-/*   Updated: 2017/01/01 16:36:30 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/02 13:20:30 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,16 @@ int     ft_is_executable(const char *path)
     if (stat(path, &path_stat) == 0 && path_stat.st_mode & S_IXUSR)
         return (1);
     return (0);
+}
+
+int     ft_is_dir(const char *path)
+{
+    struct stat path_stat;
+
+    ft_memset(&path_stat, 0, sizeof(struct stat));
+    if (stat(path, &path_stat) < 0)
+        return (0);
+    return S_ISDIR(path_stat.st_mode);
 }
 
 void    ft_rm_quotes_array(char *av[], char **cmd, char *com)
@@ -51,5 +61,5 @@ int ft_execute_cmd(char *com, char **cmd, char **envp)
         ft_print_error(com, 1);
     else if (exec == -1 && ft_is_dir(com))
         ft_print_error(com, 2);
-    return (1);
+    return (exec);
 }

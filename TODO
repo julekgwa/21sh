@@ -1,25 +1,26 @@
 ###1. Line edition feature using the termcaps library.###
 ###2. The “;” command line separator.
 ###3. Pipes “|”.
-4. The 4 following redirections “<”, “>”, “<<” et “>>”.
-5. File descriptor aggregation, for example to close the standard error:.
+###4. The 4 following redirections “<”, “>”, “<<” et “>>”.
+###5. File descriptor aggregation, for example to close the standard error:.
 ###6. Edit the line where the cursor is located.
 ###7. Move the cursor left and right to be able to edit the line at a specific location.
-8. Use up and down arrows to navigate through the command history.
-9. Cut, copy, and/or paste.
-10. Move directly by word towards the left or the right using ctrl+LEFT and ctrl+RIGHT.
+###8. Use up and down arrows to navigate through the command history.
+###9. Cut, copy, and/or paste.
+###10. Move directly by word towards the left or the right using ctrl+LEFT and ctrl+RIGHT.
 ###11. Go directly to the beginning or the end of a line by pressing home and end.
-12. Write AND edit a command over a few lines. In that case, we would love that ctrl+UP and ctrl+DOWN allow to go from one line 	to another in the command while remaining in the same column or otherwise the most appropriate column.
-13. If the part between parenthesis of the command is not closed before you press return, the shell will return to the line and 	await for the end of the command. About the parenthesis part we’re referring to command line including a part between quotes, 	doubles quotes, back quotes, parenthesis, hooks, accolades etc...
-14. Implement the ctrl+D and ctrl+C combination feature (knowing that ctrl+C to stop a program is a good thing too).
+###12. Write AND edit a command over a few lines. In that case, we would love that ctrl+UP and ctrl+DOWN allow to go from one line 	to another in the command while remaining in the same column or otherwise the most appropriate column.
+###13. If the part between parenthesis of the command is not closed before you press return, the shell will return to the line and 	await for the end of the command. About the parenthesis part we’re referring to command line including a part between quotes, 	doubles quotes, back quotes, parenthesis, hooks, accolades etc...
+###14. Implement the ctrl+D and ctrl+C combination feature (knowing that ctrl+C to stop a program is a good thing too).
 
-./src/main.c
-(line 55): function ft_build_comm has 49 lines
-(line 108): function main has 33 lines
+Bonus
 
-###./src/keyboard/ft_ctrl_keyboard.c
-###Error (line 15): function ft_function_keys has 30 lines
-###Error (line 57): function ft_enter_and_edit_keys has 28 lines
-
-./src/history/ft_history.c
-Error (line 67): function ft_get_hist has 36 lines
+15. CTRL+T for swapping characters.
+16. CTRL+P get previous history.
+17. unset.
+18. export.
+19. !!
+20. !-1
+21. ^string^string^
+22. clear
+23. CTRL+H delete character from cmd

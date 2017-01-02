@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cut.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/19 12:31:47 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/19 12:33:39 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/01 23:30:21 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ft_copy(char **cmd, char *buf, int *pos, t_stack *hist)
 			hist->paste = strndup(*cmd, *pos);
 		}
 	}
-	else if (buf[0] == 9)
+	else if (buf[0] == 7)
 	{
 		if (ft_strequ(*cmd, ""))
 			return ;
@@ -72,7 +72,7 @@ void	ft_copy_n_paste(char **cmd, char *buf, int *pos, t_stack *hist)
 		ft_paste(cmd, pos, hist);
 	else if (buf[0] == 11 || buf[0] == 24)
 		ft_cut(cmd, buf, pos, hist);
-	else if (buf[0] == 23 || buf[0] == 9)
+	else if (buf[0] == 23 || buf[0] == 7)
 		ft_copy(cmd, buf, pos, hist);
 }
 
@@ -80,7 +80,7 @@ int		ft_is_copy_n_paste(char *buf)
 {
 	if (buf[0] == 11 || buf[0] == 24 || buf[0] == 22)
 		return (1);
-	else if (buf[0] == 23 || buf[0] == 9)
+	else if (buf[0] == 23 || buf[0] == 7)
 		return (1);
 	return (0);
 }

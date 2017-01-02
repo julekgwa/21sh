@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_term_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/19 12:52:55 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/27 15:31:53 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/02 13:22:26 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,37 @@ void	ft_push(t_stack *stack, char *hist)
 		return ;
 	stack->list[++stack->top] = hist;
 	stack->count = stack->top + 1;
+}
+
+void	ft_display_cmd(char *cmd, int pos)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (i == pos - 1)
+		{
+			tputs(tgetstr("so", NULL), 1, ft_myputchar);
+			ft_putchar(cmd[i]);
+			tputs(tgetstr("se", NULL), 1, ft_myputchar);
+		}
+		else
+			ft_putchar(cmd[i]);
+		i++;
+	}
+}
+
+int	ft_in_array(char **av, int len, char *needle)
+{
+	int	i;
+
+	i = 0;
+	while (i < len)
+	{
+		if (ft_strequ(av[i], needle))
+			return (1);
+		i++;
+	}
+	return (0);
 }

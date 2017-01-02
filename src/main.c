@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 17:26:31 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/30 07:01:42 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/02 16:05:52 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int		main(int ac, char **av, char **envp)
 	while (42)
 	{
 		prompt(&cmd, &hist);
+		ft_process_slash_inhibitor(&cmd, &term);
 		ft_complete_cmd(&cmd, &term);
 		ft_putchar('\n');
 		if (!ft_strequ(cmd.get_line, "") && ft_spaces_tabs(cmd.get_line))

@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/26 02:04:05 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/31 00:20:24 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/02 13:26:31 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ char	*ft_pro_search(char *cmd, char *result, char *tmp, int *pos)
 	else
 	{
 		ft_strcat(cmd, result + len);
+		if (!ft_is_dir(cmd))
+			ft_strcat(cmd, " ");
 		*pos = ft_strlen(cmd);
 	}
 	freecopy(split);

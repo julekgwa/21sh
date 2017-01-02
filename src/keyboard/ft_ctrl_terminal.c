@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/19 12:52:32 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/30 20:29:31 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/02 07:56:58 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ void	ft_clear_screen(void)
 
 void	ft_intermidiate(char **comm, int *pos, t_stack *hist, char *buf)
 {
+	int	tmp_pos;
+
+	tmp_pos = *pos;
 	if (buf[0] == 12)
 		ft_ctrl_l(*comm, *pos, hist);
 	else if (buf[0] == 18)
@@ -56,10 +59,14 @@ void	ft_intermidiate(char **comm, int *pos, t_stack *hist, char *buf)
 		ft_move_word(*comm, pos, buf);
 	else if (ft_up_down(buf))
 		manage_up_down(&buf, comm, hist, pos);
-	if (buf[0] == 16)
+	else if (buf[0] == 20 || buf[0] == 8)
+		ft_swap_or_del_chars(*comm, buf, pos);
+	else if (EQUAL(buf, "5A") || EQUAL(buf, "5B"))
 	{
-		*comm = ft_get_prev_hist(*hist);
-		*pos = ft_strlen(*comm);
+		ft_memset(*comm, 0, BUFF_SIZE);
+		ft_strcpy(*comm, ft_keys_up_down(buf, hist, pos));
+		if ((int)ft_strlen(*comm) > tmp_pos)
+			*pos = tmp_pos;
 	}
 }
 
@@ -67,7 +74,11 @@ int		ft_is_inter(char *buf)
 {
 	if (buf[0] == 12 || buf[0] == 18 || buf[0] == 2 || buf[0] == 6)
 		return (1);
-	else if (buf[0] == 16 || EQUAL(buf, "5D") || EQUAL(buf, "5C"))
+	else if (EQUAL(buf, "5D") || EQUAL(buf, "5C") || buf[0] == 20)
+		return (1);
+	else if (EQUAL(buf, "5A") || EQUAL(buf, "5B"))
+		return (1);
+	else if (buf[0] == 8)
 		return (1);
 	return (0);
 }
