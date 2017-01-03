@@ -23,10 +23,10 @@ mini UNIX command interpreter.
  * :arrow_up: UP or :arrow_down: DOWN
 * Copy and Paste
  * CTRL-W - Copy what is currently in front of the cursor.
- * CTRL-I - Copy the entire line that has being typed.
+ * CTRL-G - Copy the entire line that has being typed.
  * CTRL-K - Cut or delete what is currently in front of the cursor.
  * CTRL-X - Cut or delete the entire line that has being typed.
- * CTRL-V - Paste the last thing you deleted (using CTRL-K, CTRL-W, CTRL-I or CTRL-X ).
+ * CTRL-V - Paste the last thing you deleted (using CTRL-K, CTRL-W, CTRL-G or CTRL-X ).
 * Auto complete
 * unset
 * export
@@ -38,6 +38,9 @@ mini UNIX command interpreter.
 * Go directly to the beginning or the end of a line by pressing home and end.
 * Move directly by word towards the left or the right using ctrl+LEFT and ctrl+RIGHT.
 * Simple logical operators (&& and ||)
+* CTRL+T for swapping characters.
+* CTRL+P get previous history.
+* CTRL+H delete character from cmd
 
 # Installation
 ```
