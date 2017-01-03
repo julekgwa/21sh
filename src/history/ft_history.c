@@ -51,7 +51,8 @@ char	*ft_keys_up_down(char *key_pressed, t_stack *hist, int *pos)
 
 	key = key_pressed + 1;
 	res = "";
-	if (EQUAL(key, "[A") || EQUAL(key, "[5~") || key_pressed[0] == 16 || EQUAL(key_pressed, "5A"))
+	if (EQUAL(key, "[A") || EQUAL(key, "[5~") || key_pressed[0] == 16
+		|| EQUAL(key_pressed, "5A"))
 	{
 		if (hist->count >= 0)
 			res = ft_up(hist);

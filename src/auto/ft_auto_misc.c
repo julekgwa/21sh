@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/26 05:39:09 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/31 00:01:18 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/03 09:24:24 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 void	ft_display_n_free_list(t_list *head, int size, t_list *tmp, int cols)
 {
-	int max_len;
-	int curr_len;
-	int tmp_cols;
-    t_list *cursor;
+	int		max_len;
+	int		curr_len;
+	int		tmp_cols;
+	t_list	*cursor;
 
-    if (size > 1)
-    {
-	    cursor = head;
-	    tmp_cols = cols;
+	if (size > 1)
+	{
+		cursor = head;
+		tmp_cols = cols;
 		max_len = ft_get_max_strlen(head);
-	    ft_putchar('\n');
-	    while(cursor != NULL)
-	    {
-	        curr_len = ft_strlen(cursor->content);
+		ft_putchar('\n');
+		while (cursor != NULL)
+		{
+			curr_len = ft_strlen(cursor->content);
 			if (curr_len > tmp_cols)
 			{
 				write(1, "\r", 1);
@@ -35,11 +35,10 @@ void	ft_display_n_free_list(t_list *head, int size, t_list *tmp, int cols)
 			}
 			ft_print_item(cursor->content, max_len - curr_len + 1);
 			tmp_cols -= max_len + 1;
-	        cursor = cursor->next;
-	    }
-	    write(1, "\n", 1);
+			cursor = cursor->next;
+		}
 	}
-    ft_freenodes(tmp);
+	ft_freenodes(tmp);
 }
 
 char	*ft_get_search_value(char *needle, int *pos)

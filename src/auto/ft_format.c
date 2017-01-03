@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/30 20:30:12 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/31 14:28:09 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/03 09:16:05 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,22 @@ int		ft_get_cols(void)
 	return (cols);
 }
 
-void    ft_print_item(char *str, int num_sp)
+void	ft_print_item(char *str, int num_sp)
 {
-	char sp = ' ';
+	char sp;
 
+	sp = ' ';
 	write(1, str, ft_strlen(str));
 	while (num_sp--)
 		write(1, &sp, 1);
 }
 
-int 	ft_get_max_strlen(t_list *head)
+int		ft_get_max_strlen(t_list *head)
 {
-	int len = 0;
+	int		len;
 	t_list	*cursor;
 
+	len = 0;
 	cursor = head;
 	while (cursor != NULL)
 	{
@@ -64,8 +66,7 @@ t_list	*ft_auto_builtins(t_list *head, char *needle)
 {
 	int			i;
 	int			len;
-	static char	*cmd[] = 
-	{
+	static char	*cmd[] = {
 		"history", "setenv", "unsetenv",
 		"exit", "clear", "export", "unset",
 		0

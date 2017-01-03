@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 16:08:48 by julekgwa          #+#    #+#             */
-/*   Updated: 2017/01/02 16:32:16 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/03 10:04:48 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	ft_process_slash_inhibitor(t_cmd *cmd, struct termios *term)
 	ft_term_off(term);
 	while (42)
 	{
-        ft_putstr("\n> ");
+		ft_putstr("\n> ");
 		retvalue = read(0, line, SIZE);
 		if (line[retvalue - 1] == '\n')
 		{

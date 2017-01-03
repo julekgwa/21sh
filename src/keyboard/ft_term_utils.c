@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/19 12:52:55 by julekgwa          #+#    #+#             */
-/*   Updated: 2017/01/02 13:22:26 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/03 09:59:08 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	ft_display_cmd(char *cmd, int pos)
 	}
 }
 
-int	ft_in_array(char **av, int len, char *needle)
+int		ft_in_array(char **av, int len, char *needle)
 {
 	int	i;
 

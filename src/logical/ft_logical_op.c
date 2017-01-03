@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/19 12:58:05 by julekgwa          #+#    #+#             */
-/*   Updated: 2017/01/02 23:30:08 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/03 10:00:37 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,22 @@ char	*ft_get_logical_sep(char *line)
 
 void	split_by_word(char av[][BUFF_SIZE], char **arr, char *word)
 {
-    size_t i = 0;
-    size_t j = 0;
+	size_t i;
+	size_t j;
 
-    while (arr[i]) {
-        if (strcmp(arr[i], word)) {
-            strcat(av[j], arr[i]);
-            strcat(av[j], " ");
-        } else {
-            ++j;
-        }
-        ++i;
-    }
+	i = 0;
+	j = 0;
+	while (arr[i])
+	{
+		if (strcmp(arr[i], word))
+		{
+			strcat(av[j], arr[i]);
+			strcat(av[j], " ");
+		}
+		else
+			++j;
+		++i;
+	}
 }
 
 void	ft_log_op(t_cmd *cmd, t_env *envp, struct termios *t, t_stack *hist)

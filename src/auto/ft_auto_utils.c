@@ -6,13 +6,13 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/20 09:49:02 by amarquez          #+#    #+#             */
-/*   Updated: 2017/01/02 13:22:19 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/03 09:11:31 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_is_cmd(char *line)
+int		ft_is_cmd(char *line)
 {
 	char		**split;
 	static char	*sep[] = {";", "|", "&&", "||", 0};
@@ -26,7 +26,7 @@ int	ft_is_cmd(char *line)
 		retval = 1;
 	else if (len > 2)
 	{
-		if (ft_in_array(sep, ft_array_len(sep), split[len -2]))
+		if (ft_in_array(sep, ft_array_len(sep), split[len - 2]))
 			retval = 1;
 	}
 	freecopy(split);
@@ -45,8 +45,8 @@ t_list	*ft_search_system(t_list *head, char *needle)
 
 t_list	*ft_search_binaries(t_list *head, char *needle)
 {
-	int		i;
-	char	*search[] = {"/bin", "/usr/bin", "/usr/sbin", "/sbin", 0};
+	int			i;
+	static char	*search[] = {"/bin", "/usr/bin", "/usr/sbin", "/sbin", 0};
 
 	i = -1;
 	if (ft_start_with(needle, ';'))
@@ -61,7 +61,7 @@ t_list	*ft_search_binaries(t_list *head, char *needle)
 	return (head);
 }
 
-int	ft_str_has(char *str, char sep[])
+int		ft_str_has(char *str, char sep[])
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 17:09:59 by julekgwa          #+#    #+#             */
-/*   Updated: 2017/01/02 23:00:09 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/03 09:47:44 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_hash_table_bin(t_hash *table[], char **path)
 	char			bin[256];
 	int				i;
 
-	i  = -1;
+	i = -1;
 	ft_memset(bin, 0, 256);
 	while (path[++i])
 	{
@@ -82,11 +82,9 @@ int		ft_execute(char *command, t_cmd *cmd, char **envp, t_stack *hist)
 	else
 	{
 		wait(&status);
-		if(WIFEXITED(status))
+		if (WIFEXITED(status))
 		{
-			if (WEXITSTATUS(status) == 0)
-				value = 0;
-			else
+			if (WEXITSTATUS(status) != 0)
 				value = -1;
 		}
 	}

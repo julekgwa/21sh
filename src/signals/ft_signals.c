@@ -6,7 +6,7 @@
 /*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/28 10:45:21 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/28 10:45:23 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/03 10:09:56 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,13 @@ char	*ft_get_current_dir(void)
 
 void	ft_cmd_prompt(void)
 {
-	char 	hostname[128];
-	char 	*user;
+	char	hostname[128];
+	char	*user;
 	char	*dir;
 
-	gethostname(hostname, sizeof hostname);
+	gethostname(hostname, sizeof(hostname));
 	dir = ft_get_current_dir();
-	user = getenv("USERNAME");
+	user = getenv("USER");
 	ft_putstr("\33[2K\r");
 	ft_putstr(GRN);
 	ft_putstr("[");

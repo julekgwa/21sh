@@ -6,19 +6,20 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/26 02:04:05 by julekgwa          #+#    #+#             */
-/*   Updated: 2017/01/02 13:26:31 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/03 09:21:43 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_list	*create(char *content,t_list* next)
+t_list	*create(char *content, t_list *next)
 {
-	int	len;
+	int		len;
+	t_list	*new_node;
 
 	len = ft_strlen(content);
-	t_list	*new_node = (t_list*)malloc(sizeof(t_list));
-	if(new_node == NULL)
+	new_node = (t_list*)malloc(sizeof(t_list));
+	if (new_node == NULL)
 	{
 		ft_putstr("Error creating a new t_list.\n");
 		exit(0);
@@ -33,7 +34,7 @@ t_list	*create(char *content,t_list* next)
 	return (new_node);
 }
 
-t_list	*prepend(t_list* head,char *content)
+t_list	*prepend(t_list *head, char *content)
 {
 	t_list	*new_node;
 
@@ -44,7 +45,7 @@ t_list	*prepend(t_list* head,char *content)
 
 t_list	*ft_read_files(char *str, char **envp)
 {
-	t_list 	*head;
+	t_list	*head;
 	char	**split;
 	int		len;
 
@@ -99,7 +100,7 @@ void	ft_autocomplete(char **str, int *pos, char **envp)
 	char	search[256];
 	char	*tmp_str;
 
-	if (!ft_strequ(*str,""))
+	if (!ft_strequ(*str, ""))
 	{
 		ft_memset(search, 0, 256);
 		tmp_str = NULL;

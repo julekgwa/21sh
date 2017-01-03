@@ -80,13 +80,11 @@ void	free_cmd(t_cmd *cmd)
 int		ft_pro_cmd(t_cmd *cmd, t_env *envp, struct termios *t, t_stack *hist)
 {
 	char	*tmp;
-	int		val;
 
 	tmp = ft_strdup(cmd->get_line);
-	val = -1;
+	hist->counter = -1;
 	ft_str_substitution(&cmd->get_line, envp->list);
-	cmd->user_comm = ft_strsplit(cmd->get_line, ' ');
-	if (cmd->user_comm != NULL)
+	if ((cmd->user_comm = ft_strsplit(cmd->get_line, ' ')) != NULL)
 	{
 		if (ft_strequ(cmd->user_comm[0], "exit"))
 		{
@@ -101,9 +99,9 @@ int		ft_pro_cmd(t_cmd *cmd, t_env *envp, struct termios *t, t_stack *hist)
 		if (ft_is_logical(cmd->get_line))
 			ft_log_op(cmd, envp, t, hist);
 		else
-			val = ft_run_commands(cmd, envp, hist);
+			hist->counter = ft_run_commands(cmd, envp, hist);
 		ft_term_on(t);
 	}
 	freecopy(cmd->user_comm);
-	return (val);
+	return (hist->counter);
 }

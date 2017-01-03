@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 17:27:04 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/30 03:20:52 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/03 10:08:01 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_execute_child_proc(int in[], int out, char **cmd, char **envp)
 {
 	pid_t	pid;
-	
+
 	if ((pid = fork()) == 0)
 	{
 		if (in[0] != 0)

@@ -61,6 +61,8 @@ void	ft_redirect_left_right(char **cmd)
 	int		pos;
 	char	*filename;
 
+	arrow = 0;
+	pos = 0;
 	if (STD_INOUT(cmd) != 2)
 		return ;
 	arrow = ft_find_arrow(cmd);

@@ -6,7 +6,7 @@
 /*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/24 01:39:54 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/27 15:57:10 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/03 09:55:46 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,31 +37,32 @@ void			ft_free_item(t_hash *item)
 void			ft_delete_item(t_hash *table[], const char *key)
 {
 	t_hash	**link;
+	t_hash	*tmp;
 
 	link = &table[ft_hash_code(key)];
 	while (*link)
 	{
-		t_hash *tmp = *link;
+		tmp = *link;
 		if (strcmp(tmp->key, key) == 0)
 		{
 			*link = tmp->next;
 			ft_free_item(tmp);
-			break;
+			break ;
 		}
 		else
 			link = &(*link)->next;
 	}
 }
 
-t_hash		*ft_search(t_hash *head, const char *key)
+t_hash			*ft_search(t_hash *head, const char *key)
 {
 	t_hash *cursor;
 
 	cursor = head;
-	while(cursor != NULL)
+	while (cursor != NULL)
 	{
 		if (strcmp(cursor->key, key) == 0)
-			return cursor;
+			return (cursor);
 		cursor = cursor->next;
 	}
 	return (NULL);
