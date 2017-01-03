@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	ft_display_n_free_list(t_list *head, int size, t_list *tmp, int cols)
+void	ft_display_list(t_list *head, int size, int cols)
 {
 	int		max_len;
 	int		curr_len;
@@ -37,8 +37,8 @@ void	ft_display_n_free_list(t_list *head, int size, t_list *tmp, int cols)
 			tmp_cols -= max_len + 1;
 			cursor = cursor->next;
 		}
+		ft_putchar('\n');
 	}
-	ft_freenodes(tmp);
 }
 
 char	*ft_get_search_value(char *needle, int *pos)

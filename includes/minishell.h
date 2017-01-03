@@ -159,7 +159,7 @@ void	free_list(t_env *stack);
 void	free_cmd(t_cmd *cmd);
 void	ft_print_results(char **prefix, int *pos);
 void	ft_autocomplete(char **str, int *pos, char **envp);
-void    ft_display_n_free_list(t_list *head, int size, t_list *tmp, int cols);
+void    ft_display_list(t_list *head, int size, int cols);
 int		ft_is_cmd(char *line);
 t_list	*ft_search_binaries(t_list *head, char *needle);
 t_list	*ft_search_system(t_list *head, char *needle);

@@ -115,6 +115,7 @@ void	ft_autocomplete(char **str, int *pos, char **envp)
 		tmp = head;
 		if (ft_lstsize(head) == 1)
 			ft_strcpy(*str, ft_pro_search(search, head->content, tmp_str, pos));
-		ft_display_n_free_list(head, ft_lstsize(head), tmp, ft_get_cols());
+		ft_display_list(head, ft_lstsize(head), ft_get_cols());
+		ft_freenodes(tmp);
 	}
 }
