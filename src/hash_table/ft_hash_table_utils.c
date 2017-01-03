@@ -35,13 +35,15 @@ void	ft_set_hash_table(int res, char *name, char **envp, t_stack *hist)
 {
 	char	*path;
 	char	**split;
+	char	*temp;
 
 	if (!ft_strequ(name, "PATH"))
 		return ;
 	if (res != -1)
 		return ;
 	path = ft_get_env("$PATH", envp);
-	split = ft_strsplit(path, ':');
+	temp = QUOTES(path);
+	split = ft_strsplit(temp, ':');
 	ft_hash_table_bin(hist->hash, split);
 	freecopy(split);
 }
