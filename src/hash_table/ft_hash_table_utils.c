@@ -21,11 +21,14 @@ void	ft_free_hash_table(t_hash *table[])
 	i = 0;
 	while (i < MAX_HASH)
 	{
-		head = table[i];
-		while ((tmp = head) != NULL)
+		if (table[i])
 		{
-			head = head->next;
-			ft_delete_item(table, tmp->key);
+			head = table[i];
+			while ((tmp = head) != NULL)
+			{
+				head = head->next;
+				ft_delete_item(table, tmp->key);
+			}
 		}
 		i++;
 	}

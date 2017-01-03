@@ -30,7 +30,8 @@ unsigned int	ft_hash_code(const char *key)
 void			ft_free_item(t_hash *item)
 {
 	free(item->key);
-	free(item->value);
+	if (item->value)
+		free(item->value);
 	free(item);
 }
 
