@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 15:55:16 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/13 15:57:22 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/04 13:29:46 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,13 @@ void	free_list(t_env *stack)
 {
 	int	i;
 
-	i = stack->malloc_id;
+	i = stack->malloc_id + 1;
 	if (i < 0)
 		return ;
 	while (i < stack->capacity)
 	{
-		free(stack->list[i]);
+		if (stack->list[i])
+			free(stack->list[i]);
 		i++;
 	}
 }
