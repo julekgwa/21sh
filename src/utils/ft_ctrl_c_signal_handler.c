@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 17:23:04 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/12/30 02:38:46 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/04 13:11:46 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int		ft_array_len(char **arr)
 	int	count;
 
 	count = 0;
+	if (!arr)
+		return (0);
 	while (*arr)
 	{
 		count++;
