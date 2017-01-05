@@ -49,10 +49,10 @@ void	free_list(t_env *stack)
 {
 	int	i;
 
-	i = stack->malloc_id + 1;
+	i = stack->malloc_id;
 	if (i < 0)
 		return ;
-	while (i < stack->capacity)
+	while (i < stack->top)
 	{
 		if (stack->list[i])
 			free(stack->list[i]);

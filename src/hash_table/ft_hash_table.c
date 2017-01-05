@@ -32,7 +32,8 @@ void			ft_free_item(t_hash *item)
 	free(item->key);
 	if (item->value)
 		free(item->value);
-	free(item);
+	if (item)
+		free(item);
 }
 
 void			ft_delete_item(t_hash *table[], const char *key)
