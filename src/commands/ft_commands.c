@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/29 07:45:09 by julekgwa          #+#    #+#             */
-/*   Updated: 2017/01/04 13:39:09 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/06 22:25:00 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,17 @@
 
 char	*ft_get_env(const char *env, char **env_list)
 {
+	int			index;
+	const char	*ptr;
+
 	if (*env != '$')
 		return (NULL);
 	env += 1;
 	while (*env_list)
 	{
-		if (ft_strncmp(env, *env_list, ft_strlen(env) - 1) == 0)
+		ptr = ft_strchr(*env_list, '=');
+		index = ptr - *env_list;
+		if (ft_strncmp(env, *env_list, index) == 0)
 			return (*env_list + ft_strlen(env) + 1);
 		env_list++;
 	}
@@ -88,7 +93,6 @@ int		ft_pro_cmd(t_cmd *cmd, t_env *envp, struct termios *t, t_stack *hist)
 	{
 		if (ft_strequ(cmd->user_comm[0], "exit"))
 		{
-			free_envp(envp);
 			free_cmd(cmd);
 			ft_free_hash_table(hist->hash);
 			ft_close_keyboard(t);

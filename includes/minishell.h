@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 17:27:36 by julekgwa          #+#    #+#             */
-/*   Updated: 2017/01/02 19:33:21 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/06 21:24:44 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define SUB ft_strsub
 # define FULL ft_full_word
 # define QUOTES ft_rm_quotes
+# define TABS ft_spaces_tabs
 # define LENGTH ft_array_len
 # define STD_INOUT ft_is_redirect_in_out
 # define EQUAL ft_strequ

@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 17:01:06 by julekgwa          #+#    #+#             */
-/*   Updated: 2017/01/02 19:31:17 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/06 21:33:17 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,16 @@ void	ft_multi_com(t_cmd *cmd, t_env *envp, t_stack *hist)
 	tmp = (t_cmd *)malloc(sizeof(t_cmd) + 1);
 	split_com = SPLIT(cmd->get_line, ';');
 	i = 0;
-	while (split_com[i])
+	if (split_com)
 	{
-		tmp->get_line = ft_strdup(split_com[i]);
-		tmp->user_comm = SPLIT(tmp->get_line, ' ');
-		ft_run_commands(tmp, envp, hist);
-		free_cmd(tmp);
-		i++;
+		while (split_com[i])
+		{
+			tmp->get_line = ft_strdup(split_com[i]);
+			tmp->user_comm = SPLIT(tmp->get_line, ' ');
+			ft_run_commands(tmp, envp, hist);
+			free_cmd(tmp);
+			i++;
+		}
 	}
 	if (split_com)
 		freecopy(split_com);
