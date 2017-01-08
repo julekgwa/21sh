@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 17:27:36 by julekgwa          #+#    #+#             */
-/*   Updated: 2017/01/06 21:24:44 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/08 22:22:45 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,5 +193,7 @@ void    ft_swap_or_del_chars(char *cmd, char *buf, int *pos);
 int     ft_is_slash_inhibitor(char *str);
 void    ft_process_slash_inhibitor(t_cmd *cmd, struct termios *term);
 void    ft_rm_newline(char *cmd);
+int     ft_handle_ctrl_c(int in_c);
+int     ft_set_cmd_to_null(char **cmd, int *pos);
 
 #endif

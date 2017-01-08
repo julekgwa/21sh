@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 17:09:59 by julekgwa          #+#    #+#             */
-/*   Updated: 2017/01/03 09:47:44 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/08 22:10:32 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,19 @@ int		ft_execute(char *command, t_cmd *cmd, char **envp, t_stack *hist)
 		}
 	}
 	return (value);
+}
+
+int		ft_array_len(char **arr)
+{
+	int	count;
+
+	count = 0;
+	if (!arr)
+		return (0);
+	while (*arr)
+	{
+		count++;
+		arr++;
+	}
+	return (count);
 }

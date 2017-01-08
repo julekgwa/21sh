@@ -6,16 +6,31 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 17:23:04 by julekgwa          #+#    #+#             */
-/*   Updated: 2017/01/04 13:11:46 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/08 22:29:30 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int		ft_handle_ctrl_c(int in_c)
+{
+	static int ctrl_c = 0;
+
+	if (in_c == 1)
+		ctrl_c++;
+	else if (in_c == 2)
+		ctrl_c = 0;
+	return ctrl_c;
+}
+
 void	ft_ctrl_c_signal_handler(int signum)
 {
 	ft_putstr("\n");
 	ft_cmd_prompt();
+	tputs(tgetstr("so", NULL), 1, ft_myputchar);
+	ft_putchar(' ');
+	tputs(tgetstr("se", NULL), 1, ft_myputchar);
+	ft_handle_ctrl_c(1);
 	(void)signum;
 }
 
@@ -81,19 +96,4 @@ char	**envp_cpy(char **envp)
 		}
 	}
 	return (copy);
-}
-
-int		ft_array_len(char **arr)
-{
-	int	count;
-
-	count = 0;
-	if (!arr)
-		return (0);
-	while (*arr)
-	{
-		count++;
-		arr++;
-	}
-	return (count);
 }

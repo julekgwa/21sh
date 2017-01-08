@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 17:26:31 by julekgwa          #+#    #+#             */
-/*   Updated: 2017/01/06 21:27:07 by julekgwa         ###   ########.fr       */
+/*   Updated: 2017/01/08 22:28:54 by julekgwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ char	*ft_build_cmd(t_stack *hist, char *comm, char *buf, int pos)
 		if (buf[hist->ret - 1] == '\n')
 			if (ft_enter_key(&comm, &pos, hist))
 				break ;
+		ft_set_cmd_to_null(&comm, &pos);
 		if (buf[0] == '\t')
 			ft_autocomplete(&comm, &pos, hist->envp);
 		else if (ft_ctrl_d(&comm, buf))
