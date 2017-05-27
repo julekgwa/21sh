@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_strsplit.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: julekgwa <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/05/15 16:43:05 by julekgwa          #+#    #+#             */
-/*   Updated: 2016/07/23 15:52:27 by goisetsi         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
 #include <stdlib.h>
 
@@ -17,9 +5,9 @@ char    *ft_search_token(const char *s)
 {
     char *p;
 
-    p = strchr(s + 1, '"');//search end '"'
+    p = strchr(s + 1, '"');
     if (p)
-        return  (p);//skip to '"'
+        return  (p);
     else
         return (NULL);
 }
@@ -37,7 +25,7 @@ t_token ft_get_token(const char **sp, char sep)
 
     memset(&token, 0, sizeof(t_token));
     s = *sp;
-    while(*s && *s == sep)//skip top separators
+    while(*s && *s == sep)
         ++s;
     if(!*s)
       return ft_return_null(sp, s, token);

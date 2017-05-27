@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2016/08/06 14:38:52 by ktshikot          #+#    #+#              #
-#    Updated: 2017/01/02 18:31:49 by julekgwa         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = 21sh
 SRC = ./src/main.c ./src/commands/ft_commands.c ./src/utils/ft_ctrl_c_signal_handler.c \
 	./src/commands/ft_cd.c ./src/commands/ft_echo.c ./src/env/ft_env.c \
@@ -46,7 +34,6 @@ $(NAME):
 	@gcc -o $(NAME) $(OBJECT) -L libft/ -lft -ltermcap
 	@chmod 777 $(NAME)
 	@echo "\x1B[32mCompiled project.\x1B[0m"
-	@whoami > author
 
 clean:
 	@make -C libft/ clean
