@@ -53,5 +53,11 @@ $ cd 21sh
 $ make && ./21sh
 
 ```
+
+## Authors
+
+* **[julekgwa](https://github.com/julekgwa)**
+* **[goisetsi](https://github.com/goisetsi)**
+
 # License
 MIT
