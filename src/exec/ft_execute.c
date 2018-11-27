@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_execute.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/29 12:37:20 by julekgwa          #+#    #+#             */
-/*   Updated: 2017/01/08 22:36:04 by julekgwa         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 int		ft_is_executable(const char *path)
@@ -64,7 +52,7 @@ int		ft_execute_cmd(char *com, char **cmd, char **envp)
 
 int		ft_set_cmd_to_null(char **cmd, int *pos)
 {
-	if (ft_handle_ctrl_c(0) == 1)
+	if (ft_handle_ctrl_c(0) >= 1)
 	{
 		ft_memset(*cmd, 0, BUFF_SIZE);
 		ft_strcpy(*cmd, "");
