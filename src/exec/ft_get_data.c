@@ -34,8 +34,8 @@ void	ft_hash_table_bin(t_hash *table[], char **path)
 					ft_insert_item(table, dp->d_name, bin);
 			}
 			ft_memset(bin, 0, 256);
+			closedir(dir);
 		}
-		closedir(dir);
 	}
 }
 
