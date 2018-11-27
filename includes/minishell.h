@@ -6,7 +6,7 @@
 /*   By: julekgwa <julekgwa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 17:27:36 by julekgwa          #+#    #+#             */
-/*   Updated: 2017/01/08 22:22:45 by julekgwa         ###   ########.fr       */
+/*   Updated: 2018/11/27 13:23:21 by junius           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int		ft_start_with(char *str, char c);
 char	*ft_first_word(const char *s);
 char	*ft_last_word(const char *s);
 char	*ft_get_env(const char *env, char **env_list);
+char  *ft_cmd_alias(char *cmd);
 void	ft_ctrl_c_signal_handler(int signum);
 void	ft_print_env(t_env *envp);
 char	**ft_check_env(char **cmd, char **envp);

@@ -6,7 +6,7 @@ mini UNIX command interpreter.
 21sh implements:
 
 * A series of builtins
- * echo 
+ * echo
  * cd
  * setenv
  * unsetenv
@@ -23,9 +23,9 @@ mini UNIX command interpreter.
  * :arrow_up: UP or :arrow_down: DOWN
 * Copy and Paste
  * CTRL-W - Copy what is currently in front of the cursor.
- * CTRL-G - Copy the entire line that has being typed.
+ * CTRL-G - Copy the entire line.
  * CTRL-K - Cut or delete what is currently in front of the cursor.
- * CTRL-X - Cut or delete the entire line that has being typed.
+ * CTRL-X - Cut or delete the entire line.
  * CTRL-V - Paste the last thing you deleted (using CTRL-K, CTRL-W, CTRL-G or CTRL-X ).
 * Auto complete
 * unset
@@ -41,6 +41,7 @@ mini UNIX command interpreter.
 * CTRL+T for swapping characters.
 * CTRL+P get previous history.
 * CTRL+H delete character from cmd
+* ls alias (``l`` || ``ll``)
 
 # Installation
 ```
