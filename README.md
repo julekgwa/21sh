@@ -1,5 +1,7 @@
 # 21sh
-mini UNIX command interpreter.
+Mini UNIX command interpreter.
+
+![Demo](images/21sh.gif)
 
 21sh uses my own implementation of libc's functions, most of them start with `ft_`
 
